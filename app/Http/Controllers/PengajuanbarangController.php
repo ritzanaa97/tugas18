@@ -14,7 +14,7 @@ class PengajuanbarangController extends Controller
         $barangkeluar=Pengajuanbarang::all();
         $barang=Barang::all();
         $supplier=Supplier::all();
-        return view('admin.pengajuanbarang', compact('barangkeluar','barang', 'supplier'));
+        return view('Pengajuanbarang.pengajuanbarang', compact('barangkeluar','barang', 'supplier'));
     }
     public function barang()
     {

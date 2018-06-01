@@ -34,14 +34,14 @@ class JenisbarangController extends Controller
         $barang=Barang::all();
         $jenisbarang = Jenisbarang::all();
         $satuan = Satuan::all();
-        return view('admin.barang', compact('barang', 'jenisbarang', 'satuan'));
+        return view('jenisbarang.barang', compact('barang', 'jenisbarang', 'satuan'));
     }
 
     public function jenisbarang()
     {
         $barang = Barang::all();
         $jenisbarang=Jenisbarang::all();
-        return view('admin.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
+        return view('jenisbarang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
     }
 
     public function autonumber($id_terakhir, $panjang_kode, $panjang_angka) {

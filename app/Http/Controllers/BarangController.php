@@ -19,7 +19,7 @@ class BarangController extends Controller
         $barang=Barang::all();
         $jenisbarang = Jenisbarang::all();
         $satuan = Satuan::all();
-        return view('admin.barang', compact('barang', 'jenisbarang', 'satuan'));
+        return view('barang.barang', compact('barang', 'jenisbarang', 'satuan'));
     }
     public function satuan()
     {
@@ -29,7 +29,7 @@ class BarangController extends Controller
     {
         $barang = Barang::all();
         $jenisbarang=Jenisbarang::all();
-        return view('admin.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
+        return view('barang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
     }
     public function index()
     {
@@ -50,12 +50,14 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'id_barang' => 'required',
             'nama_barang' => 'required',
             'id_jenisbarang' => 'required',
             'id_satuan' => 'required',
             'kategori' => 'required',
-            'jumlah' => 'required',
+            'jumlahbarang' => 'required',
         ]);
+
         $inputbarang = $request->all();
         $pilihjenis = $inputbarang['id_jenisbarang'];
         $idbarang = Barang::where('id_jenisbarang',$pilihjenis)->orderBy('created_at','desc')->first();

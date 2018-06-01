@@ -8,7 +8,7 @@ class Detailbrgmasuk extends Model
 {
     protected $table='detailbrgmasuk';
     protected $primaryKey='id_detailbrgmasuk';
-    protected $fillable=['id_detailbrgmasuk','id_barang','id_brgmasuk','jumlah'];
+    protected $fillable=['id_detailbrgmasuk','id_brgmasuk','id_barang','jumlahbrgmsk'];
 
     public $incrementing = false;
 

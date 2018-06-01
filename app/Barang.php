@@ -8,7 +8,7 @@ class Barang extends Model
 {
     protected $table='barang';
     protected $primaryKey='id_barang';
-    protected $fillable=['id_barang','nama_barang','jumlah','id_jenisbarang','id_satuan','keterangan'];
+    protected $fillable=['id_barang','nama_barang','jumlahbarang','id_jenisbarang','id_satuan','keterangan'];
 
     public $incrementing = false;
 

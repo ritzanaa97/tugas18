@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Barang;
 use App\Supplier;
 use App\Barang_masuk;
+use App\Detailbrgmasuk;
+use Carbon\Carbon;
 
 class BarangmasukController extends Controller
 {
@@ -14,7 +16,8 @@ class BarangmasukController extends Controller
         $barangmasuk=Barang_masuk::all();
         $barang=Barang::all();
         $supplier=Supplier::all();
-        return view('admin.barangmasuk', compact('barangmasuk','barang', 'supplier'));
+        $detailbrgmasuk=Detailbrgmasuk::all();
+        return view('barangmasuk.tambahbarangmasuk', compact('barangmasuk','barang', 'supplier','detailbrgmasuk'));
     }
     public function barang()
     {
@@ -24,17 +27,20 @@ class BarangmasukController extends Controller
     {
         return \DB::table('supplier')->get();
     }
-    public function addbrgmasuk(Request $data)
-    {
-        User::create([
-            'nama_barang' => $data['nama_barang'],
-            'jumlahbrgmsk'=> $data['jumlahbrgmsk']
-        ]);
-        return redirect('/barangmasuk');
+    public function Detailbrgmasuk(){
+        return \DB::table('detailbrgmasuk')->get();
     }
+    // public function addbrgmasuk(Request $data)
+    // {
+    //     User::create([
+    //         'nama_barang' => $data['nama_barang'],
+    //         'jumlahbrgmsk'=> $data['jumlahbrgmsk']
+    //     ]);
+    //     return redirect('/barangmasuk');
+    // }
     public function index()
     {
-        //
+        return view('barangmasuk.barangmasuk');
     }
 
     /**
@@ -44,26 +50,71 @@ class BarangmasukController extends Controller
      */
     public function create()
     {
-        //
+        Barang_masuk::create([
+            'id_brgmasuk' => $data['nama_lengkap'],
+        ]);
+        return redirect('/barangmasuk');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+   public function getNewInvoiceNo()
+    {
+        $prefix = date('ym');
+
+        $lastTransaction = Barang_masuk::orderBy('id_brgmasuk', 'desc')->first();
+
+        if (!is_null($lastTransaction)) {
+            $lastInvoiceNo = $lastTransaction->id_brgmasuk;
+            if (substr($lastInvoiceNo, 0, 4) == $prefix) {
+                return ++$lastInvoiceNo;
+            }
+        }
+
+        return $prefix.'0001';
+    }
+
     public function store(Request $request)
     {
-        $barangmasuk=Barang_masuk::find($id_brgmasuk);
-        $barangmasuk->id_brgmasuk=$request->id_brgmasuk;
-        $barangmasuk->tanggal_masuk=date('Y-m-d');
-        $barangmasuk->supplier=$request->nama_supplier;
-        $barangmasuk->barang=$request->nama_barang;
-        $barangmasuk->jumlahbrgmsk=$request->jumlahbrgmsk;
-        $barangmasuk->save();
+        $tanggal_masuk = Carbon::parse(($request->tanggal_masuk),'Asia/Jakarta');
 
-        return redirect('/barangmasuk');
+        $kodebm = new Barang_masuk();
+        $kodebm->id_brgmasuk=$this->getNewInvoiceNo();
+        $kodebm->tanggal_masuk=$tanggal_masuk;
+        $kodebm->supplier=$request->supplier;
+
+        $kodebm->save();
+        dd($kodebm);
+
+        return $kodebm;
+        // dd("lele");   
+        // $pilihbrgmsk = 'BM-';
+        // $idbrgmasuk = Barang_masuk::where('id_brgmasuk',$pilihbrgmsk)->orderBy('created_at','desc')->first();
+        // $idbrgmasuk = (!(empty($idbrgmasuk))) ? BarangmasukController::autonumber($idbrgmasuk->id_brgmasuk ,2,5) : $pilihbrgmsk.'00001';
+        // $inputbrgmasuk['id_brgmasuk'] = $idbrgmasuk;
+        // $request['id_brgmasuk']=$inputbrgmasuk;
+        // //dd($request['id_brgmasuk']);
+
+        // $barangmasuk = new Barang_masuk;
+        // $barangmasuk->id_brgmasuk=$request->id_brgmasuk;
+        // $barangmasuk->tanggal_masuk=$request->tanggal_masuk;
+        // $barangmasuk->id_supplier=$request->supplier;
+        // //dd($barangmasuk);
+        // $barangmasuk->save();
+
+        //return $request->all();
+        // $barangmasuk = Barang_masuk::create($request->except(['_token']));
+
+        // if(isset($request->id_barang)){
+        //     foreach ($request->id_barang as $key => $value) {
+        //         Detailbrgmasuk::insert([
+        //             'id_barang'=>$value,
+        //             'jumlahbrgmsk'=>$request->jumlahbrgmsk[$key],
+        //             'id_brgmasuk'=>$request['id_brgmasuk'],
+                    
+        //         ]);
+        //     }
+        // }
+
+        // return redirect('/barangmasuk');
     }
 
     /**

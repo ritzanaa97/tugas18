@@ -24,19 +24,19 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard');
+        return view('dashboard.dashboard');
     }
     public function barang()
     {
-        return view('admin.barang');
+        return view('barang.barang');
     }
     public function barangmasuk()
     {
-        return view('admin.barangmasuk');
+        return view('barangmasuk.barangmasuk');
     }
     public function barangkeluar()
     {
-        return view('admin.barangkeluar');
+        return view('barangkeluar.barangkeluar');
     }
     public function pengguna()
     {
@@ -44,6 +44,6 @@ class HomeController extends Controller
     }
         public function pengajuanbarang()
     {
-        return view('admin.pengajuanbarang');
+        return view('pengajuanbarang.pengajuanbarang');
     }
 }

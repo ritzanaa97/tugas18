@@ -13,7 +13,7 @@ class BarangkeluarController extends Controller
         $barangkeluar=Barang_keluar::all();
         $barang=Barang::all();
         $supplier=Supplier::all();
-        return view('admin.barangkeluar', compact('barangkeluar','barang', 'supplier'));
+        return view('barangkeluar.barangkeluar', compact('barangkeluar','barang', 'supplier'));
     }
     public function barang()
     {

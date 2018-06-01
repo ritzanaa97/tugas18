@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     //return view('/auth.login');
-    return view('admin/dashboard');
+    return view('dashboard/dashboard');
 });
 Auth::routes();
 
@@ -40,7 +40,8 @@ Route::put('/jenisbarang/{id_jenisbarang}','JenisbarangController@update')->name
 Route::get('/barang','BarangController@tampilbarang');
 Route::post('/barang','BarangController@store');
 
-Route::get('/barangmasuk','BarangmasukController@barangmasuk')->name('barangmasuk');
-Route::post('/barangmasuk','BarangController@store');
+Route::get('/barangmasuk','BarangmasukController@index');
+Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk')->name('barangmasuk');
+Route::post('/tambahbarangmasuk','BarangmasukController@getNewInvoiceNo');
 
 Route::get('/barangkeluar','BarangkeluarController@barang_keluar');

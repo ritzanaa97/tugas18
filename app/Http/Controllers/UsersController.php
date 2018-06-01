@@ -20,20 +20,24 @@ class UsersController extends Controller
     public function register()
     {
         $bidang=\DB::table('bidang')->get();
-        return view('admin.pengguna',compact('bidang'));
+        return view('user.pengguna',compact('bidang'));
     }
     public function tambahuser(Request $data)
     {
         User::create([
-            'nama_lengkap' => $data['nama_lengkap'],
-            'jumlahbrgmasuk' => $data['jumlahbrgmasuk'],
+            'nip'=>$data['nip'],
+            'nama_lengkap'=>$data['nama_lengkap'],
+            'id_bidang'=>$data['bidang'],
+            'password'=>$data['password'],
+            'level'=>$data['level'],
+            'status'=>$data['status'],
         ]);
-        return redirect('/barangmasuk');
+        return redirect('/user.pengguna');
     }
     public function masterusers(){
         $bidang=Bidang::all();
         $users = User::all();
-        return view('admin.pengguna',compact('bidang','users'));
+        return view('user.pengguna',compact('bidang','users'));
     }
     public function bidang()
     {
@@ -78,7 +82,7 @@ class UsersController extends Controller
         $pengguna->username=$request->username;
         $pengguna->save();
 
-        return redirect('/pengguna');
+        return redirect('/user.pengguna');
     }
 
    
