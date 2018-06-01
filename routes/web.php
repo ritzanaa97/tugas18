@@ -42,6 +42,7 @@ Route::post('/barang','BarangController@store');
 
 Route::get('/barangmasuk','BarangmasukController@index');
 Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk')->name('barangmasuk');
-Route::post('/tambahbarangmasuk','BarangmasukController@getNewInvoiceNo');
+Route::post('/tambahbarangmasuk','BarangmasukController@store');
+Route::post('/tambahbarangmasuk','BarangmasukController@addbrgmasuk');
 
 Route::get('/barangkeluar','BarangkeluarController@barang_keluar');
