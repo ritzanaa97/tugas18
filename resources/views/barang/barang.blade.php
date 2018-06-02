@@ -41,9 +41,14 @@
                                         <td>
                                             <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#">
                                             <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="modal" data-target="#">
-                                        </span> Edit
-                                    </button>
-                                </td>
+                                            </span> Edit
+                                            </button>
+                                            <!-- button kirim -->
+                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="{{url('\kirim')}}">
+                                            <span class="glyphicon glyphicon-send" style="color:#FFFFFF" data-toggle="modal" data-target="{{url('\kirim')}}">
+                                            </span> Kirim
+                                            </button>
+                                        </td>
                                     </tr>
                                         @endforeach
                                 </tbody>

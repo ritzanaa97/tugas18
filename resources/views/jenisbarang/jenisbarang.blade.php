@@ -35,9 +35,9 @@
                                 <td>
                                     <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="updatejb">
                                     <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="modal" data-target="updatejb">
-                                </span> Edit
-                            </button>
-                        </td>
+                                    </span> Edit
+                                    </button>
+                                </td>
                             </tr>
                                 @endforeach
                         </tbody>

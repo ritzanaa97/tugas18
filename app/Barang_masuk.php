@@ -19,6 +19,6 @@ class Barang_masuk extends Model
 
     public function supplier()
     {
-        return $this->belongsTo('\App\Supplier','id_supplier');
+        return $this->belongsTo('\App\Supplier','id_supplier'.'id_supplier');
     }
 }

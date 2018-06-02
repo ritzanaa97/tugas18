@@ -50,10 +50,7 @@ class BarangmasukController extends Controller
      */
     public function create()
     {
-        Barang_masuk::create([
-            'id_brgmasuk' => $data['nama_lengkap'],
-        ]);
-        return redirect('/barangmasuk');
+        //
     }
 
    public function getNewInvoiceNo()
@@ -72,23 +69,30 @@ class BarangmasukController extends Controller
         return $prefix.'0001';
     }
 
-    public function addbrgmasuk(Request $request)
-    {  
-        $tanggal_masuk = Carbon::parse(($request->tanggal_masuk),'Asia/Jakarta');
-
-        $barangmasuk = new Barang_masuk();
-        $barangmasuk->id_brgmasuk=$this->getNewInvoiceNo();
-        $barangmasuk->tanggal_masuk=$tanggal_masuk;
-        $barangmasuk->id_supplier=$request->supplier;
-
-        $barangmasuk->save();
-
-        return redirect('/tambahbarangmasuk');
-    }
-
     public function store(Request $request)
-    {  
-        //
+    {
+        $request['id_brgmasuk']=$this->getNewInvoiceNo();
+
+        //$barangmasuk=Barang_masuk::create($request->except(['_token']));
+
+        Barang_masuk::insert([
+                    'id_brgmasuk'=>$request['id_brgmasuk'],
+                    'id_supplier'=>$request->id_supplier,
+                    'tanggal_masuk'=>$request->tanggal_masuk,
+                ]);
+
+        if(isset($request->id_barang)){
+            foreach ($request->id_barang as $key => $value) {
+                Detailbrgmasuk::insert([
+                    'jumlahbrgmsk'=>$request->jumlahbrgmsk[$key],
+                    'id_barang'=>$value,
+                    'id_brgmasuk'=>$request['id_brgmasuk'],
+
+                ]);
+            }
+        }
+        return redirect('barangmasuk');
+
     }
 
     /**
@@ -135,4 +139,17 @@ class BarangmasukController extends Controller
     {
         //
     }
+    // public function addbrgmasuk(Request $request)
+    // {  
+    //     $tanggal_masuk = Carbon::parse(($request->tanggal_masuk),'Asia/Jakarta');
+
+    //     $barangmasuk = new Barang_masuk();
+    //     $barangmasuk->id_brgmasuk=$this->getNewInvoiceNo();
+    //     $barangmasuk->tanggal_masuk=$tanggal_masuk;
+    //     $barangmasuk->id_supplier=$request->supplier;
+
+    //     $barangmasuk->save();
+
+    //     return redirect('/tambahbarangmasuk');
+    // }
 }
