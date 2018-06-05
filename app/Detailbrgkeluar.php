@@ -8,7 +8,7 @@ class Detailbrgkeluar extends Model
 {
     protected $table='detailbrgkeluar';
     protected $primaryKey='id_detailbrgkeluar';
-    protected $fillable=['id_detailbrgkeluar','id_barang','id_brgkeluar','jumlah'];
+    protected $fillable=['id_detailbrgkeluar','id_barang','id_brgkeluar','jumlahbrgkeluar','totalbarang'];
 
     public $incrementing = false;
 

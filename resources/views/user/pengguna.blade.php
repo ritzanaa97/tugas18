@@ -11,7 +11,7 @@
      <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#MyModal">Tambahkan</button>
+                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#MyModal"><i class="glyphicon glyphicon-plus"></i> Daftarkan</button>
                 <div class="panel-heading text-center">
                     Data Pengguna
                 </div>
@@ -39,7 +39,7 @@
                                 <td>
                                     <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#ubahuser{{$value->id_users}}">
                                         <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="#modal" data-target="#ubahusers">
-                                        </span>Edit
+                                        </span> Edit
                                     </button>
                                 </td>
                             </tr>

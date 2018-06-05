@@ -12,13 +12,6 @@ use Carbon\Carbon;
 
 class BarangmasukController extends Controller
 {
-    public function barangmasuk(){
-        $barangmasuk=Barang_masuk::all();
-        $barang=Barang::all();
-        $supplier=Supplier::all();
-        $detailbrgmasuk=Detailbrgmasuk::all();
-        return view('barangmasuk.tambahbarangmasuk', compact('barangmasuk','barang', 'supplier','detailbrgmasuk'));
-    }
     public function barang()
     {
         return \DB::table('barang')->get();
@@ -30,17 +23,31 @@ class BarangmasukController extends Controller
     public function Detailbrgmasuk(){
         return \DB::table('detailbrgmasuk')->get();
     }
-    // public function addbrgmasuk(Request $data)
-    // {
-    //     User::create([
-    //         'nama_barang' => $data['nama_barang'],
-    //         'jumlahbrgmsk'=> $data['jumlahbrgmsk']
-    //     ]);
-    //     return redirect('/barangmasuk');
-    // }
+    public function barangmasuk(){
+        $barangmasuk=Barang_masuk::all();
+        $barang=Barang::all();
+        $supplier=Supplier::all();
+        $detailbrgmasuk=Detailbrgmasuk::all();
+        return view('barangmasuk.tambahbarangmasuk', compact('barangmasuk','barang', 'supplier','detailbrgmasuk'));
+    }
+
     public function index()
     {
-        return view('barangmasuk.barangmasuk');
+        $barangmasuk=Barang_masuk::all();
+        $barang=Barang::all();
+        $supplier=Supplier::all();
+        $detailbrgmasuk=Detailbrgmasuk::all();
+        return view('barangmasuk.barangmasuk', compact('barangmasuk','barang', 'supplier','detailbrgmasuk'));
+    }
+    public function detailtransaksi($id)
+    {
+        $detailtransaksi=Detailbrgmasuk::join('barang','barang.id_barang','=','detailbrgmasuk.id_barang')
+                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+                        ->join('barangmasuk','barangmasuk.id_brgmasuk','=','detailbrgmasuk.id_brgmasuk')
+                        ->join('supplier','supplier.id_supplier','=','barangmasuk.id_supplier')
+                        ->where('barangmasuk.id_brgmasuk',$id)->get();
+
+        return view('barangmasuk.detailtransaksi', compact('detailtransaksi'));
     }
 
     /**
@@ -48,13 +55,8 @@ class BarangmasukController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function getNewInvoiceNo()
     {
-        //
-    }
-
-   public function getNewInvoiceNo()
-   {
         $prefix = date('ym');
 
         $lastTransaction = Barang_masuk::orderBy('id_brgmasuk', 'desc')->first();
@@ -89,21 +91,23 @@ class BarangmasukController extends Controller
                     'id_brgmasuk'=>$request['id_brgmasuk'],
 
                 ]);
+
+                $barang=Barang::find($value);
+                $barang->jumlahbarang=$barang->jumlahbarang+$request->jumlahbrgmsk[$key];
+                $barang->save();
             }
         }
         return redirect('barangmasuk');
 
     }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
+    public function create()
     {
         //
+    }
+    public function show($id)
+    {
+        // $detailtransaksi=Detailbrgmasuk::find($id);
+        // return view('barangmasuk/detailtransaksi',compact('detailtransaksi'));
     }
 
     /**

@@ -10,11 +10,9 @@ class Bidang extends Model
     protected $primaryKey='id_bidang';
     protected $fillable=['id_bidang','nama_bidang'];
 
-    public $incrementing = false;//ketika id berupa varchar
-
     public function bidang()
     {
-        return $this->hasMany('\App\Users','id_bidang');
+        return $this->hasMany('\App\User','id_bidang');
     }
     
 }

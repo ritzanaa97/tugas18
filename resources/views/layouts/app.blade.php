@@ -53,10 +53,10 @@
 
         <!-- Navigation -->
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
-            <img src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
+            <img style="padding-top: 5px; padding-left: 10px; width: 220px" src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
             <!-- /.navbar-header -->
             <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown">
+                <li class="dropdown" style="padding-top: 15px">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                         <i class="fa fa-sign-out fa-fw"></i> Keluar
                     </a>

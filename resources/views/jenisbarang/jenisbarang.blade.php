@@ -10,7 +10,7 @@
             
      <div class="row">
         <div class="col-lg-12">
-            <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#tambahjenis">Tambahkan</button>
+            <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#tambahjenis"><i class="glyphicon glyphicon-plus"></i> Tambahkan</button>
             <div class="panel panel-default">
                 <div class="panel-heading text-center">
                     Daftar data jenis barang
@@ -20,6 +20,7 @@
                     <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>Kode Jenis Barang</th>
                                 <th>Nama Jenis Barang</th>
                                 <th>Kategori</th>
@@ -27,8 +28,11 @@
                             </tr>
                             <thead>
                         <tbody>
-                                @foreach ($jenisbarang as $value)
+                            <?php $no = 0;?>
+                            @foreach ($jenisbarang as $value)
+                            <?php $no++ ;?>
                             <tr>
+                                <td class="text-center">{{$no}}</td>
                                 <td>{{ $value->id_jenisbarang }}</td>
                                 <td>{{ $value->nama_jenisbarang }}</td>
                                 <td>{{ $value->kategori }}</td>

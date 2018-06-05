@@ -4,47 +4,76 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Barang;
-use App\Supplier;
+use App\Bidang;
 use App\Barang_keluar;
+use App\Detailbrgkeluar;
 
 class BarangkeluarController extends Controller
 {
-    public function barang_keluar(){
-        $barangkeluar=Barang_keluar::all();
-        $barang=Barang::all();
-        $supplier=Supplier::all();
-        return view('barangkeluar.barangkeluar', compact('barangkeluar','barang', 'supplier'));
-    }
     public function barang()
     {
         return \DB::table('barang')->get();
     }
-    public function supplier()
+    public function bidang()
     {
-        return \DB::table('supplier')->get();
+        return \DB::table('bidang')->get();
+    }
+    public function Detailbrgkeluar(){
+        return \DB::table('detailbrgkeluar')->get();
+    }
+    public function barangkeluar(){
+        $barangkeluar=Barang_keluar::all();
+        $barang=Barang::all();
+        $bidang=Bidang::all();
+        return view('barangkeluar.tambahbarangkeluar', compact('barangkeluar','barang', 'bidang'));
     }
     public function index()
     {
-        //
+        $barangkeluar=Barang_keluar::all();
+        $barang=Barang::all();
+        $bidang=Bidang::all();
+        return view('barangkeluar.barangkeluar', compact('barangkeluar','barang', 'bidang'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+    public function detailbk(){
+        return view('barangkeluar.detailkeluar');
     }
+    public function getNewCodeBK(){
+        $prefix = date('ym');
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+        $lastTransaction = Barang_keluar::orderBy('id_brgkeluar', 'desc')->first();
+
+        if (!is_null($lastTransaction)) {
+            $lastInvoiceNo = $lastTransaction->id_brgkeluar;
+            if (substr($lastInvoiceNo, 0, 4) == $prefix) {
+                return ++$lastInvoiceNo;
+            }
+        }
+
+        return $prefix.'0001';
+    }
     public function store(Request $request)
+    {
+        $request['id_brgkeluar']=$this->getNewCodeBK();
+
+        Barang_keluar::insert([
+                    'id_brgkeluar'=>$request['id_brgkeluar'],
+                    'id_bidang'=>$request->id_bidang,
+                    'tanggal_keluar'=>$request->tanggal_keluar,
+                ]);
+
+        if(isset($request->id_barang)){
+            foreach ($request->id_barang as $key => $value) {
+                Detailbrgkeluar::insert([
+                    'jumlahbrgkeluar'=>$request->jumlahbrgkeluar[$key],
+                    'id_barang'=>$value,
+                    'id_brgkeluar'=>$request['id_brgkeluar'],
+                ]);
+            }
+        }
+        return redirect('barangkeluar');
+    }
+    public function create()
     {
         //
     }

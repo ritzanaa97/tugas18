@@ -41,8 +41,11 @@ Route::get('/barang','BarangController@tampilbarang');
 Route::post('/barang','BarangController@store');
 
 Route::get('/barangmasuk','BarangmasukController@index');
-// Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk')->name('barangmasuk');
+Route::get('/detailbarangmasuk/{id}','BarangmasukController@detailtransaksi');
 Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk');
 Route::post('/tambahbarangmasuk','BarangmasukController@store');
 
-Route::get('/barangkeluar','BarangkeluarController@barang_keluar');
+Route::get('/barangkeluar','BarangkeluarController@index');
+Route::get('detailbarangkeluar','BarangkeluarController@detailbk');
+Route::get('/tambahbarangkeluar','BarangkeluarController@barangkeluar');
+Route::post('/tambahbarangkeluar','BarangkeluarController@store');

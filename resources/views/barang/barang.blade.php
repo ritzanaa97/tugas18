@@ -10,7 +10,7 @@
             
      <div class="row">
                 <div class="col-lg-12">
-                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#tambahbarang">Tambahkan</button>
+                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#tambahbarang"><i class="glyphicon glyphicon-plus"></i> Tambahkan</button>
                     <div class="panel panel-default">
                         <div class="panel-heading text-center">
                             Daftar barang
@@ -20,6 +20,7 @@
                             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                                 <thead>
                                     <tr>
+                                        <th>No</th>
                                         <th>Kode Barang</th>
                                         <th>Nama Barang</th>
                                         <th>Jenis</th>
@@ -30,8 +31,11 @@
                                     </tr>
                                     <thead>
                                 <tbody>
-                                        @foreach ($barang as $value)
+                                    <?php $no = 0;?>
+                                    @foreach ($barang as $value)
+                                    <?php $no++ ;?>
                                     <tr>
+                                        <td>{{$no}}</td>
                                         <td>{{ $value->id_barang }}</td>
                                         <td>{{ $value->nama_barang }}</td>
                                         <td>{{ ($value->jenisbarang)?$value->jenisbarang->nama_jenisbarang:''}}</td>
@@ -42,11 +46,6 @@
                                             <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#">
                                             <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="modal" data-target="#">
                                             </span> Edit
-                                            </button>
-                                            <!-- button kirim -->
-                                            <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="{{url('\kirim')}}">
-                                            <span class="glyphicon glyphicon-send" style="color:#FFFFFF" data-toggle="modal" data-target="{{url('\kirim')}}">
-                                            </span> Kirim
                                             </button>
                                         </td>
                                     </tr>

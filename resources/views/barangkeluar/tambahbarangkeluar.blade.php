@@ -4,7 +4,7 @@
 <div class="row">
 
     <div class="col-lg-12">
-        <h3 class="page-header text-center">Tambahkan transaksi barang masuk</h3>
+        <h3 class="page-header text-center">Tambahkan transaksi barang keluar</h3>
     </div>
     <!-- /.col-lg-12 -->
 </div>
@@ -14,7 +14,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Masukkan barang masuk
+                Masukkan barang Keluar
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -42,16 +42,16 @@
                 </div>
                 <br>
                 <div class="form-group">
-                    <label for="jumlahbrgmsk" class="col-md-4 control-label">Jumlah Barang</label>
+                    <label for="jumlahbrgkeluar" class="col-md-4 control-label">Jumlah Barang</label>
 
                     <div class="col-md-6">
-                        <input id="jumlahbrgmsk" type="text" class="form-control jumlahbrgmsk" name="jumlahbrgmsk" required>
+                        <input id="jumlahbrgkeluar" type="text" class="form-control jumlahbrgkeluar" name="jumlahbrgkeluar" required>
                     </div>
                 </div>
 
             </div>
             <div class="modal-footer">
-                <button type="submit" class="btn btn-primary btn-sm tambahbrgmsk">Tambahkan</button>
+                <button type="submit" class="btn btn-primary btn-sm tambahbrgkeluar">Tambahkan</button>
             </div>
             <!-- /.panel-body -->
         </div>
@@ -60,14 +60,14 @@
     <!-- /.col-lg-12 -->
 </div>
 
-<form class="form-horizontal" method="POST" action="{{ action('BarangmasukController@store') }}">
+<form class="form-horizontal" method="POST" action="{{ action('BarangkeluarController@store') }}">
  {{ csrf_field() }}
 <!-- tabel untuk satu transaksi -->
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
-                Daftar Transaksi Barang Masuk
+                Daftar Transaksi Barang Keluar
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -94,47 +94,47 @@
     </div>
 </div>
 
-<!-- modal untuk isi supplier dan tanggal masuk -->
+<!-- modal untuk isi bidang dan tanggal keluar -->
 <div class="modal fade" id="simpantransaksi" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                    <h4 class="modal-title text-center" id="myModalLabel">Masukkan Supplier dan Tanggal</h4>
+                    <h4 class="modal-title text-center" id="myModalLabel">Masukkan Bidang dan Tanggal</h4>
             </div>
             <div class="modal-body">
-                    <div class="form-group{{ $errors->has('tanggal_masuk') ? ' has-error' : '' }}">
-                    <label for="tanggal_masuk" class="col-md-4 control-label">Tanggal Masuk</label>
+                    <div class="form-group{{ $errors->has('tanggal_keluar') ? ' has-error' : '' }}">
+                    <label for="tanggal_keluar" class="col-md-4 control-label">Tanggal Masuk</label>
 
                     <div class="col-md-6">
-                        <input id="tanggal_masuk" type="date" class="form-control" name="tanggal_masuk" value="{{ old('tanggal_masuk') }}" required autofocus>
+                        <input id="tanggal_keluar" type="date" class="form-control" name="tanggal_keluar" value="{{ old('tanggal_keluar') }}" required autofocus>
 
-                        @if ($errors->has('tanggal_masuk'))
+                        @if ($errors->has('tanggal_keluar'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('tanggal_masuk') }}</strong>
+                                <strong>{{ $errors->first('tanggal_keluar') }}</strong>
                             </span>
                         @endif
                     </div>
                 </div>
 
-                <div class="form-group{{ $errors->has('supplier') ? ' has-error' : '' }}">
-                    <label for="supplier" class="col-md-4 control-label">Pemasok</label>
+                <div class="form-group{{ $errors->has('bidang') ? ' has-error' : '' }}">
+                    <label for="bidang" class="col-md-4 control-label">Bidang</label>
 
                     <div class="col-md-6">
 
-                        <select name="id_supplier" class="form-control">
-                            <option selected disabled>Pilih Pemasok</option>
-                            @foreach($supplier as $value)
+                        <select name="id_bidang" class="form-control">
+                            <option selected disabled>Pilih Bidang</option>
+                            @foreach($bidang as $value)
 
-                            <option value='{{$value->id_supplier}}'>{{$value->nama_supplier}}</option>
+                            <option value='{{$value->id_bidang}}'>{{$value->nama_bidang}}</option>
 
                             @endforeach
     
                         </select>
 
-                        @if ($errors->has('supplier'))
+                        @if ($errors->has('bidang'))
                             <span class="help-block">
-                                <strong>{{ $errors->first('supplier') }}</strong>
+                                <strong>{{ $errors->first('bidang') }}</strong>
                             </span>
                         @endif
                     </div>
@@ -153,14 +153,14 @@
 @endsection
 @section('jsscript')
 <script type="text/javascript">
-    $(".tambahbrgmsk").on('click', function(){
+    $(".tambahbrgkeluar").on('click', function(){
        var namabarang = $(".namabarang option:selected")
-       var jumlahbrgmsk = $(".jumlahbrgmsk")
-      if(namabarang.val() != "" && jumlahbrgmsk.val() != ""){
+       var jumlahbrgkeluar = $(".jumlahbrgkeluar")
+      if(namabarang.val() != "" && jumlahbrgkeluar.val() != ""){
         var id_barang = namabarang.val()
         var nama_barang = namabarang.text()
-        var jumlahbrgmsk = jumlahbrgmsk.val()
-        $('#dataTables').append('<tr><td>'+id_barang+'<input name="id_barang[]" value="'+id_barang+'" style="display:none"></td><td>'+nama_barang+'<input name="nama_barang[]" value="'+nama_barang+'" style="display:none"></td><td>'+jumlahbrgmsk+'<input name="jumlahbrgmsk[]" value="'+jumlahbrgmsk+'" style="display:none"></td></tr>');
+        var jumlahbrgkeluar = jumlahbrgkeluar.val()
+        $('#dataTables').append('<tr><td>'+id_barang+'<input name="id_barang[]" value="'+id_barang+'" style="display:none"></td><td>'+nama_barang+'<input name="nama_barang[]" value="'+nama_barang+'" style="display:none"></td><td>'+jumlahbrgkeluar+'<input name="jumlahbrgkeluar[]" value="'+jumlahbrgkeluar+'" style="display:none"></td></tr>');
       }
     });
     // $(function(){
