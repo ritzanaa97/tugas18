@@ -49,7 +49,19 @@
                             </tr>
                         </thead>
                         <tbody>
-                            
+                            <?php $no = 0;?>
+                            @foreach ($barangkeluar as $value)
+                            <?php $no++ ;?>
+                            <tr class="text-center">
+                                <td>{{ $no }}</td>
+                                <td>{{$value->id_brgkeluar}}</td>
+                                <td>{{$value->tanggal_keluar}}</td>
+                                <td>{{$value->nama_bidang}}</td>
+                                <td>
+                                    <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangkeluar')}}/{{$value->id_brgkeluar}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
+                                </td>
+                            </tr>
+                            @endforeach
                         </tbody>
                     </table>
                     <!-- /.table-responsive -->

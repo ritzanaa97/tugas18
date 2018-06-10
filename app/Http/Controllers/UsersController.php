@@ -68,7 +68,7 @@ class UsersController extends Controller
 
         $users->save();
 
-        return view('/user.pengguna');
+        return redirect('/pengguna');
     }
 
     public function show($id)
@@ -99,6 +99,6 @@ class UsersController extends Controller
     {
         $hapususers=User::where('nip',$nip)
         ->update(['status'=>'tidak aktif']);
-        return view('/user.pengguna'); 
+        return redirect('/pengguna'); 
     }
 }

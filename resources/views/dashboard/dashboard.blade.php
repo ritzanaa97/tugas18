@@ -112,7 +112,6 @@
                                         <th>No</th>
                                         <th>Yang Mengajukan</th>
                                         <th>Bidang</th>
-                                        <th>Seksi</th>
                                         <th>Lihat Detail Barang</th>
                                         <th>Aksi</th>
                                     </tr>

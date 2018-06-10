@@ -19,36 +19,15 @@ fungsi nya disini adalah biar kalah mau akses ke halaman yang di masukin ke grou
 ke redirect ke halaman login.
 jadi halaman2 admin ais yang perlu login, masukin ke group auth ini ya*/
 Route::middleware('auth')->group(function (){
-    Route::get('/', function () {
+    Route::get('/dashboard', function () {
         return view('dashboard/dashboard');
     });
     /*Route::get('/dashboard', 'HomeController@index');*/
-    Route::get('/pengguna',function(){
-    	return view('user/pengguna');
-    });
-    Route::get('/jenisbarang',function(){
-    	return view('jenisbarang/jenisbarang');
-    });
-    Route::get('/barang',function(){
-    	return view('barang/barang');
-    });
-    Route::get('/barangmasuk',function(){
-    	return view('barangmasuk/barangmasuk');
-    });
-    Route::get('/barangkeluar',function(){
-    	return view('barangkeluar/barangkeluar');
-    });
-    Route::get('/pengajuanbarang',function(){
-    	return view('pengajuanbarang/pengajuanbarang');
-    });
-    Route::get('/riwayat',function(){
-    	return view('pengajuanbarang/riwayat');
-    });
 });
 
 // Route::get('/auth.login', 'HomeController@login');
-Route::get('/register', 'UsersController@register')->name('register');
-Route::post('/register', 'UsersController@store')->name('register');
+Route::get('/register', 'UsersController@store')->name('register');
+Route::post('/tambahuser','UsersController@store')->name('tambahuser');
 Route::get('/pengguna','UsersController@masterusers');
 Route::get('/bidang', 'UsersController@bidang');
 Route::put('/pengguna/{id_users}','UsersController@update')->name('users.update');

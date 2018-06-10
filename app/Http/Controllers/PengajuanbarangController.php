@@ -33,6 +33,24 @@ class PengajuanbarangController extends Controller
         $detailpengajuanbarang=Dtl_pengajuanbarang::all();
         return view('Pengajuanbarang.pengajuanbarang', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
     }
+    public function ajukan(){
+        Pengajuanbarang::insert([
+                    'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
+                    'nip'=>$request->nip,
+                    'tanggal_pengajuan'=>$request->tanggal_pengajuan,
+                ]);
+
+        if(isset($request->id_barang)){
+            foreach ($request->id_barang as $key => $value) {
+                Dtl_pengajuanbarang::insert([
+                    'jumlahpengajuan'=>$request->jumlahpengajuan[$key],
+                    'id_barang'=>$value,
+                    'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
+                ]);
+            }
+        }
+        return redirect('barangkeluar');
+    }
 
     /**
      * Show the form for creating a new resource.
