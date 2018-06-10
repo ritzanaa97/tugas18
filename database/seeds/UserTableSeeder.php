@@ -1,0 +1,26 @@
+<?php
+
+use Illuminate\Database\Seeder;
+
+class UserTableSeeder extends Seeder
+{
+    /**
+     * Run the database seeds.
+     *
+     * @return void
+     */
+    public function run()
+    {
+        //
+        DB::table('users')->insert([
+           'nip' => '123',
+            'nama_lengkap' => 'Fadli',
+            'id_bidang' => 1,
+            'password' => bcrypt('contoh'),
+            'level' => 'admin',
+            'status' => 'aktif',
+            'created_by' => 'fadli',
+            'updated_by' => 'fadli'
+        ]);
+    }
+}

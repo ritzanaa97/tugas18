@@ -62,22 +62,8 @@
                                         <h4 class="modal-title" id="myModalLabel">Tambahkan Barang</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal" method="POST" action="{{ action('BarangController@store') }}"">
+                                    <form class="form-horizontal" method="POST" action="{{ action('BarangController@store') }}">
                                         {{ csrf_field() }}
-
-                                        <div class="form-group{{ $errors->has('id_barang') ? ' has-error' : '' }}">
-                                            <label for="id_barang" class="col-md-4 control-label">Kode Barang</label>
-
-                                            <div class="col-md-6">
-                                                <input id="id_barang" type="text" class="form-control" name="id_barang" value="{{ old('id_barang') }}" required autofocus>
-
-                                                @if ($errors->has('id_barang'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('id_barang') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
 
                                         <div class="form-group{{ $errors->has('nama_barang') ? ' has-error' : '' }}">
                                             <label for="nama_barang" class="col-md-4 control-label">Nama Barang</label>

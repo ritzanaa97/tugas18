@@ -35,8 +35,14 @@ class BarangkeluarController extends Controller
         return view('barangkeluar.barangkeluar', compact('barangkeluar','barang', 'bidang'));
     }
 
-    public function detailbk(){
-        return view('barangkeluar.detailkeluar');
+    public function detailkeluar($id){
+        $detailkeluar=Detailbrgkeluar::join('barang','barang.id_barang','=','detailbrgkeluar.id_barang')
+                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+                        ->join('barangkeluar','barangkeluar.id_brgkeluar','=','detailbrgkeluar.id_brgkeluar')
+                        ->join('bidang','bidang.id_bidang','=','barangkeluar.id_bidang')
+                        ->where('barangkeluar.id_brgkeluar',$id)->get();
+
+        return view('barangkeluar.detailkeluar', compact('detailkeluar'));
     }
     public function getNewCodeBK(){
         $prefix = date('ym');
@@ -69,6 +75,10 @@ class BarangkeluarController extends Controller
                     'id_barang'=>$value,
                     'id_brgkeluar'=>$request['id_brgkeluar'],
                 ]);
+
+                $barang=Barang::find($value);
+                $barang->jumlahbarang=$barang->jumlahbarang-$request->jumlahbrgkeluar[$key];
+                $barang->save();
             }
         }
         return redirect('barangkeluar');

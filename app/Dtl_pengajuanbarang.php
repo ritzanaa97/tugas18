@@ -6,9 +6,9 @@ use Illuminate\Database\Eloquent\Model;
 
 class Dtl_pengajuanbarang extends Model
 {
-    protected $table='dtl_pengajuanbarang'; //nama tabel di database
-    protected $primaryKey='dtl_pengajuanbarang';
-    protected $fillable=['dtl_pengajuanbarang','id_barang','jumlah','id_pengajuanbarang'];
+    protected $table='detailpengajuanbrg'; //nama tabel di database
+    protected $primaryKey='id_detailpengajuanbrg';
+    protected $fillable=['id_detailpengajuanbrg','id_barang','jumlahpengajuan','id_pengajuanbrg','id_detailbrgkeluar','status'];
 
     public $incrementing = false;
 

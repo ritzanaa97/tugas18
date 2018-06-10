@@ -20,24 +20,13 @@ class UsersController extends Controller
     public function register()
     {
         $bidang=\DB::table('bidang')->get();
-        return view('user.pengguna',compact('bidang'));
-    }
-    public function tambahuser(Request $data)
-    {
-        User::create([
-            'nip'=>$data['nip'],
-            'nama_lengkap'=>$data['nama_lengkap'],
-            'id_bidang'=>$data['bidang'],
-            'password'=>$data['password'],
-            'level'=>$data['level'],
-            'status'=>$data['status'],
-        ]);
-        return redirect('/user.pengguna');
+        return view('/user.pengguna',compact('users','bidang'));
     }
     public function masterusers(){
-        $bidang=Bidang::all();
         $users = User::all();
-        return view('user.pengguna',compact('bidang','users'));
+        $bidang=Bidang::all();
+        return view('user.pengguna')->with('users',$users)
+                                    ->with('bidang',$bidang);
     }
     public function bidang()
     {
@@ -58,7 +47,28 @@ class UsersController extends Controller
 
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nip' => 'required|string|max:255',
+            'nama_lengkap' => 'required|string|max:255',
+            'bidang' => 'required',
+            'password' => 'required|string|min:6|confirmed',
+
+        ]);
+
+        $nip = $request['nip'];
+        $nama_lengkap = $request['nama_lengkap'];
+        $bidang = $request['bidang'];
+        $password = bcrypt($request['password']);
+
+        $users = new User();
+        $users->nip = $nip;
+        $users->nama_lengkap = $nama_lengkap;
+        $users->id_bidang = $bidang;
+        $users->password = $password;
+
+        $users->save();
+
+        return view('/user.pengguna');
     }
 
     public function show($id)
@@ -72,29 +82,23 @@ class UsersController extends Controller
     }
 
     
-    public function update(Request $request, $id_users)
+    public function update(Request $request, $nip)
     {
-        $pengguna=User::find($id_users);
-        $pengguna->level=$request->level;
-        $pengguna->nama_lengkap=$request->nama_lengkap;
-        $pengguna->nip=$request->nip;
-        $pengguna->id_bidang=$request->id_bidang;
-        $pengguna->username=$request->username;
-        $pengguna->save();
+        $users=User::find($nip);
+        $users->nip=$request->nip;
+        $users->level=$request->level;
+        $users->nama_lengkap=$request->nama_lengkap;
+        $users->id_bidang=$request->id_bidang;
+        $users->save();
 
         return redirect('/user.pengguna');
     }
 
    
-    public function destroy($id_users)
+    public function destroy($nip)
     {
-        // $users = User::find($id);
-        // if($users){
-        //     $users->destroy();
-        //     $msg = 'HAPUS USER BERHASIL';
-        // }else{
-        //     $msg = 'HAPUS USER GAGAL';
-        // }
-        // return redirect()->back()->withSuccess($msg);   
+        $hapususers=User::where('nip',$nip)
+        ->update(['status'=>'tidak aktif']);
+        return view('/user.pengguna'); 
     }
 }

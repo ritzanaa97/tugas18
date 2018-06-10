@@ -55,14 +55,25 @@
         <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
             <img style="padding-top: 5px; padding-left: 10px; width: 220px" src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
             <!-- /.navbar-header -->
-            <ul class="nav navbar-top-links navbar-right">
-                <li class="dropdown" style="padding-top: 15px">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                        <i class="fa fa-sign-out fa-fw"></i> Keluar
-                    </a>
-                    <!-- /.dropdown-user -->
+            <ul class="dropdown pull-right" style="padding-right: 20px; padding-top: 25px">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true"><i class="glyphicon glyphicon-user"></i>
+                    {{ Auth::user()->nama_lengkap }} <span class="caret"></span>
+                </a>
+
+                <li class="dropdown-menu">
+                    <ul>
+                        <a href="{{ route('logout') }}"
+                           onclick="event.preventDefault();
+                                                     document.getElementById('logout-form').submit();">
+                                                     <i class="fa fa-sign-out fa-fw"></i>
+                            Keluar
+                        </a>
+
+                        <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                            {{ csrf_field() }}
+                        </form>
+                    </ul>
                 </li>
-                <!-- /.dropdown -->
             </ul>
             <!-- /.navbar-top-links -->
 
@@ -112,7 +123,10 @@
                             <a href="{{url('/barangkeluar')}}"><i class="glyphicon glyphicon-open"></i> Transaksi Barang Keluar</a>
                         </li>
                         <li>
-                            <a href="{{url('/pengajuanbarang')}}"><i class="fa fa-edit fa-fw"></i> Form Permintaan Barang</a>
+                            <a href="{{url('/pengajuanbarang')}}"><i class="fa fa-edit fa-fw"></i> Pengajuan Barang</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
                         </li>
                     </ul>
                 </div>

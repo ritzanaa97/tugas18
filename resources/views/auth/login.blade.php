@@ -9,8 +9,13 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Inventori TURT - KANREG I BKN YOGYAKARTA</title>
-
+    <script language='JavaScript'>
+        var tulisan=" || Sistem Informasi Inventori || Kantor Regional I BKN Yogyakarta";
+        var kecepatan=100;var fress=null;function jalan() { 
+            document.title=tulisan;
+            tulisan=tulisan.substring(1,tulisan.length)+tulisan.charAt(0);
+            fress=setTimeout("jalan()",kecepatan);}jalan();
+    </script>
     <!-- Bootstrap Core CSS -->
     <link href="{{url('inventoriadmin/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
 
@@ -48,15 +53,15 @@
                     <form class="form-horizontal" method="POST" action="{{ route('login') }}">
                         {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                            <label for="username" class="col-md-4 control-label">Username</label>
+                        <div class="form-group{{ $errors->has('nip') ? ' has-error' : '' }}">
+                            <label for="username" class="col-md-4 control-label">NIP</label>
 
                             <div class="col-md-6">
-                                <input id="username" type="username" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
+                                <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip') }}" required autofocus>
 
-                                @if ($errors->has('username'))
+                                @if ($errors->has('nip'))
                                     <span class="help-block">
-                                        <strong>{{ $errors->first('username') }}</strong>
+                                        <strong>{{ $errors->first('nip') }}</strong>
                                     </span>
                                 @endif
                             </div>

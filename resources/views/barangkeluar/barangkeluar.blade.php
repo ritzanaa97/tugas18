@@ -43,17 +43,27 @@
             <table width="100%" class="table table-striped table-bordered table-hover" id="dataTables-example">
                 <thead>
                     <tr>
-                        <th>No. Transaksi Keluar</th>
-                        <th>Tanggal Keluar</th>
-                        <th>Bidang</th>
-                        <th>Lihat Detail</th>
+                        <th class="text-center">No</th>
+                        <th class="text-center">Kode Transaksi Keluar</th>
+                        <th class="text-center">Tanggal Keluar</th>
+                        <th class="text-center">Bidang</th>
+                        <th class="text-center">Lihat Detail</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <td>Belum bisa nampil</td>
-                    <td>Tp udh bisa save ke db</td>
-                    <td></td>
-                    <td></td>
+                    <?php $no = 0;?>
+                    @foreach ($barangkeluar as $value)
+                    <?php $no++ ;?>
+                    <tr class="text-center">
+                        <td>{{ $no }}</td>
+                        <td>{{$value->id_brgkeluar}}</td>
+                        <td>{{$value->tanggal_keluar}}</td>
+                        <td>{{$value->nama_bidang}}</td>
+                        <td>
+                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangkeluar')}}/{{$value->id_brgkeluar}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
+                        </td>
+                    </tr>
+                    @endforeach
                 </tbody>
             </table>
         </div>

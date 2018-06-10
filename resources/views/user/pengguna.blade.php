@@ -17,8 +17,8 @@
                 </div>
                 <!-- /.panel-heading -->
                 <div class="panel-body">
-                	<table width="100%" class="users table table-striped table-bordered table-hover" id="dataTables-example">
-                		<thead>
+                    <table width="100%" class="users table table-striped table-bordered table-hover" id="dataTables-example">
+                        <thead>
                             <tr>
                                 <th>NIP</th>
                                 <th>Nama</th>
@@ -29,17 +29,22 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($users as $value)
+                            @foreach($users as $value)
                             <tr>
                                 <td>{{ $value->nip }}</td>
                                 <td>{{ $value->nama_lengkap }}</td>
                                 <td>{{ $value->level}}</td>
-                                <td>{{ $value->status}}</td>
                                 <td>{{ ($value->bidang)?$value->bidang->nama_bidang:'-' }}</td>
+                                <td>{{ $value->status}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#ubahuser{{$value->id_users}}">
+                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
                                         <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="#modal" data-target="#ubahusers">
                                         </span> Edit
+                                    </button>
+
+                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
+                                        <span class="glyphicon glyphicon-trash" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapususer">
+                                        </span> Hapus
                                     </button>
                                 </td>
                             </tr>
@@ -49,14 +54,14 @@
 
                     <!-- modal ubah -->
                     @foreach ($users as $value)
-                    <div class="modal fade" id="ubahuser{{$value->id_users}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal fade" id="ubahuser{{$value->nip}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                                         <h4 class="modal-title" id="myModalLabel">Edit Pengguna Sistem Inventori</h4>
                                 </div>
-                                <form class="form-horizontal" method="POST" action="{{route('users.update',[$value->id_users]) }}">
+                                <form class="form-horizontal" method="POST" action="{{route('users.update',[$value->nip]) }}">
                                         {{ csrf_field() }}
                                         {{ method_field('PUT') }}
                                 <div class="modal-body">
@@ -111,6 +116,28 @@
                             </div>
                         </div>
                     </div>
+                    <!-- hapus user -->
+                    <div id="hapususer{{$value->nip}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+
+                                <input type="hidden" name="method" value="DELETE">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">Hapus Data Pengguna</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Yakin hapus data ini<span class="del-name" style="font-weight: bold;"></span>?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>
+                                        <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
                     @endforeach
 
                     <!-- model tambah -->
@@ -122,7 +149,7 @@
                                         <h4 class="modal-title text-center" id="myModalLabel">Daftarkan Pengguna Sistem Inventori</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                                    <form class="form-horizontal" method="POST" action="{{ action('UsersController@store') }}">
                                         {{ csrf_field() }}
 
                                         <div class="form-group{{ $errors->has('level') ? ' has-error' : '' }}">
@@ -193,38 +220,6 @@
                                                 @endif
                                             </div>
                                         </div>
-
-                                        <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
-                                            <label for="status" class="col-md-4 control-label">Status Pengguna Sistem</label>
-
-                                            <div class="col-md-6">
-                                                <select name="status" class="form-control" >
-                                                    <option value="" selected disabled>Pilih Status Pengguna Sistem</option>
-                                                    <option value="aktif">Aktif</option>
-                                                    <option value="tidak aktif">Tidak Aktif</option>
-                                                </select>
-
-                                                @if ($errors->has('status'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('status') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <!-- <div class="form-group{{ $errors->has('username') ? ' has-error' : '' }}">
-                                            <label for="username" class="col-md-4 control-label">Username</label>
-
-                                            <div class="col-md-6">
-                                                <input id="username" type="text" class="form-control" name="username" value="{{ old('username') }}" required autofocus>
-
-                                                @if ($errors->has('username'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('username') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div> -->
 
                                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                                             <label for="password" class="col-md-4 control-label">Password</label>

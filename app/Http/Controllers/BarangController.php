@@ -50,7 +50,6 @@ class BarangController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_barang' => 'required',
             'nama_barang' => 'required',
             'id_jenisbarang' => 'required',
             'id_satuan' => 'required',

@@ -23,6 +23,7 @@ class CreateUsersTable extends Migration
             $table->string('password');
             $table->enum('level',['admin','bidang']);
             $table->enum('status',['aktif','tidak aktif']);
+            $table->rememberToken();
             $table->timestamps();
             $table->string('created_by');
             $table->string('updated_by');

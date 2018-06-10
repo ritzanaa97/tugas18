@@ -50,15 +50,9 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'nama' => 'required|string|max:255',
             'nama_lengkap' => 'required|string|max:255',
-            'tanggal_lahir' => 'required|date',
-            'tempat_lahir' => 'required|string|max:255',
             'nip' => 'required|string|max:255',
-            'instansi' => 'required|string|max:255',
             'bidang' => 'required|string|max:255',
-            'seksi' => 'required|string|max:255',
-            'username' => 'required|unique:users',
             'password' => 'required|string|min:6|confirmed',
         ]);
     }
@@ -72,15 +66,9 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'nama' => $data['nama'],
             'nama_lengkap' => $data['nama_lengkap'],
-            'tanggal_lahir' => $data['tanggal_lahir'],
-            'tempat_lahir' => $data['tempat_lahir'],
             'nip' => $data['nip'],
-            'instansi' => $data['instansi'],
             'id_bidang' => $data['bidang'],
-            'id_seksi' => $data['seksi'],
-            'username' => $data['username'],
             'password' => bcrypt($data['password']),
         ]);
     }

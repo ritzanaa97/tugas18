@@ -3,30 +3,35 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Illuminate\Http\Request;
 use App\Barang;
-use App\Supplier;
-use App\Barang_keluar;
+use App\User;
+use App\Pengajuanbarang;
+use App\Dtl_pengajuanbarang;
 
 class PengajuanbarangController extends Controller
 {
-    public function barang_keluar(){
-        $barangkeluar=Pengajuanbarang::all();
-        $barang=Barang::all();
-        $supplier=Supplier::all();
-        return view('Pengajuanbarang.pengajuanbarang', compact('barangkeluar','barang', 'supplier'));
-    }
     public function barang()
     {
         return \DB::table('barang')->get();
     }
-    public function supplier()
+    public function user()
     {
-        return \DB::table('supplier')->get();
+        return \DB::table('user')->get();
+    }
+    public function riwayat(){
+        $pengajuanbarang=Pengajuanbarang::all();
+        $barang=Barang::all();
+        $users=User::all();
+        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+        return view('Pengajuanbarang.riwayat', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
     }
     public function index()
     {
-        //
+        $pengajuanbarang=Pengajuanbarang::all();
+        $barang=Barang::all();
+        $users=User::all();
+        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+        return view('Pengajuanbarang.pengajuanbarang', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
     }
 
     /**
