@@ -84,12 +84,12 @@ class UsersController extends Controller
     
     public function update(Request $request, $nip)
     {
-        $users=User::find($nip);
-        $users->nip=$request->nip;
-        $users->level=$request->level;
-        $users->nama_lengkap=$request->nama_lengkap;
-        $users->id_bidang=$request->id_bidang;
-        $users->save();
+        $pengguna=User::find($nip);
+        $pengguna->nip=$request->nip;
+        $pengguna->level=$request->level;
+        $pengguna->nama_lengkap=$request->nama_lengkap;
+        $pengguna->id_bidang=$request->id_bidang;
+        $pengguna->save();
 
         return redirect('/user.pengguna');
     }

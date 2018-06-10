@@ -25,7 +25,8 @@
                                 <th>Hak Akses</th>
                                 <th>Bidang</th>
                                 <th>Status</th>
-                                <th>Aksi</th>
+                                <th style="width: 20px">Ubah</th>
+                                <th style="width: 20px">Hapus</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -39,9 +40,10 @@
                                 <td>
                                     <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
                                         <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="#modal" data-target="#ubahusers">
-                                        </span> Edit
+                                        </span> Ubah
                                     </button>
-
+                                </td>
+                                <td>
                                     <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
                                         <span class="glyphicon glyphicon-trash" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapususer">
                                         </span> Hapus
