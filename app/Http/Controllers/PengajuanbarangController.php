@@ -33,7 +33,30 @@ class PengajuanbarangController extends Controller
         $detailpengajuanbarang=Dtl_pengajuanbarang::all();
         return view('Pengajuanbarang.pengajuanbarang', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
     }
+    public function daftar()
+    {
+        $pengajuanbarang=Pengajuanbarang::all();
+        $barang=Barang::all();
+        $users=User::all();
+        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+        return view('Pengajuanbarang.daftar', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
+    }
+    public function getNewCodeBK(){
+        $prefix = date('ym');
+
+        $lastTransaction = Barang_keluar::orderBy('id_brgkeluar', 'desc')->first();
+
+        if (!is_null($lastTransaction)) {
+            $lastInvoiceNo = $lastTransaction->id_brgkeluar;
+            if (substr($lastInvoiceNo, 0, 4) == $prefix) {
+                return ++$lastInvoiceNo;
+            }
+        }
+
+        return $prefix.'0001';
+    }
     public function ajukan(){
+        $request['id_brgkeluar']=$this->getNewCodeBK();
         Pengajuanbarang::insert([
                     'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
                     'nip'=>$request->nip,

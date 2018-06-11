@@ -74,18 +74,17 @@
                 <table width="100%" class="table table-hover">
                     <thead>
                         <tr>
-                            <th>Jumlah Yang Diminta</th>
-                            <th>Satuan</th>
+                            <th>Kode</th>
                             <th>Nama Barang</th>
+                            <th>Jumlah Yang Diminta</th>
                         </tr>
                     </thead>
                     <tbody id="dataTables">
 
                     </tbody>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger btn-sm">Print Form</button>
-                        <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#">Ajukan
-                        </button>
+                        <a class="btn btn-danger btn-sm" href="#"><i class="glyphicon glyphicon-print"></i> Print Form</a>
+                        <a class="btn btn-primary btn-sm" href="#"><i class="glyphicon glyphicon-send"></i> Ajukan</a>
                     </div>
                 </table>
             </div>
@@ -93,7 +92,7 @@
         </div>
     </div>
 </div>
-
+<!-- modal untuk isi bidang dan tanggal transaksi -->
 </form>
 
 @endsection

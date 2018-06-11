@@ -13,7 +13,7 @@ class BidangTableSeeder extends Seeder
     {
         //
         DB::table('bidang')->insert([
-           'nama_bidang' => 'programming'
+           'nama_bidang' => 'Tata Usaha dan Rumah Tangga'
         ]);
     }
 }

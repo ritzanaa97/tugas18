@@ -24,10 +24,6 @@ class CreateDetailpengajuanbrgTable extends Migration
             $table->string('id_pengajuanbrg',25);
             $table->foreign('id_pengajuanbrg')->references('id_pengajuanbrg')->on('pengajuanbarang')->onUpdate('cascade');
 
-            $table->integer('id_detailbrgkeluar')->unsigned();
-            $table->foreign('id_detailbrgkeluar')->references('id_detailbrgkeluar')->on('detailbrgkeluar')->onUpdate('cascade');
-
-            $table->enum('status',['aktif','tunggu','tolak']);
             $table->timestamps();
         });
     }

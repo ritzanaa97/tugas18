@@ -79,6 +79,7 @@
 
             <div class="navbar-default sidebar" role="navigation">
                 <div class="sidebar-nav navbar-collapse">
+                     @if(\Illuminate\Support\Facades\Auth::user()->status == 'aktif')
                     <ul class="nav" id="side-menu">
 <!--                         <li class="sidebar-search">
                             <div class="input-group custom-search-form">
@@ -123,12 +124,19 @@
                             <a href="{{url('/barangkeluar')}}"><i class="glyphicon glyphicon-open"></i> Transaksi Barang Keluar</a>
                         </li>
                         <li>
+                            <a href="{{url('/daftar')}}"><i class="glyphicon glyphicon-list"></i> Daftar Pengajuan Barang</a>
+                        </li>
+                        <li>
                             <a href="{{url('/pengajuanbarang')}}"><i class="fa fa-edit fa-fw"></i> Pengajuan Barang</a>
                         </li>
                         <li>
                             <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
                         </li>
+                        <li>
+                            <a href="{{url('#')}}"><i class="fa fa-shopping-cart"></i> Belanja Barang</a>
+                        </li>
                     </ul>
+                     @endif
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>

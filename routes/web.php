@@ -19,13 +19,14 @@ fungsi nya disini adalah biar kalah mau akses ke halaman yang di masukin ke grou
 ke redirect ke halaman login.
 jadi halaman2 admin ais yang perlu login, masukin ke group auth ini ya*/
 Route::middleware('auth')->group(function (){
-    Route::get('/dashboard', function () {
+    Route::get('/', function () {
         return view('dashboard/dashboard');
     });
+    // Route::resource('/pengguna','UsersController');
     /*Route::get('/dashboard', 'HomeController@index');*/
 });
 
-// Route::get('/auth.login', 'HomeController@login');
+Route::get('/auth.login', 'HomeController@login');
 Route::get('/register', 'UsersController@store')->name('register');
 Route::post('/tambahuser','UsersController@store')->name('tambahuser');
 Route::get('/pengguna','UsersController@masterusers');
@@ -34,8 +35,8 @@ Route::put('/pengguna/{id_users}','UsersController@update')->name('users.update'
 Route::get('/hapususers/{nip}','UsersController@destroy')->name('users.hapus');
 
 Route::get('/jenisbarang','JenisbarangController@jenisbarang');
-Route::post('/jenisbarang','JenisbarangController@store');
-Route::put('/jenisbarang/{id_jenisbarang}','JenisbarangController@update')->name('jenisbarang.update');
+Route::post('/tambahjenis','JenisbarangController@store');
+Route::put('/updatejenis/{id_jenisbarang}','JenisbarangController@update')->name('jenisbarang.update');
 
 Route::get('/barang','BarangController@tampilbarang');
 Route::post('/barang','BarangController@store');
@@ -47,8 +48,9 @@ Route::post('/tambahbarangmasuk','BarangmasukController@store');
 
 Route::get('/barangkeluar','BarangkeluarController@index');
 Route::get('detailbarangkeluar','BarangkeluarController@detailbk');
-Route::get('/tambahbarangkeluar','BarangkeluarController@barangkeluar');
+Route::get('/tampiltabelbk','BarangkeluarController@barangkeluar');
 Route::post('/tambahbarangkeluar','BarangkeluarController@store');
 
 Route::get('/pengajuanbarang', 'PengajuanbarangController@index');
 Route::get('/riwayat', 'PengajuanbarangController@riwayat');
+Route::get('/daftar', 'PengajuanbarangController@daftar');

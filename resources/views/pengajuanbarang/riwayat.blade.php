@@ -42,20 +42,24 @@
                         <thead>
                             <tr>
                                 <th class="text-center">No</th>
-                                <th class="text-center">No. Pengajuan</th>
-                                <th class="text-center">Tanggal Pengajuan</th>
+                                <th class="text-center" style="width: 150px">No. Pengajuan</th>
+                                <th class="text-center" style="width: 150px">Tanggal Pengajuan</th>
                                 <th class="text-center">Diajukan oleh</th>
+                                <th class="text-center">Bidang</th>
+                                <th class="text-center">Status</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $no = 0;?>
-                            @foreach ($barangkeluar as $value)
+                            @foreach ($pengajuanbarang as $value)
                             <?php $no++ ;?>
                             <tr class="text-center">
                                 <td>{{ $no }}</td>
-                                <td>{{$value->id_brgkeluar}}</td>
-                                <td>{{$value->tanggal_keluar}}</td>
+                                <td>{{$value->id_pengajuanbrg}}</td>
+                                <td>{{$value->tanggal_pengajuanbarang}}</td>
+                                <td>{{$value->nama_lengkap}}</td>
+                                <td>{{$value->status}}</td>
                                 <td>{{$value->nama_bidang}}</td>
                                 <td>
                                     <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangkeluar')}}/{{$value->id_brgkeluar}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>

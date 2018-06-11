@@ -14,13 +14,13 @@ class UserTableSeeder extends Seeder
         //
         DB::table('users')->insert([
            'nip' => '123',
-            'nama_lengkap' => 'Fadli',
+            'nama_lengkap' => 'Admin',
             'id_bidang' => 1,
             'password' => bcrypt('contoh'),
             'level' => 'admin',
             'status' => 'aktif',
-            'created_by' => 'fadli',
-            'updated_by' => 'fadli'
+            'created_by' => 'admin',
+            'updated_by' => 'admin'
         ]);
     }
 }

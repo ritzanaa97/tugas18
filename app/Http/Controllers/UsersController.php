@@ -20,7 +20,7 @@ class UsersController extends Controller
     public function register()
     {
         $bidang=\DB::table('bidang')->get();
-        return view('/user.pengguna',compact('users','bidang'));
+        return view('/user.pengguna',compact('bidang'));
     }
     public function masterusers(){
         $users = User::all();
@@ -51,6 +51,7 @@ class UsersController extends Controller
             'nip' => 'required|string|max:255',
             'nama_lengkap' => 'required|string|max:255',
             'bidang' => 'required',
+            'level'=>'required',
             'password' => 'required|string|min:6|confirmed',
 
         ]);
@@ -58,12 +59,14 @@ class UsersController extends Controller
         $nip = $request['nip'];
         $nama_lengkap = $request['nama_lengkap'];
         $bidang = $request['bidang'];
+        $level = $request['level'];
         $password = bcrypt($request['password']);
 
         $users = new User();
         $users->nip = $nip;
         $users->nama_lengkap = $nama_lengkap;
         $users->id_bidang = $bidang;
+        $users->level = $level;
         $users->password = $password;
 
         $users->save();

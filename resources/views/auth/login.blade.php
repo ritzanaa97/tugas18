@@ -41,7 +41,7 @@
 </head>
 
 <body>
-<div class="container">
+<div class="container" style="width: 1900px">
     <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
@@ -91,15 +91,11 @@
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <div class="form-group text-center">
                             <div class="col-md-8 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
                                     Login
                                 </button>
-
-                                <a class="btn btn-link" href="{{ route('password.request') }}">
-                                    Forgot Your Password?
-                                </a>
                             </div>
                         </div>
                     </form>

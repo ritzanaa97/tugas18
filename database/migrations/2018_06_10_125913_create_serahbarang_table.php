@@ -16,10 +16,10 @@ class CreateSerahbarangTable extends Migration
         Schema::create('serahbarang', function (Blueprint $table) {
             $table->string('id_serahbrg',25)->primary();
 
-            $table->integer('id_detailpengajuanbrg')->unsigned();
-            $table->foreign('id_detailpengajuanbrg')->references('id_detailpengajuanbrg')->on('detailpengajuanbrg')->onUpdate('cascade');
+            $table->string('id_pengajuanbrg',25);
+            $table->foreign('id_pengajuanbrg')->references('id_pengajuanbrg')->on('pengajuanbarang')->onUpdate('cascade');
 
-            $table->date('tanggal_serahbrg');
+            $table->date('tanggal_serahbarang');
 
             $table->string('nip',20);
             $table->foreign('nip')->references('nip')->on('users')->onUpdate('cascade');

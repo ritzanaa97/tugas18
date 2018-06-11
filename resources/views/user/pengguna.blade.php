@@ -30,7 +30,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach($users as $value)
+                            @foreach ($users as $value)
                             <tr>
                                 <td>{{ $value->nip }}</td>
                                 <td>{{ $value->nama_lengkap }}</td>
@@ -121,25 +121,27 @@
                     <!-- hapus user -->
                     <div id="hapususer{{$value->nip}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
-                            <input type="hidden" name="method" value="DELETE">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">
-                                        <span aria-hidden="true">x</span>
-                                    </button>
-                                    <h4 class="modal-title" id="myModalLabel">Hapus Data Pengguna</h4>
+
+                                <input type="hidden" name="method" value="DELETE">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">Hapus Data Pengguna</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Yakin hapus data ini<span class="del-name" style="font-weight: bold;"></span>?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>
+                                        <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
+                                    </div>
                                 </div>
-                                <div class="modal-body">
-                                    <p>Yakin hapus data ini<span class="del-name" style="font-weight: bold;"></span>?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>
-                                    <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
-                                </div>
-                            </div>
                         </div>
                     </div>
                     @endforeach
+
                     <!-- model tambah -->
                     <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">

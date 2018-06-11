@@ -20,6 +20,8 @@ class CreatePengajuanbarangTable extends Migration
             $table->foreign('nip')->references('nip')->on('users')->onUpdate('cascade');
 
             $table->date('tanggal_pengajuan');
+
+            $table->enum('status',['terima','tolak']);
         });
     }
 
