@@ -83,7 +83,7 @@
 
                     </tbody>
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-danger btn-sm">Reset</button>
+                        <button type="reset" class="btn btn-danger btn-sm">Reset</button>
                         <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#simpantransaksi">Simpan
                         </button>
                     </div>

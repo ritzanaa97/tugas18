@@ -11,7 +11,7 @@
 
 <!-- tabel untuk simpan daftar barang -->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Isikan form pengajuan barang
@@ -60,18 +60,18 @@
     <!-- /.col-lg-12 -->
 </div>
 
-<form class="form-horizontal" method="POST" action="{{ action('PengajuanbarangController@index') }}">
+<form class="form-horizontal" method="POST" action="{{ action('PengajuanbarangController@ajukan') }}">
  {{ csrf_field() }}
 <!-- tabel untuk satu transaksi -->
 <div class="row">
-    <div class="col-md-6">
+    <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Daftar Transaksi Barang Keluar
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <table width="100%" class="table table-hover">
+                <table width="100%" id="pengajuan" class="table table-hover">
                     <thead>
                         <tr>
                             <th>Kode</th>
@@ -84,7 +84,8 @@
                     </tbody>
                     <div class="modal-footer">
                         <a class="btn btn-danger btn-sm" href="#"><i class="glyphicon glyphicon-print"></i> Print Form</a>
-                        <a class="btn btn-primary btn-sm" href="#"><i class="glyphicon glyphicon-send"></i> Ajukan</a>
+                        <button type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-send"></i> Ajukan</button> 
+                        <!-- <a class="btn btn-primary btn-sm" onclick="ajukan()">Ajukan </a> -->
                     </div>
                 </table>
             </div>
@@ -113,5 +114,7 @@
     //         autoclose: true
     //     });
     // })
+
+    
 </script>
 @endsection

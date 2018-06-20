@@ -64,21 +64,6 @@
                                 <div class="modal-body">
                                     <form class="form-horizontal" method="POST" action="{{ action('BarangController@store') }}">
                                         {{ csrf_field() }}
-
-                                        <div class="form-group{{ $errors->has('nama_barang') ? ' has-error' : '' }}">
-                                            <label for="nama_barang" class="col-md-4 control-label">Nama Barang</label>
-
-                                            <div class="col-md-6">
-                                                <input id="nama_barang" type="text" class="form-control" name="nama_barang" value="{{ old('nama_barang') }}" required autofocus>
-
-                                                @if ($errors->has('nama_barang'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('nama_barang') }}</strong>
-                                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
                                         <div class="form-group{{ $errors->has('id_jenisbarang') ? ' has-error' : '' }}">
                                             <label for="id_jenisbarang" class="col-md-4 control-label">Jenis Barang</label>
 
@@ -100,6 +85,21 @@
                                                 @endif
                                             </div>
                                         </div>
+
+                                        <div class="form-group{{ $errors->has('nama_barang') ? ' has-error' : '' }}">
+                                            <label for="nama_barang" class="col-md-4 control-label">Nama Barang</label>
+
+                                            <div class="col-md-6">
+                                                <input id="nama_barang" type="text" class="form-control" name="nama_barang" value="{{ old('nama_barang') }}" required autofocus>
+
+                                                @if ($errors->has('nama_barang'))
+                                                    <span class="help-block">
+                                                        <strong>{{ $errors->first('nama_barang') }}</strong>
+                                                    </span>
+                                                @endif
+                                            </div>
+                                        </div>
+
 
                                         <div class="form-group{{ $errors->has('id_satuan') ? ' has-error' : '' }}">
                                             <label for="id_satuan" class="col-md-4 control-label">Satuan</label>

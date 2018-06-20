@@ -48,7 +48,7 @@
                                 <th class="text-center">No</th>
                                 <th class="text-center">No Transaksi Masuk</th>
                                 <th class="text-center">Tanggal Masuk</th>
-                                <th class="text-center">Supplier</th>
+                                <th class="text-center">Pemasok</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -60,7 +60,7 @@
                                 <td>{{ $no }}</td>
                                 <td>{{ $value->id_brgmasuk }}</td>
                                 <td>{{ $value->tanggal_masuk }}</td>
-                                <td>{{ ($value->supplier)?$value->supplier->nama_supplier:'-' }}</td>
+                                <td>{{ $value->nama_supplier }}</td>
                                 <td>
                                     <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangmasuk')}}/{{$value->id_brgmasuk}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                                 </td>

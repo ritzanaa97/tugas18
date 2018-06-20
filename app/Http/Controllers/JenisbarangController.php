@@ -8,6 +8,8 @@ use App\Barang;
 use App\User;
 use App\Jenisbarang;
 use App\Satuan;
+use Auth;
+
 
 class JenisbarangController extends Controller
 {
@@ -31,17 +33,25 @@ class JenisbarangController extends Controller
         //
     }
     public function barang(){
+        if(Auth::user()->level=='admin'){
         $barang=Barang::all();
         $jenisbarang = Jenisbarang::all();
         $satuan = Satuan::all();
         return view('jenisbarang.barang', compact('barang', 'jenisbarang', 'satuan'));
+        }else{
+            return back();
+        }
     }
 
     public function jenisbarang()
     {
+        if(Auth::user()->level=='admin'){
         $barang = Barang::all();
         $jenisbarang=Jenisbarang::all();
         return view('jenisbarang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
+        }else{
+            return back();
+        }
     }
 
     public function autonumber($id_terakhir, $panjang_kode, $panjang_angka) {

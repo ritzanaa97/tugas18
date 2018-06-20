@@ -9,6 +9,7 @@ use App\Supplier;
 use App\Barang_masuk;
 use App\Detailbrgmasuk;
 use Carbon\Carbon;
+use Auth;
 
 class BarangmasukController extends Controller
 {
@@ -24,23 +25,34 @@ class BarangmasukController extends Controller
         return \DB::table('detailbrgmasuk')->get();
     }
     public function barangmasuk(){
+        if(Auth::user()->level=='admin'){
         $barangmasuk=Barang_masuk::all();
         $barang=Barang::all();
         $supplier=Supplier::all();
         $detailbrgmasuk=Detailbrgmasuk::all();
         return view('barangmasuk.tambahbarangmasuk', compact('barangmasuk','barang', 'supplier','detailbrgmasuk'));
+        }else{
+                return back();
+            }
     }
 
     public function index()
     {
-        $barangmasuk=Barang_masuk::all();
+        if(Auth::user()->level=='admin'){
+        $barangmasuk=Barang_masuk::join('supplier','supplier.id_supplier','=','barangmasuk.id_supplier')
+                                    ->join('users','barangmasuk.created_by','=','users.nama_lengkap')
+                                    ->where('users.nama_lengkap',Auth::user()->nama_lengkap)->get();
         $barang=Barang::all();
         $supplier=Supplier::all();
         $detailbrgmasuk=Detailbrgmasuk::all();
         return view('barangmasuk.barangmasuk', compact('barangmasuk','barang', 'supplier','detailbrgmasuk'));
+        }else{
+                return back();
+            }
     }
     public function detailtransaksi($id)
     {
+        if(Auth::user()->level=='admin'){
         $detailtransaksi=Detailbrgmasuk::join('barang','barang.id_barang','=','detailbrgmasuk.id_barang')
                         ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
                         ->join('barangmasuk','barangmasuk.id_brgmasuk','=','detailbrgmasuk.id_brgmasuk')
@@ -48,6 +60,9 @@ class BarangmasukController extends Controller
                         ->where('barangmasuk.id_brgmasuk',$id)->get();
 
         return view('barangmasuk.detailtransaksi', compact('detailtransaksi'));
+        }else{
+                return back();
+            }
     }
 
     /**
@@ -81,6 +96,8 @@ class BarangmasukController extends Controller
                     'id_brgmasuk'=>$request['id_brgmasuk'],
                     'id_supplier'=>$request->id_supplier,
                     'tanggal_masuk'=>$request->tanggal_masuk,
+                    'created_at'=>$request->tanggal_masuk,
+                    'created_by'=>Auth::user()->nama_lengkap,
                 ]);
 
         if(isset($request->id_barang)){

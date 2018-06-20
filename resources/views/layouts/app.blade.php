@@ -95,6 +95,7 @@
                         <li>
                             <a href="{{url('/dashboard')}}"><i class="fa fa-dashboard fa-fw"></i> Beranda</a>
                         </li>
+                        @if(Auth::user()->level=='admin')
                         <li>
                             <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Master Data<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">
@@ -111,30 +112,46 @@
                                             <a href="{{url('/barang')}}">Data Barang</a>
                                         </li>
                                     </ul>
-                                    <!-- /.nav-third-level -->
                                 </li>
                             </ul>
-
-                            <!-- /.nav-second-level -->
-                        </li>
-                        <li>
-                            <a href="{{url('/barangmasuk')}}"><i class="glyphicon glyphicon-save"></i> Transaksi Barang Masuk</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/barangkeluar')}}"><i class="glyphicon glyphicon-open"></i> Transaksi Barang Keluar</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/daftar')}}"><i class="glyphicon glyphicon-list"></i> Daftar Pengajuan Barang</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/pengajuanbarang')}}"><i class="fa fa-edit fa-fw"></i> Pengajuan Barang</a>
-                        </li>
-                        <li>
-                            <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
                         </li>
                         <li>
                             <a href="{{url('#')}}"><i class="fa fa-shopping-cart"></i> Belanja Barang</a>
                         </li>
+                        @endif
+                        <li>
+                            <a href="{{url('/barangmasuk')}}"><i class="glyphicon glyphicon-save"></i> Transaksi Barang Masuk</a>
+                        </li>
+                        <li>
+                            <a href="{{url('#')}}"><i class="glyphicon glyphicon-open"></i> Transaksi Barang Keluar</a>
+                        </li>
+                        @if(Auth::user()->level=='admin')
+                        <li>
+                            <a href="#"><i class="fa fa-list-alt"></i> Pengajuan Barang<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="{{url('/daftar')}}"><i class="fa fa-list-ol"></i> Daftar Pengajuan Barang</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/barangsudahdiserahkan')}}"><i class="fa fa-plus-square"></i> Barang sudah diserahkan</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('/barangbelumdiserahkan')}}"><i class="fa fa-minus-square"></i> Barang belum diserahkan</a>
+                                </li>
+                                <li>
+                                    <a href="{{url('#')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
+                                </li>
+                            </ul>
+                        </li>
+                        @endif
+                        @if(Auth::user()->level=='bidang')
+                        <li>
+                            <a href="{{url('/ajukan')}}"><i class="fa fa-edit fa-fw"></i> Pengajuan Barang</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
+                        </li>
+                        @endif
                     </ul>
                      @endif
                 </div>

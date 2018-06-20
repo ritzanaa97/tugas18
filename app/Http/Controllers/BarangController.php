@@ -7,6 +7,8 @@ use App\Barang;
 use App\User;
 use App\Jenisbarang;
 use App\Satuan;
+use Auth;
+
 
 class BarangController extends Controller
 {
@@ -16,10 +18,14 @@ class BarangController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function tampilbarang(){
+        if(Auth::user()->level=='admin'){
         $barang=Barang::all();
         $jenisbarang = Jenisbarang::all();
         $satuan = Satuan::all();
         return view('barang.barang', compact('barang', 'jenisbarang', 'satuan'));
+        }else{
+            return back();
+        }
     }
     public function satuan()
     {
@@ -27,9 +33,13 @@ class BarangController extends Controller
     }
     public function jenisbarang()
     {
+        if(Auth::user()->level=='admin'){
         $barang = Barang::all();
         $jenisbarang=Jenisbarang::all();
         return view('barang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
+        }else{
+            return back();
+        }
     }
     public function index()
     {

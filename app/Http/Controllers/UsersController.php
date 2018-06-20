@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Bidang;
 use App\User;
+use Auth;
+
 
 class UsersController extends Controller
 {
@@ -19,14 +21,22 @@ class UsersController extends Controller
     }
     public function register()
     {
+        if(Auth::user()->level=='admin'){
         $bidang=\DB::table('bidang')->get();
         return view('/user.pengguna',compact('bidang'));
+        }else{
+            return back();
+        }
     }
     public function masterusers(){
+        if(Auth::user()->level=='admin'){
         $users = User::all();
         $bidang=Bidang::all();
         return view('user.pengguna')->with('users',$users)
                                     ->with('bidang',$bidang);
+        }else{
+            return back();
+        }
     }
     public function bidang()
     {

@@ -1,11 +1,9 @@
 @extends('layouts.app')
 
 @section('content')
-<form class="form-inline well well-sm">
-    <a class="btn btn-primary btn-sm pull-right""><i class="fa fa-print"></i> Print</a>
 
-
-<div class="row">
+<div class="row" style="padding-top: 50px; padding-right: 20px">
+<a class="btn btn-primary btn-sm pull-right"><i class="fa fa-print"></i> Print</a>
     <div class="col-md-4 text-center"><br>
         <img style="width: 80px" src="{{url('inventoriadmin/dist/css/images/garuda.png')}}">
         <h5 class="text-center">BADAN KEPEGAWAIAN NEGARA</h5>
@@ -14,14 +12,14 @@
     <div class="col-md-4"><br>
         <h4 class="text-center"><b>KANTOR REGIONAL I</b></h4>
         <h4 class="text-center"><b>BADAN KEPEGAWAIAN NEGARA</b></h4>
-        <h4 class="text-center" style="padding-top: 25px"><b><u>DAFTAR BARANG KELUAR</u></b></h4>
+        <h4 class="text-center" style="padding-top: 25px"><b><u>DAFTAR BARANG MASUK</u></b></h4>
     </div>
     <div class="col-md-4"><br>
         <br>
-        <h5 style="padding-left: 50px; padding-top: 50px;">Nomor: 18060001</h5>
+        <h5 style="padding-left: 50px; padding-top: 50px;">Nomor Transaksi:</h5>
     </div>
     <div class="col-lg-12">
-        <h5 style="padding-left: 50px; padding-top: 25px" > Tanggal Transaksi Barang Keluar: 30-05-2018</h5>
+        <h5 style="padding-left: 50px; padding-top: 25px" > Tanggal Transaksi Barang Masuk: </h5>
     </div>
     <div class="col-lg-12">
         <div class="panel-body">
@@ -29,25 +27,23 @@
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
-                            <th>No.</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Satuan</th>
+                            <th>Yang Mengajukan</th>
                             <th>Bidang</th>
-                            <th>Jumlah Keluar</th>
+                            <th>Jumlah Pengajuan</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <?php $no = 0;?>
-                        @foreach($detailkeluar as $value)
-                        <?php $no++ ;?>
+                        @foreach($detailpengajuan as $value)
                         <tr>
-                            <td>{{$no}}</td>
                             <td>{{$value->id_barang}}</td>
                             <td>{{$value->nama_barang}}</td>
                             <td>{{$value->nama_satuan}}</td>
+                            <td>{{$value->nama_lengkap}}</td>
                             <td>{{$value->nama_bidang}}</td>
-                            <td>{{$value->jumlahbrgkeluar}}</td>
+                            <td>{{$value->jumlahpengajuan}}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -80,5 +76,5 @@
         <h5 class="text-center">Tanggal: </h5>
     </div>
 </div>
-</form>
+
 @endsection
