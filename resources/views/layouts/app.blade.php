@@ -102,6 +102,9 @@
                                 <li>
                                     <a href="{{url('/pengguna')}}"><i class="fa fa-users fa-fw"></i> Data Pengguna</a>
                                 </li>
+                                <li>
+                                    <a href="{{url('/supplier')}}"><i class="fa fa-truck"></i> Data Supplier</a>
+                                </li>
                                 <li class="active">
                                     <a href="#"><i class="fa fa-cubes"></i> Master Barang<span class="fa arrow"></span></a>
                                     <ul class="nav nav-third-level collapse in" aria-expanded="true" style="">

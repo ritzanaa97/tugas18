@@ -8,7 +8,7 @@ class Supplier extends Model
 {
     protected $table='supplier';
     protected $primaryKey='id_supplier';
-    protected $fillable=['id_supplier','nama_supplier'];
+    protected $fillable=['id_supplier','nama_supplier','alamat','status'];
 
     public $incrementing = false;
 

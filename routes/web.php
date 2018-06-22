@@ -39,6 +39,9 @@ Route::get('/bidang', 'UsersController@bidang');
 Route::put('/pengguna/{id_users}','UsersController@update')->name('users.update');
 Route::get('/hapususers/{nip}','UsersController@destroy')->name('users.hapus');
 
+Route::get('/supplier', 'SupplierController@index');
+Route::post('/tambahsupplier', 'SupplierController@store');
+
 Route::post('/tambahjenis','JenisbarangController@store');
 Route::put('/updatejenis/{id_jenisbarang}','JenisbarangController@update')->name('jenisbarang.update');
 
