@@ -30,10 +30,6 @@ class HomeController extends Controller
     {
         return view('barangmasuk.barangmasuk');
     }
-    public function barangkeluar()
-    {
-        return view('barangkeluar.barangkeluar');
-    }
     public function pengguna()
     {
         return view('admin.pengguna');

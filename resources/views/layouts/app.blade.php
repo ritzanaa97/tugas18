@@ -115,17 +115,14 @@
                                 </li>
                             </ul>
                         </li>
-                        <li>
-                            <a href="{{url('#')}}"><i class="fa fa-shopping-cart"></i> Belanja Barang</a>
-                        </li>
                         @endif
                         <li>
-                            <a href="{{url('/barangmasuk')}}"><i class="glyphicon glyphicon-save"></i> Transaksi Barang Masuk</a>
-                        </li>
-                        <li>
-                            <a href="{{url('#')}}"><i class="glyphicon glyphicon-open"></i> Transaksi Barang Keluar</a>
+                            <a href="{{url('/barangmasuk')}}"><i class="glyphicon glyphicon-save"></i> Barang Masuk</a>
                         </li>
                         @if(Auth::user()->level=='admin')
+                        <li>
+                            <a href="{{url('#')}}"><i class="glyphicon glyphicon-open"></i> Barang Keluar</a>
+                        </li>
                         <li>
                             <a href="#"><i class="fa fa-list-alt"></i> Pengajuan Barang<span class="fa arrow"></span></a>
                             <ul class="nav nav-second-level">

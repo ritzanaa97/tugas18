@@ -38,7 +38,6 @@ class BarangmasukController extends Controller
 
     public function index()
     {
-        if(Auth::user()->level=='admin'){
         $barangmasuk=Barang_masuk::join('supplier','supplier.id_supplier','=','barangmasuk.id_supplier')
                                     ->join('users','barangmasuk.created_by','=','users.nama_lengkap')
                                     ->where('users.nama_lengkap',Auth::user()->nama_lengkap)->get();
@@ -46,9 +45,6 @@ class BarangmasukController extends Controller
         $supplier=Supplier::all();
         $detailbrgmasuk=Detailbrgmasuk::all();
         return view('barangmasuk.barangmasuk', compact('barangmasuk','barang', 'supplier','detailbrgmasuk'));
-        }else{
-                return back();
-            }
     }
     public function detailtransaksi($id)
     {

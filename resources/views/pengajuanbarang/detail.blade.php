@@ -12,7 +12,7 @@
     <div class="col-md-4"><br>
         <h4 class="text-center"><b>KANTOR REGIONAL I</b></h4>
         <h4 class="text-center"><b>BADAN KEPEGAWAIAN NEGARA</b></h4>
-        <h4 class="text-center" style="padding-top: 25px"><b><u>DAFTAR BARANG MASUK</u></b></h4>
+        <h4 class="text-center" style="padding-top: 25px"><b><u>DAFTAR PERMINTAAN BARANG</u></b></h4>
     </div>
     <div class="col-md-4"><br>
         <br>
@@ -27,26 +27,40 @@
                 <table class="table table-striped table-bordered table-hover">
                     <thead>
                         <tr>
+                            <th>No</th>
                             <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Satuan</th>
                             <th>Yang Mengajukan</th>
                             <th>Bidang</th>
                             <th>Jumlah Pengajuan</th>
+                            <th>Jumlah Diberikan</th>
                         </tr>
                     </thead>
                     <tbody>
+                        <?php $no = 0;?>
                         @foreach($detailpengajuan as $value)
+                        <?php $no++ ;?>
                         <tr>
+                            <td>{{$no}}</td>
                             <td>{{$value->id_barang}}</td>
                             <td>{{$value->nama_barang}}</td>
                             <td>{{$value->nama_satuan}}</td>
                             <td>{{$value->nama_lengkap}}</td>
                             <td>{{$value->nama_bidang}}</td>
                             <td>{{$value->jumlahpengajuan}}</td>
+                            <td>{{$value->jumlahserahbarang}}</td>
                         </tr>
                         @endforeach
                     </tbody>
+                </table>
+                <table class="table table-striped table-bordered table-hover">
+                    <tr style="padding-right: 100px">
+                        <th class="text-center">Keterangan</th>
+                    </tr>
+                    <tr>
+                        <td  class="text-center">Isi keterangan ketika status pengajuan DITOLAK, jika di ACC maka keterangan boleh NULL</td>
+                    </tr>
                 </table>
             </div>
             <!-- /.table-responsive -->

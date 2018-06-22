@@ -12,6 +12,9 @@ class Dtl_pengajuanbarang extends Model
 
     public $incrementing = false;
 
+    public function detailpengajuanbrg(){
+    	return $this->hasMany('id_detailpengajuanbrg');
+    }
     public function barang()
     {
         return $this->hasMany('\App\Barang','id_barang');

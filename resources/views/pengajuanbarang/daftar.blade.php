@@ -38,7 +38,7 @@
                             <td>{{$value->nama_lengkap}}</td>
                             <td>{{$value->nama_bidang}}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm" href="#"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
+                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                         </td>
                         <td>
                             <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Terima</a>

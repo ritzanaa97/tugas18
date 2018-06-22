@@ -32,7 +32,6 @@ Route::middleware('auth')->group(function (){
 	Route::get('/barangbelumdiserahkan', 'PengajuanbarangController@belumdiserahkan');
 	Route::get('/barangsudahdiserahkan', 'PengajuanbarangController@sudahdiserahkan');
 });
-
 Route::get('/auth.login', 'HomeController@login');
 Route::get('/register', 'UsersController@store')->name('register');
 Route::post('/tambahuser','UsersController@store')->name('tambahuser');
@@ -52,5 +51,8 @@ Route::post('/tambahbarangmasuk','BarangmasukController@store');
 Route::post('/pengajuanbarang', 'PengajuanbarangController@ajukan');
 Route::get('/ajukan', 'PengajuanbarangController@index');
 Route::get('/riwayat', 'PengajuanbarangController@riwayat');
-Route::get('/detailpengajuan/{id}','PengajuanbarangController@detailpengajuanbarang');
-Route::get('/serahbarang/{id}','PengajuanbarangController@serahbarang');
+Route::get('/lihatdetail/{id}','PengajuanbarangController@detailpengajuanbarang');
+
+Route::get('/serahbarang/{id}','SerahbarangController@index');
+Route::post('/simpanserah','SerahbarangController@store');
+

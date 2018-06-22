@@ -20,12 +20,13 @@ class PengajuanbarangController extends Controller
         return \DB::table('user')->get();
     }
     public function riwayat(){ /*ini untuk view di menu riwayat*/
-        if(Auth::user()->level=='admin'){
+        if(Auth::user()->level=='bidang'){
         $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')->get();
         $barang=Barang::all();
         $users=User::all();
         $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+
         return view('Pengajuanbarang.riwayat', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
         }else{
             return back();
@@ -33,7 +34,7 @@ class PengajuanbarangController extends Controller
     }
     public function index()  /*ini untuk view di menu pengajuanbarang*/
     {
-        if(Auth::user()->level=='admin'){
+        if(Auth::user()->level=='bidang'){
         $pengajuanbarang=Pengajuanbarang::all();
         $barang=Barang::all();
         $users=User::all();
@@ -57,23 +58,7 @@ class PengajuanbarangController extends Controller
             return back();
         }
     }
-    public function serahbarang($id)
-    {
-        if(Auth::user()->level=='admin'){
-        $serahbarang=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
-                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
-                        ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
-                        ->join('users','users.nip','=','pengajuanbarang.nip')
-                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
-        $id_pengajuanbrg=$id;
-        return view('pengajuanbarang.serahbarang', compact('serahbarang','$id_pengajuanbrg'));
-        }else{
-                return back();
-            }
-    }
     public function detailpengajuanbarang($id){ /*ini untuk view di menu detail pengajuan barang*/
-        if(Auth::user()->level=='admin'){
         $detailpengajuan=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
                         ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
                         ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
@@ -81,10 +66,7 @@ class PengajuanbarangController extends Controller
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
                         ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
 
-        return view('pengajuanbarang.detailriwayat', compact('detailpengajuan'));
-        }else{
-            return back();
-        }
+        return view('pengajuanbarang.detail', compact('detailpengajuan'));
     }
     public function belumdiserahkan()  /*ini untuk view di menu barang yang belum diserahkan*/
     {
@@ -124,7 +106,8 @@ class PengajuanbarangController extends Controller
 
         return $prefix.'0001';
     }
-    public function ajukan(Request $request){
+
+    public function ajukan(Request $request){ /*membuat untuk pengajuan barang*/
         $request['id_pengajuanbrg']=$this->getNewCodePB();
         Pengajuanbarang::insert([
                     'id_pengajuanbrg'=>$request['id_pengajuanbrg'],

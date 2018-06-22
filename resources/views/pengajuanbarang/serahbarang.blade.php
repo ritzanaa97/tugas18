@@ -7,6 +7,12 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
+<form class="form-horizontal" method="POST" action="{{ action('SerahbarangController@store') }}">
+{{ csrf_field() }}
+
+<input type="hidden" name="id_pengajuanbrg" value="{{$id_pengajuanbrg}}">
+<input type="hidden" name="id_detailpengajuanbrg" value="{{$id_detailpengajuanbrg}}">
+
 <div class="row">
 <div class="col-lg-12">
     <div class="panel panel-default">
@@ -24,7 +30,6 @@
                         <th class="text-center" style="width: 50px">Satuan</th>
                         <th class="text-center" style="width: 50px">Jumlah Pengajuan</th>
                         <th class="text-center" style="width: 50px">Jumlah Diberikan</th>
-                        <th class="text-center" style="width: 50px">Tambah</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -37,24 +42,16 @@
                         <td>{{$value->nama_barang}}</td>
                         <td>{{$value->nama_satuan}}</td>
                         <td>{{$value->jumlahpengajuan}}</td>
-                        <form action="">
                         <td>
-                            <div class="form-group">
-                                <div>
-                                    <input id="jumlahserahbarang" type="text" class="form-control jumlahserahbarang" name="jumlahserahbarang" required>
-                                </div>
+                            <div>
+                                <input id="jumlahserahbarang" type="text" class="form-control jumlahserahbarang text-center" name="jumlahserahbarang" required>
                             </div>
                         </td>
-                        <td>
-                            <button type="button" class="btn btn-primary btn-circle"><i class="fa fa-plus"></i>
-                            </button>
-                        </td>
-                        </form>
                     </tr>
                     @endforeach
                 </tbody>
             </table>
-            <a class="btn btn-primary btn-sm pull-right" href="{{url('#')}}">Simpan</a>
+            <button type="submit" class="btn btn-primary btn-sm pull-right"> Simpan</button> 
         </div>
         <!-- /.panel-body -->
     </div>
@@ -62,4 +59,5 @@
 </div>
     <!-- /.col-lg-12 -->
 </div>
+</form >
 @endsection

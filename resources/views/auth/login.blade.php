@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <style type="text/css">
+        body{
+            background: url('inventoriadmin/dist/css/images/background.jpg') fixed no-repeat top center;
+            background-size: 100% 100%;
+            background-color: rgba(255,255,255,0.8);
+        }
+    </style>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -41,12 +47,12 @@
 </head>
 
 <body>
-<div class="container" style="width: 1900px">
+<div class="container" style="width: 1900px;">
     <div class="row">
             <div class="col-md-4 col-md-offset-4">
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h3 align="center" class="panel-title">Sistem Informasi Inventori</h3>
+                        <h2 align="center" class="panel-title">Sistem Informasi Inventory</h2>
                     </div>
                     <div class="panel-body">
                         <div class="panel-body">
