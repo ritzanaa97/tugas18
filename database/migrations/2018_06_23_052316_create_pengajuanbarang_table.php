@@ -16,12 +16,15 @@ class CreatePengajuanbarangTable extends Migration
         Schema::create('pengajuanbarang', function (Blueprint $table) {
             $table->string('id_pengajuanbrg',25)->primary();
 
-            $table->string('nip',25);
-            $table->foreign('nip')->references('nip')->on('users')->onUpdate('cascade');
+            $table->string('nip_mengajukan',25);
+            $table->foreign('nip_mengajukan')->references('nip')->on('users')->onUpdate('cascade');
 
             $table->date('tanggal_pengajuan');
 
-            $table->enum('status',['terima','tolak']);
+            $table->string('nip_serah',25);
+            $table->foreign('nip_serah')->references('nip')->on('users')->onUpdate('cascade');            
+            
+            $table->date('tanggal_serah');
         });
     }
 

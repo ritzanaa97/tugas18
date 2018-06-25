@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Bidang;
 use App\User;
 use Auth;
+use Excel;
 
 
 class UsersController extends Controller
@@ -32,8 +33,7 @@ class UsersController extends Controller
         if(Auth::user()->level=='admin'){
         $users = User::all();
         $bidang=Bidang::all();
-        return view('user.pengguna')->with('users',$users)
-                                    ->with('bidang',$bidang);
+        return view('user.pengguna',compact('users','bidang'));
         }else{
             return back();
         }
@@ -71,6 +71,7 @@ class UsersController extends Controller
         $bidang = $request['bidang'];
         $level = $request['level'];
         $password = bcrypt($request['password']);
+        $created_by = Auth::user()->nama_lengkap    ;
 
         $users = new User();
         $users->nip = $nip;
@@ -78,6 +79,7 @@ class UsersController extends Controller
         $users->id_bidang = $bidang;
         $users->level = $level;
         $users->password = $password;
+        $users->created_by = $created_by;
 
         $users->save();
 

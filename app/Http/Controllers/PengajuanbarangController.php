@@ -21,7 +21,7 @@ class PengajuanbarangController extends Controller
     }
     public function riwayat(){ /*ini untuk view di menu riwayat*/
         if(Auth::user()->level=='bidang'){
-        $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip')
+        $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')->get();
         $barang=Barang::all();
         $users=User::all();
@@ -48,7 +48,7 @@ class PengajuanbarangController extends Controller
     {
         if(Auth::user()->level=='admin'){
             
-        $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip')
+        $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')->get();
         $barang=Barang::all();
         $users=User::all();
@@ -62,36 +62,27 @@ class PengajuanbarangController extends Controller
         $detailpengajuan=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
                         ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
                         ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
-                        ->join('users','users.nip','=','pengajuanbarang.nip')
+                        ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
                         ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
 
         return view('pengajuanbarang.detail', compact('detailpengajuan'));
     }
-    public function belumdiserahkan()  /*ini untuk view di menu barang yang belum diserahkan*/
+    public function serahbarang($id)
     {
         if(Auth::user()->level=='admin'){
-        $pengajuanbarang=Pengajuanbarang::all();
-        $barang=Barang::all();
-        $users=User::all();
-        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
-        return view('Pengajuanbarang.belumdiserahkan', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
+        $serahbarang=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
+                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+                        ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
+                        ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
+        return view('pengajuanbarang.serahbarang', compact(['serahbarang']));
         }else{
-            return back();
-        }
+                return back();
+            }
     }
-    public function sudahdiserahkan()  /*ini untuk view di menu barang yang sudah diserahkan*/
-    {
-        if(Auth::user()->level=='admin'){
-        $pengajuanbarang=Pengajuanbarang::all();
-        $barang=Barang::all();
-        $users=User::all();
-        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
-        return view('Pengajuanbarang.sudahdiserahkan', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
-        }else{
-            return back();
-        }
-    }
+    
     public function getNewCodePB(){
         $prefix = date('ym');
 
@@ -105,27 +96,6 @@ class PengajuanbarangController extends Controller
         }
 
         return $prefix.'0001';
-    }
-
-    public function ajukan(Request $request){ /*membuat untuk pengajuan barang*/
-        $request['id_pengajuanbrg']=$this->getNewCodePB();
-        Pengajuanbarang::insert([
-                    'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
-                    'nip'=>Auth::user()->nip,
-                    'tanggal_pengajuan'=>now(),
-                ]);
-
-        if(isset($request->id_barang)){
-            foreach ($request->id_barang as $key => $value) {
-                Dtl_pengajuanbarang::insert([
-                    'jumlahpengajuan'=>$request->jumlahpengajuan[$key],
-                    'id_barang'=>$value,
-                    'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
-                ]);
-            }
-        }
-        // $Dtl_pengajuanbarang = Dtl_pengajuanbarang::find($request['id_pengajuanbrg']);
-        return redirect('riwayat');
     }
 
     /**
@@ -144,10 +114,28 @@ class PengajuanbarangController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request) /*ini untuk melakukan pengajuan barang*/
     {
-        //
+        $request['id_pengajuanbrg']=$this->getNewCodePB();
+        Pengajuanbarang::insert([
+                    'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
+                    'nip_mengajukan'=>Auth::user()->nip,
+                    'tanggal_pengajuan'=>now(),
+                ]);
+
+        if(isset($request->id_barang)){
+            foreach ($request->id_barang as $key => $value) {
+                Dtl_pengajuanbarang::insert([
+                    'jumlahpengajuan'=>$request->jumlahpengajuan[$key],
+                    'id_barang'=>$value,
+                    'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
+                ]);
+            }
+        }
+        // $Dtl_pengajuanbarang = Dtl_pengajuanbarang::find($request['id_pengajuanbrg']);
+        return redirect('riwayat');
     }
+
 
     /**
      * Display the specified resource.
@@ -178,11 +166,40 @@ class PengajuanbarangController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
-    }
+        $i=0;
+        $jumlahserah=$request->jumlahserah;
+        $keterangan=$request->keterangan_barang;
 
+        foreach ($request->id_detailpengajuanbrg as $id_detailpengajuanbrg) {    
+            $serahbarang=Dtl_pengajuanbarang::find($id_detailpengajuanbrg);
+            $serahbarang->jumlahserah=$jumlahserah[$i];
+            $serahbarang->keterangan_barang=$keterangan[$i];
+        
+        if($jumlahserah[$i]==1){
+            $serahbarang->status_barang='terima';
+            $barang=Barang::find($serahbarang->id_barang);
+            $barang->jumlahbarang=$barang->jumlahbarang-$request->jumlahserah[$i];
+            $barang->save();
+        }else{
+            $serahbarang->status_barang='tolak';
+        }
+
+        $serahbarang->save();
+        $id_pengajuanbrg=$serahbarang->id_pengajuanbrg;
+        $i++;
+
+        }
+
+        $pengajuanbarang=Pengajuanbarang::find($id_pengajuanbrg);
+        $pengajuanbarang->nip_serah=Auth::user()->nip;
+        $pengajuanbarang->tanggal_serah=now();
+        $pengajuanbarang->status_pengajuan='selesai';
+        $pengajuanbarang->save();
+
+        return redirect('daftar');
+    }
     /**
      * Remove the specified resource from storage.
      *

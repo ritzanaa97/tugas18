@@ -16,6 +16,10 @@ class CreateSupplierTable extends Migration
         Schema::create('supplier', function (Blueprint $table) {
             $table->increments('id_supplier');
             $table->string('nama_supplier',50);
+            $table->string('alamat',255);
+            $table->enum('status',['aktif','tidak aktif'])->default('aktif');
+            $table->timestamps();
+            
         });
     }
 

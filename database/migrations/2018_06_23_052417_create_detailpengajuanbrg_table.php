@@ -24,6 +24,10 @@ class CreateDetailpengajuanbrgTable extends Migration
             $table->string('id_pengajuanbrg',25);
             $table->foreign('id_pengajuanbrg')->references('id_pengajuanbrg')->on('pengajuanbarang')->onUpdate('cascade');
 
+            $table->integer('jumlahserah');
+
+            $table->enum('status',['tolak','terima']);
+
             $table->timestamps();
         });
     }

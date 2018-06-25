@@ -6,12 +6,11 @@
         <h1 class="page-header text-center">Master Data Pengguna</h1>
     </div>
     <!-- /.col-lg-12 -->
-</div>
-            
+</div>      
      <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#MyModal"><i class="glyphicon glyphicon-plus"></i> Daftarkan</button>
+            <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#MyModal"><i class="glyphicon glyphicon-plus"></i> Daftarkan</button>
                 <div class="panel-heading text-center">
                     Data Pengguna
                 </div>

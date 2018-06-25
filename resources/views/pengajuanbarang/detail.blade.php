@@ -18,6 +18,7 @@
         <br>
         <h5 style="padding-left: 50px; padding-top: 50px;">Nomor Transaksi:</h5>
     </div>
+
     <div class="col-lg-12">
         <h5 style="padding-left: 50px; padding-top: 25px" > Tanggal Transaksi Barang Masuk: </h5>
     </div>
@@ -28,13 +29,13 @@
                     <thead>
                         <tr>
                             <th>No</th>
-                            <th>Kode Barang</th>
                             <th>Nama Barang</th>
                             <th>Satuan</th>
-                            <th>Yang Mengajukan</th>
-                            <th>Bidang</th>
-                            <th>Jumlah Pengajuan</th>
-                            <th>Jumlah Diberikan</th>
+                            <th>Kode Barang</th>
+                            <th style="width: 50px">Jumlah Pengajuan</th>
+                            <th style="width: 50px">Jumlah Diberikan</th>
+                            <th>Status</th>
+                            <th>Keterangan</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -43,25 +44,18 @@
                         <?php $no++ ;?>
                         <tr>
                             <td>{{$no}}</td>
-                            <td>{{$value->id_barang}}</td>
                             <td>{{$value->nama_barang}}</td>
                             <td>{{$value->nama_satuan}}</td>
-                            <td>{{$value->nama_lengkap}}</td>
-                            <td>{{$value->nama_bidang}}</td>
+                            <td>{{$value->id_barang}}</td>
                             <td>{{$value->jumlahpengajuan}}</td>
                             <td>{{$value->jumlahserahbarang}}</td>
+                            <td>{{$value->status_barang}}</td>
+                            <td>{{$value->keterangan_barang}}</td>
                         </tr>
                         @endforeach
                     </tbody>
                 </table>
-                <table class="table table-striped table-bordered table-hover">
-                    <tr style="padding-right: 100px">
-                        <th class="text-center">Keterangan</th>
-                    </tr>
-                    <tr>
-                        <td  class="text-center">Isi keterangan ketika status pengajuan DITOLAK, jika di ACC maka keterangan boleh NULL</td>
-                    </tr>
-                </table>
+                
             </div>
             <!-- /.table-responsive -->
         </div>

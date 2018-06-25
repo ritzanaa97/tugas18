@@ -24,12 +24,13 @@
                             <th class="text-center">Yang Mengajukan</th>
                             <th class="text-center">Bidang</th>
                             <th class="text-center">Lihat Detail</th>
-                            <th class="text-center" style="width: 130px">Aksi</th>
+                            <th class="text-center" style="width: 50px">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 0;?>
                         @foreach ($pengajuanbarang as $value)
+                        @if($value->status_pengajuan!='selesai')
                         <?php $no++ ;?>
                         <tr class="text-center">
                             <td>{{ $no }}</td>
@@ -41,12 +42,9 @@
                             <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                         </td>
                         <td>
-                            <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Terima</a>
-                            <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#tolakpengajuan">
-                                <span class="fa fa-times" style="color:#FFFFFF" data-toggle="#modal" data-target="#tolakpengajuan">
-                                </span> Tolak
-                            </button>
+                            <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Isi Form</a>
                         </td>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

@@ -7,11 +7,6 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
-<form class="form-horizontal" method="POST" action="{{ action('SerahbarangController@store') }}">
-{{ csrf_field() }}
-
-<input type="hidden" name="id_pengajuanbrg" value="{{$id_pengajuanbrg}}">
-<input type="hidden" name="id_detailpengajuanbrg" value="{{$id_detailpengajuanbrg}}">
 
 <div class="row">
 <div class="col-lg-12">
@@ -30,9 +25,12 @@
                         <th class="text-center" style="width: 50px">Satuan</th>
                         <th class="text-center" style="width: 50px">Jumlah Pengajuan</th>
                         <th class="text-center" style="width: 50px">Jumlah Diberikan</th>
+                        <th class="text-center" style="width: 50px">Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
+                <form class="form-horizontal" method="POST" action="{{ url('/simpanserah') }}">
+                {{ csrf_field() }}
                     <?php $no = 0;?>
                     @foreach($serahbarang as $value)
                     <?php $no++ ;?>
@@ -43,8 +41,16 @@
                         <td>{{$value->nama_satuan}}</td>
                         <td>{{$value->jumlahpengajuan}}</td>
                         <td>
+
                             <div>
-                                <input id="jumlahserahbarang" type="text" class="form-control jumlahserahbarang text-center" name="jumlahserahbarang" required>
+                                <input type="hidden" name="id_detailpengajuanbrg[]" value="{{$value->id_detailpengajuanbrg}}">
+                                <input id="jumlahserah" type="text" min="0" class="form-control text-center" name="jumlahserah[]" required autofocus>
+                            </div>
+                        </td>
+                        <td>
+                            <div>
+                                <textarea id="keterangan_barang" type="text" class="form-control text-center" name="keterangan_barang[]">
+                                </textarea>
                             </div>
                         </td>
                     </tr>
@@ -52,6 +58,7 @@
                 </tbody>
             </table>
             <button type="submit" class="btn btn-primary btn-sm pull-right"> Simpan</button> 
+            </form >
         </div>
         <!-- /.panel-body -->
     </div>
@@ -59,5 +66,4 @@
 </div>
     <!-- /.col-lg-12 -->
 </div>
-</form >
 @endsection

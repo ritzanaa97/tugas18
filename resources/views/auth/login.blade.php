@@ -16,7 +16,7 @@
     <meta name="author" content="">
 
     <script language='JavaScript'>
-        var tulisan=" || Sistem Informasi Inventori || Kantor Regional I BKN Yogyakarta";
+        var tulisan=" || Sistem Inventori dan Pengajuan Barang || Kantor Regional I BKN Yogyakarta";
         var kecepatan=100;var fress=null;function jalan() { 
             document.title=tulisan;
             tulisan=tulisan.substring(1,tulisan.length)+tulisan.charAt(0);
@@ -47,12 +47,13 @@
 </head>
 
 <body>
-<div class="container" style="width: 1900px;">
-    <div class="row">
-            <div class="col-md-4 col-md-offset-4">
+<div class="container" style="width: 1900px; padding-top: 90px">
+    <div class="row" >
+            <div class="col-md-4" style="padding-left: 50px" >
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading">
-                        <h2 align="center" class="panel-title">Sistem Informasi Inventory</h2>
+                        <!-- <img style="width: 100px" src="{{url('inventoriadmin/dist/css/images/login.png')}}"> -->
+                        <h2 align="center" class="panel-title" >Sistem Inventory dan Pengajuan Barang</h2>
                     </div>
                     <div class="panel-body">
                         <div class="panel-body">

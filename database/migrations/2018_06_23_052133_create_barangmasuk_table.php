@@ -21,6 +21,9 @@ class CreateBarangmasukTable extends Migration
 
             $table->date('tanggal_masuk');
             $table->timestamps();
+
+            $table->string('created_by');
+            $table->string('updated_by');
         });
     }
 

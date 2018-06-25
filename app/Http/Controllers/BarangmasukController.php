@@ -92,7 +92,7 @@ class BarangmasukController extends Controller
                     'id_brgmasuk'=>$request['id_brgmasuk'],
                     'id_supplier'=>$request->id_supplier,
                     'tanggal_masuk'=>$request->tanggal_masuk,
-                    'created_at'=>$request->tanggal_masuk,
+                    'created_at'=>now(),
                     'created_by'=>Auth::user()->nama_lengkap,
                 ]);
 
@@ -102,7 +102,8 @@ class BarangmasukController extends Controller
                     'jumlahbrgmsk'=>$request->jumlahbrgmsk[$key],
                     'id_barang'=>$value,
                     'id_brgmasuk'=>$request['id_brgmasuk'],
-
+                    'created_at'=>now(),
+                    'created_by'=>Auth::user()->nama_lengkap,
                 ]);
 
                 $barang=Barang::find($value);

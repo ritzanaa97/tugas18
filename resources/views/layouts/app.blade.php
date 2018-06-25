@@ -10,7 +10,7 @@
     <meta name="author" content="">
 
     <script language='JavaScript'>
-        var tulisan=" || Sistem Informasi Inventori || Kantor Regional I BKN Yogyakarta";
+        var tulisan=" || Sistem Inventori dan Pengajuan Barang || Kantor Regional I BKN Yogyakarta";
         var kecepatan=100;var fress=null;function jalan() { 
             document.title=tulisan;
             tulisan=tulisan.substring(1,tulisan.length)+tulisan.charAt(0);
@@ -56,7 +56,7 @@
             <img style="padding-top: 5px; padding-left: 10px; width: 220px" src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
             <!-- /.navbar-header -->
             <ul class="dropdown pull-right" style="padding-right: 20px; padding-top: 25px">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true"><i class="glyphicon glyphicon-user"></i>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true"><i class="fa fa-user"></i>
                     {{ Auth::user()->nama_lengkap }} <span class="caret"></span>
                 </a>
 
@@ -133,13 +133,7 @@
                                     <a href="{{url('/daftar')}}"><i class="fa fa-list-ol"></i> Daftar Pengajuan Barang</a>
                                 </li>
                                 <li>
-                                    <a href="{{url('/barangsudahdiserahkan')}}"><i class="fa fa-plus-square"></i> Barang sudah diserahkan</a>
-                                </li>
-                                <li>
-                                    <a href="{{url('/barangbelumdiserahkan')}}"><i class="fa fa-minus-square"></i> Barang belum diserahkan</a>
-                                </li>
-                                <li>
-                                    <a href="{{url('#')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
+                                    <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
                                 </li>
                             </ul>
                         </li>
@@ -207,6 +201,7 @@
     });
     </script>
     @yield('jsscript')
+    @yield('alert')
 </body>
 
 </html>

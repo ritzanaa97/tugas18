@@ -6,9 +6,18 @@
     <div class="col-lg-12">
         <h1 class="page-header text-center">Beranda</h1>
     </div>
- <!-- /.col-lg-12 -->
+
+<!-- panel untuk 'selamat datang' -->
+    <div class="col-lg-6">
+        <div class="panel panel-yellow">
+            <div class="panel-heading">
+                Selamat Datang <b>{{Auth::user()->nama_lengkap}}</b> di Sistem Inventory dan Pengajuan Barang
+            </div>
+        </div>
+        <!-- /.col-lg-4 -->
+    </div>
 </div>
-        <!-- /.row -->
+
 <div class="row">
     <div class="col-lg-3 col-md-6">
         <div class="panel panel-primary">
@@ -23,7 +32,7 @@
                     </div>
                 </div>
             </div>
-            <a href="{{url('/permintaanbarang')}}">
+            <a href="{{url('#')}}">
                 <div class="panel-footer">
                     <span class="pull-left">Lihat Detail</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>

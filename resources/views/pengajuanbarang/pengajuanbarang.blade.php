@@ -60,7 +60,7 @@
     <!-- /.col-lg-12 -->
 </div>
 
-<form class="form-horizontal" method="POST" action="{{ action('PengajuanbarangController@ajukan') }}">
+<form class="form-horizontal" method="POST" action="{{ action('PengajuanbarangController@store') }}">
  {{ csrf_field() }}
 <!-- tabel untuk satu transaksi -->
 <div class="row">

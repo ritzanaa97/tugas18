@@ -8,6 +8,7 @@ use App\User;
 use App\Jenisbarang;
 use App\Satuan;
 use Auth;
+use Excel;
 
 
 class BarangController extends Controller
@@ -96,5 +97,17 @@ class BarangController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function barangexport(){
+
+        $barang=Barang::select('id_barang as Kode Barang','nama_barang as Nama Barang','nama_jenisbarang as Jenis Barang','nama_satuan as Satuan','jumlahbarang as Jumlah Barang')
+                    ->join('jenisbarang','jenisbarang.id_jenisbarang','=','barang.id_jenisbarang')
+                    ->join('satuan','satuan.id_satuan','=','barang.id_satuan')->get();
+
+        return Excel::create('data_barang',function($excel) use($barang){
+            $excel->sheet('mysheet',function($sheet) use($barang){
+                $sheet->fromArray($barang);
+            });
+        })->download('xls');
     }
 }
