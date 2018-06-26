@@ -22,7 +22,8 @@ class PengajuanbarangController extends Controller
     public function riwayat(){ /*ini untuk view di menu riwayat*/
         if(Auth::user()->level=='bidang'){
         $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
-                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')->get();
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->where('users.id_bidang',Auth::user()->id_bidang)->get();
         $barang=Barang::all();
         $users=User::all();
         $detailpengajuanbarang=Dtl_pengajuanbarang::all();
@@ -49,7 +50,8 @@ class PengajuanbarangController extends Controller
         if(Auth::user()->level=='admin'){
             
         $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
-                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')->get();
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->get();
         $barang=Barang::all();
         $users=User::all();
         $detailpengajuanbarang=Dtl_pengajuanbarang::all();
@@ -177,7 +179,7 @@ class PengajuanbarangController extends Controller
             $serahbarang->jumlahserah=$jumlahserah[$i];
             $serahbarang->keterangan_barang=$keterangan[$i];
         
-        if($jumlahserah[$i]==1){
+        if($jumlahserah[$i]>=1){
             $serahbarang->status_barang='terima';
             $barang=Barang::find($serahbarang->id_barang);
             $barang->jumlahbarang=$barang->jumlahbarang-$request->jumlahserah[$i];

@@ -34,13 +34,13 @@
                     <?php $no = 0;?>
                     @foreach($serahbarang as $value)
                     <?php $no++ ;?>
-                    <tr class="text-center">
-                        <td>{{$no}}</td>
-                        <td>{{$value->id_barang}}</td>
-                        <td>{{$value->nama_barang}}</td>
-                        <td>{{$value->nama_satuan}}</td>
-                        <td>{{$value->jumlahpengajuan}}</td>
-                        <td>
+                    <tr>
+                        <td class="text-center">{{$no}}</td>
+                        <td class="text-center">{{$value->id_barang}}</td>
+                        <td class="text-center">{{$value->nama_barang}}</td>
+                        <td class="text-center">{{$value->nama_satuan}}</td>
+                        <td class="text-center">{{$value->jumlahpengajuan}}</td>
+                        <td class="text-center">
 
                             <div>
                                 <input type="hidden" name="id_detailpengajuanbrg[]" value="{{$value->id_detailpengajuanbrg}}">

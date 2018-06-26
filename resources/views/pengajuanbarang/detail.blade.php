@@ -48,7 +48,7 @@
                             <td>{{$value->nama_satuan}}</td>
                             <td>{{$value->id_barang}}</td>
                             <td>{{$value->jumlahpengajuan}}</td>
-                            <td>{{$value->jumlahserahbarang}}</td>
+                            <td>{{$value->jumlahserah}}</td>
                             <td>{{$value->status_barang}}</td>
                             <td>{{$value->keterangan_barang}}</td>
                         </tr>

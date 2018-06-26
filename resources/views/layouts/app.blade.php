@@ -90,7 +90,7 @@
                                 </button>
                             </span>
                             </div>
-                            <!-- /input-group -->
+                            <! /input-group -->
                         </li>
                         <li>
                             <a href="{{url('/dashboard')}}"><i class="fa fa-dashboard fa-fw"></i> Beranda</a>
@@ -124,7 +124,7 @@
                         </li>
                         @if(Auth::user()->level=='admin')
                         <li>
-                            <a href="{{url('#')}}"><i class="glyphicon glyphicon-open"></i> Barang Keluar</a>
+                            <a href="{{url('/barangkeluar')}}"><i class="glyphicon glyphicon-open"></i> Barang Keluar</a>
                         </li>
                         <li>
                             <a href="#"><i class="fa fa-list-alt"></i> Pengajuan Barang<span class="fa arrow"></span></a>
@@ -148,6 +148,7 @@
                         @endif
                     </ul>
                      @endif
+                     <!-- endif diatas buat ketika status pengguna = aktif -->
                 </div>
                 <!-- /.sidebar-collapse -->
             </div>

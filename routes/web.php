@@ -53,6 +53,8 @@ Route::get('/detailbarangmasuk/{id}','BarangmasukController@detailtransaksi');
 Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk');
 Route::post('/tambahbarangmasuk','BarangmasukController@store');
 
+Route::get('/barangkeluar', 'BarangkeluarController@index');
+
 Route::post('/pengajuanbarang', 'PengajuanbarangController@store');
 Route::get('/ajukan', 'PengajuanbarangController@index');
 Route::get('/riwayat', 'PengajuanbarangController@riwayat');

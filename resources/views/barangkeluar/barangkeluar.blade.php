@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header text-center">Daftar Pengajuan Barang</h1>
+        <h1 class="page-header text-center">Barang Keluar</h1>
     </div>
  <!-- /.col-lg-12 -->
 </div>
@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Daftar Pengajuan Barang yang diisi oleh Bidang
+                Daftar Barang yang telah didistribusikan ke Bidang
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -20,29 +20,23 @@
                         <tr>
                             <th class="text-center">No</th>
                             <th class="text-center">No. Pengajuan</th>
-                            <th class="text-center">Tanggal Pengajuan</th>
-                            <th class="text-center">Yang Mengajukan</th>
-                            <th class="text-center">Bidang</th>
+                            <th class="text-center">Tanggal Serah</th>
+                            <th class="text-center">Diserahkan ke Bidang</th>
                             <th class="text-center">Lihat Detail</th>
-                            <th class="text-center" style="width: 50px">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 0;?>
-                        @foreach ($pengajuanbarang as $value)
-                        @if($value->status_pengajuan!='selesai')
+                        @foreach ($barangkeluar as $value)
+                        @if($value->status_pengajuan!='proses')
                         <?php $no++ ;?>
                         <tr class="text-center">
                             <td>{{ $no }}</td>
                             <td>{{$value->id_pengajuanbrg}}</td>
-                            <td>{{$value->tanggal_pengajuan}}</td>
-                            <td>{{$value->nama_lengkap}}</td>
+                            <td>{{$value->tanggal_serah}}</td>
                             <td>{{$value->nama_bidang}}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
-                        </td>
-                        <td>
-                            <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Isi Form</a>
+                            <a class="btn btn-primary btn-sm pull-right" href="#"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                         </td>
                         @endif
                         @endforeach
