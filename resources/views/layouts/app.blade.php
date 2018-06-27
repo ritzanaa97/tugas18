@@ -119,31 +119,29 @@
                             </ul>
                         </li>
                         @endif
+                        @if(Auth::user()->level=='admin')
+                        <!-- <li>
+                            <a href="{{url('/belanjabarang')}}"><i class="fa fa-shopping-cart "></i> Belanja Barang</a>
+                        </li> -->
                         <li>
                             <a href="{{url('/barangmasuk')}}"><i class="glyphicon glyphicon-save"></i> Barang Masuk</a>
                         </li>
-                        @if(Auth::user()->level=='admin')
                         <li>
-                            <a href="{{url('/barangkeluar')}}"><i class="glyphicon glyphicon-open"></i> Barang Keluar</a>
+                            <a href="{{url('/daftar')}}"><i class="fa fa-list-ol"></i> Daftar Pengajuan Barang</a>
                         </li>
                         <li>
-                            <a href="#"><i class="fa fa-list-alt"></i> Pengajuan Barang<span class="fa arrow"></span></a>
-                            <ul class="nav nav-second-level">
-                                <li>
-                                    <a href="{{url('/daftar')}}"><i class="fa fa-list-ol"></i> Daftar Pengajuan Barang</a>
-                                </li>
-                                <li>
-                                    <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
-                                </li>
-                            </ul>
+                            <a href="{{url('/barangkeluar')}}"><i class="glyphicon glyphicon-open"></i> Serah Barang</a>
                         </li>
                         @endif
                         @if(Auth::user()->level=='bidang')
                         <li>
-                            <a href="{{url('/ajukan')}}"><i class="fa fa-edit fa-fw"></i> Pengajuan Barang</a>
+                            <a href="{{url('/terimabarang')}}"><i class="glyphicon glyphicon-save"></i> Terima Barang</a>
                         </li>
                         <li>
-                            <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Riwayat Pengajuan Barang</a>
+                            <a href="{{url('/ajukan')}}"><i class="fa fa-edit fa-fw"></i> Isi Pengajuan Barang</a>
+                        </li>
+                        <li>
+                            <a href="{{url('/riwayat')}}"><i class="fa fa-history"></i> Daftar Pengajuan Barang</a>
                         </li>
                         @endif
                     </ul>

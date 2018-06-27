@@ -42,6 +42,17 @@ class BarangController extends Controller
             return back();
         }
     }
+    public function baranghabis()
+    {
+        if(Auth::user()->level=='admin'){
+        $baranghabis=Barang::all();
+        $jenisbarang = Jenisbarang::all();
+        $satuan = Satuan::all();
+        return view('baranghabis.baranghabis', compact('baranghabis', 'jenisbarang', 'satuan'));
+        }else{
+            return back();
+        }
+    }
     public function index()
     {
         //

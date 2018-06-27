@@ -7,7 +7,11 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
-    <form class="form-inline well well-sm">
+    <div class="alert alert-info alert-dismissable">
+    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+    Pastikan nama supplier sudah terdaftar pada Sistem. Silahkan cek link berikut. <a href="{{url('/barang')}}" class="alert-link">Klik Disini</a>.
+    </div>
+    <form class="form-inline well well-sm" action="{{ action('BarangmasukController@index') }}">
         <label for="month" class="control-label">Lihat Laporan Bulanan per</label>
         <select class="form-control" id="month" name="month">
             <option value="01">Januari</option>

@@ -29,6 +29,7 @@ Route::middleware('auth')->group(function (){
 	Route::get('/barang','BarangController@tampilbarang');
 	Route::get('/barangmasuk','BarangmasukController@index');
 	Route::get('/daftar', 'PengajuanbarangController@daftar');
+	Route::get('/terimabarang', 'BarangmasukController@terimabarang');
 });
 
 Route::get('/pesan', 'FlashMessageController@index');
@@ -45,15 +46,18 @@ Route::get('/supplier', 'SupplierController@index');
 Route::post('/tambahsupplier', 'SupplierController@store');
 
 Route::post('/tambahjenis','JenisbarangController@store');
+Route::get('/export_jenisbarang', 'JenisbarangController@jenisbarangexport')->name('jenisbarang.export');
+Route::post('/import_jenisbarang', 'JenisbarangController@jenisbarangimport');
 
 Route::post('/barang','BarangController@store');
-Route::get('/export', 'BarangController@barangexport')->name('barang.export');
+Route::get('/export_barang', 'BarangController@barangexport')->name('barang.export');
 
 Route::get('/detailbarangmasuk/{id}','BarangmasukController@detailtransaksi');
 Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk');
 Route::post('/tambahbarangmasuk','BarangmasukController@store');
 
 Route::get('/barangkeluar', 'BarangkeluarController@index');
+Route::get('/detailbarangkeluar/{id}','BarangkeluarController@detailbarangkeluar');
 
 Route::post('/pengajuanbarang', 'PengajuanbarangController@store');
 Route::get('/ajukan', 'PengajuanbarangController@index');
@@ -62,3 +66,5 @@ Route::get('/lihatdetail/{id}','PengajuanbarangController@detailpengajuanbarang'
 
 Route::get('/serahbarang/{id}','PengajuanbarangController@serahbarang');
 Route::post('/simpanserah','PengajuanbarangController@update')->name('serahbarang.update');
+
+Route::get('/belanjabarang', 'BarangController@baranghabis');

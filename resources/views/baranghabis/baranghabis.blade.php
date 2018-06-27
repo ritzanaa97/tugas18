@@ -3,7 +3,7 @@
 @section('content')
 <div class="row">
     <div class="col-lg-12">
-        <h1 class="page-header text-center">Daftar Serah Barang</h1>
+        <h1 class="page-header text-center">Daftar Belanja Barang</h1>
     </div>
  <!-- /.col-lg-12 -->
 </div>
@@ -11,7 +11,7 @@
     <div class="col-lg-12">
         <div class="panel panel-default">
             <div class="panel-heading">
-                Daftar Barang yang telah didistribusikan ke Bidang
+                Daftar Barang yang akan habis di Gudang
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
@@ -28,19 +28,17 @@
                     </thead>
                     <tbody>
                         <?php $no = 0;?>
-                        @foreach ($barangkeluar as $value)
-                        @if($value->status_pengajuan!='proses')
+                        @foreach ($baranghabis as $value)
                         <?php $no++ ;?>
                         <tr class="text-center">
                             <td>{{ $no }}</td>
-                            <td>{{$value->id_pengajuanbrg}}</td>
-                            <td>{{$value->tanggal_serah}}</td>
-                            <td>{{$value->nama_bidang}}</td>
-                            <td>{{$value->status_pengajuan}}</td>
+                            <td>#</td>
+                            <td>#</td>
+                            <td>#</td>
+                            <td>#/td>
                         <td>
-                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangkeluar')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
+                            <a class="btn btn-primary btn-sm pull-right" href="#"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                         </td>
-                        @endif
                         @endforeach
                     </tbody>
                 </table>

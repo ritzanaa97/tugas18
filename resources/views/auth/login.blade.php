@@ -51,9 +51,9 @@
     <div class="row" >
             <div class="col-md-4" style="padding-left: 50px" >
                 <div class="login-panel panel panel-default">
-                    <div class="panel-heading">
-                        <!-- <img style="width: 100px" src="{{url('inventoriadmin/dist/css/images/login.png')}}"> -->
-                        <h2 align="center" class="panel-title" >Sistem Inventory dan Pengajuan Barang</h2>
+                    <div class="panel-heading text-center">
+                        <img style="width: 250px" src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
+                        <h4>Sistem Inventory dan Pengajuan Barang</h4>
                     </div>
                     <div class="panel-body">
                         <div class="panel-body">
@@ -85,16 +85,6 @@
                                         <strong>{{ $errors->first('password') }}</strong>
                                     </span>
                                 @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-6 col-md-offset-4">
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox" name="remember" {{ old('remember') ? 'checked' : '' }}> Remember Me
-                                    </label>
-                                </div>
                             </div>
                         </div>
 

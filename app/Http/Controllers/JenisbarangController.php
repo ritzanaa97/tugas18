@@ -9,6 +9,7 @@ use App\User;
 use App\Jenisbarang;
 use App\Satuan;
 use Auth;
+use Excel;
 
 
 class JenisbarangController extends Controller
@@ -139,5 +140,47 @@ class JenisbarangController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function jenisbarangexport(){
+
+        $jenisbarang=Jenisbarang::select('id_jenisbarang as Kode Jenis Barang','nama_jenisbarang as Nama Jenis Barang','kategori as kategori Barang')->get();
+
+        return Excel::create('data_jenisbarang',function($excel) use($jenisbarang){
+            $excel->sheet('mysheet',function($sheet) use($jenisbarang){
+                $sheet->fromArray($jenisbarang);
+            });
+        })->download('xls');
+    }
+
+    public function jenisbarangimport(Request $request){
+        if($request->hasFile('jenisbarangimport')){
+            $simpan='';
+            $path=$request->file('jenisbarangimport')->getRealPath();
+            $data=Excel::load($path, function($reader){})->get();
+            if(!empty($data) && $data->count()){
+                foreach($data as $key=>$value){
+                    $cek=Jenisbarang::where('nama_jenisbarang',$value->nama_jenis_barang)->count();
+                    if($cek==0){
+                        $jenisbarang=new Jenisbarang();
+                        $kategori = strtoupper($value->jenis_barang);
+                        
+                        if($simpan==''){
+                            $last_id = Jenisbarang::where('kategori', $kategori)->orderBy('created_at', 'desc')->first();
+                            $last_id = (!(empty($last_id))) ? JenisbarangController::autonumber($last_id->id_jenisbarang,3,3) : $kategori.'001'; 
+                        }else{
+                            $last_id = (!(empty($last_id))) ? JenisbarangController::autonumber($simpan,3,3) : $kategori.'001'; 
+                        }
+                    $jenisbarang->id_jenisbarang=$last_id;
+                    $jenisbarang->nama_jenisbarang=$value->nama_jenis_barang;
+                    $jenisbarang->kategori=$value->jenis_barang;
+                    $jenisbarang->save();
+
+                    $simpan=$jenisbarang->id_jenisbarang;
+
+                    }
+                }
+            }
+        }
+        return back();
     }
 }

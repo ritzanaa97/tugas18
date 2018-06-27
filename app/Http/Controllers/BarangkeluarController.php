@@ -16,6 +16,14 @@ class BarangkeluarController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+    public function barang()
+    {
+        return \DB::table('barang')->get();
+    }
+    public function user()
+    {
+        return \DB::table('user')->get();
+    }
     public function index()
     {
         if(Auth::user()->level=='admin'){
@@ -25,11 +33,20 @@ class BarangkeluarController extends Controller
                         ->get();
         $barang=Barang::all();
         $users=User::all();
-        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
-        return view('Barangkeluar.barangkeluar', compact('barangkeluar','barang', 'users','detailpengajuanbarang'));
+        $detailbarangkeluar=Dtl_pengajuanbarang::all();
+        return view('Barangkeluar.barangkeluar', compact('barangkeluar','barang', 'users','detailbarangkeluar'));
         }else{
             return back();
         }
+    }
+    public function detailbarangkeluar($id){ /*ini untuk view di menu detail pengajuan barang*/
+        $detailbarangkeluar=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
+                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+                        ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
+                        ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
+        return view('barangkeluar.detail', compact('detailbarangkeluar'));
     }
 
     /**

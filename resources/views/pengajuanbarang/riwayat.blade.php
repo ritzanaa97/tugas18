@@ -3,7 +3,7 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header text-center">Riwayat Pengajuan Barang</h1>
+            <h1 class="page-header text-center">Daftar Pengajuan Barang</h1>
         </div>
         <!-- /.col-lg-12 -->
     </div>
@@ -11,6 +11,9 @@
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
+                <div class="panel-heading text-center">
+                Daftar Pengajuan barang yang masih di proses
+            </div>
                 <!-- /.panel-heading -->
 
                 <div class="panel-body">
@@ -29,6 +32,7 @@
                         <tbody>
                             <?php $no = 0;?>
                             @foreach ($pengajuanbarang as $value)
+                            @if($value->status_pengajuan!='selesai')
                             <?php $no++ ;?>
                             <tr class="text-center">
                                 <td>{{ $no }}</td>
@@ -41,6 +45,7 @@
                                     <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                                 </td>
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>

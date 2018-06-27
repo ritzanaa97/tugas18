@@ -10,6 +10,9 @@ use App\Barang_masuk;
 use App\Detailbrgmasuk;
 use Carbon\Carbon;
 use Auth;
+use App\User;
+use App\Pengajuanbarang;
+use App\Dtl_pengajuanbarang;
 
 class BarangmasukController extends Controller
 {
@@ -36,11 +39,21 @@ class BarangmasukController extends Controller
             }
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        if(!$request->month){
+
         $barangmasuk=Barang_masuk::join('supplier','supplier.id_supplier','=','barangmasuk.id_supplier')
                                     ->join('users','barangmasuk.created_by','=','users.nama_lengkap')
                                     ->where('users.nama_lengkap',Auth::user()->nama_lengkap)->get();
+        }else{
+            
+        $barangmasuk=Barang_masuk::join('supplier','supplier.id_supplier','=','barangmasuk.id_supplier')
+                                    ->join('users','barangmasuk.created_by','=','users.nama_lengkap')
+                                    ->where('users.nama_lengkap',Auth::user()->nama_lengkap)
+                                    ->where(\DB::raw('month(barangmasuk.tanggal_masuk)'), $request->month)
+                                    ->where(\DB::raw('year(barangmasuk.tanggal_masuk)'), $request->year)->get();
+        }
         $barang=Barang::all();
         $supplier=Supplier::all();
         $detailbrgmasuk=Detailbrgmasuk::all();
@@ -56,6 +69,20 @@ class BarangmasukController extends Controller
                         ->where('barangmasuk.id_brgmasuk',$id)->get();
 
         return view('barangmasuk.detailtransaksi', compact('detailtransaksi'));
+        }else{
+                return back();
+            }
+    }
+    public function terimabarang()
+    {
+        if(Auth::user()->level=='bidang'){
+        $terimabarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->where('users.id_bidang',Auth::user()->id_bidang)->get();
+        $barang=Barang::all();
+        $users=User::all();
+        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+        return view('barangmasuk.terimabarang', compact('terimabarang','barang', 'users','detailpengajuanbarang'));
         }else{
                 return back();
             }

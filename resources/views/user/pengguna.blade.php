@@ -19,18 +19,23 @@
                     <table width="100%" class="users table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
+                                <th>No</th>
                                 <th>NIP</th>
                                 <th>Nama</th>
                                 <th>Hak Akses</th>
                                 <th>Bidang</th>
                                 <th>Status</th>
-                                <th style="width: 20px">Ubah</th>
-                                <th style="width: 20px">Hapus</th>
+                                <th>Ubah</th>
+                                <th>Non-aktifkan</th>
                             </tr>
                         </thead>
                         <tbody>
+                            <?php $no = 0;?>
                             @foreach ($users as $value)
+                            @if($value->status!='tidak aktif')
+                            <?php $no++ ;?>
                             <tr>
+                                <td>{{ $no }}</td>
                                 <td>{{ $value->nip }}</td>
                                 <td>{{ $value->nama_lengkap }}</td>
                                 <td>{{ $value->level}}</td>
@@ -44,11 +49,12 @@
                                 </td>
                                 <td>
                                     <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
-                                        <span class="glyphicon glyphicon-trash" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapususer">
-                                        </span> Hapus
+                                        <span class="glyphicon glyphicon-ban-circle" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapususer">
+                                        </span> Non-aktifkan
                                     </button>
                                 </td>
                             </tr>
+                            @endif
                             @endforeach
                         </tbody>
                     </table>
@@ -127,10 +133,10 @@
                                         <button type="button" class="close" data-dismiss="modal">
                                             <span aria-hidden="true">x</span>
                                         </button>
-                                        <h4 class="modal-title" id="myModalLabel">Hapus Data Pengguna</h4>
+                                        <h4 class="modal-title" id="myModalLabel">Non-aktifkan Data Pengguna</h4>
                                     </div>
                                     <div class="modal-body">
-                                        <p>Yakin hapus data ini<span class="del-name" style="font-weight: bold;"></span>?</p>
+                                        <p>Yakin menonaktifkan pengguna ini<span class="del-name" style="font-weight: bold;"></span>?</p>
                                     </div>
                                     <div class="modal-footer">
                                         <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>

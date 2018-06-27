@@ -200,7 +200,7 @@ class PengajuanbarangController extends Controller
         $pengajuanbarang->status_pengajuan='selesai';
         $pengajuanbarang->save();
 
-        return redirect('daftar');
+        return redirect('barangkeluar');
     }
     /**
      * Remove the specified resource from storage.

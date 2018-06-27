@@ -7,9 +7,12 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
-
+<div class="alert alert-info">
+    Untuk Import Excel, Pastikan Data Jenis Barang sudah terdaftar! Silahkan cek link berikut untuk melihat Jenis Barang. <a href="{{url('/jenisbarang')}}" class="alert-link">Klik Disini</a>.
+</div>
 <form class="form-inline well well-sm pull-right">
-    <a class="btn btn-default btn-sm" href="{{ route('barang.export') }}"><i class="glyphicon glyphicon-export"></i> Lihat Laporan Excel</a>
+    <a class="btn btn-default btn-sm" href="{{ route('barang.export') }}"><i class="glyphicon glyphicon-export"></i> Export Laporan Excel</a>
+    <a class="btn btn-default btn-sm" href="#"><i class="glyphicon glyphicon-export"></i> Import Laporan Excel</a>
 </form>
             
  <div class="row">
