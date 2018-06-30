@@ -18,26 +18,16 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <div class="form-group{{ $errors->has('barang') ? ' has-error' : '' }}">
-                    <label for="barang" class="col-md-4 control-label">Pilih Barang</label>
 
+                <div class="form-group">
+                    <label for="barang" class="col-md-4 control-label">Nama Barang</label>
                     <div class="col-md-6">
-
-                        <select name="barang" class="form-control namabarang">
+                        <select class="form-control js-aset" name="barang" style="width:480px">
                             <option value="" selected disabled>Pilih Barang</option>
                             @foreach($barang as $value)
-
-                            <option value='{{$value->id_barang}}'>{{$value->nama_barang}}</option>
-
+                            <option value="{{$value->id_barang}}">{{$value->nama_barang}}</option>
                             @endforeach
-    
                         </select>
-
-                        @if ($errors->has('id_barang'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('id_barang') }}</strong>
-                            </span>
-                        @endif
                     </div>
                 </div>
                 <br>
@@ -48,8 +38,10 @@
                         <input id="jumlahpengajuan" type="text" class="form-control jumlahpengajuan" name="jumlahpengajuan" required>
                     </div>
                 </div>
-
             </div>
+            @if($value->jumlahbarang<10)
+            <p class="text-danger text-center">Barang yang anda pilih akan habis di Gudang. Sisa digudang: #</p>
+            @endif
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary btn-sm tambahpengajuan">Tambahkan</button>
             </div>
@@ -83,7 +75,6 @@
 
                     </tbody>
                     <div class="modal-footer">
-                        <a class="btn btn-danger btn-sm" href="#"><i class="glyphicon glyphicon-print"></i> Print Form</a>
                         <button type="submit" class="btn btn-primary btn-sm"><i class="glyphicon glyphicon-send"></i> Ajukan</button> 
                         <!-- <a class="btn btn-primary btn-sm" onclick="ajukan()">Ajukan </a> -->
                     </div>
@@ -100,7 +91,7 @@
 @section('jsscript')
 <script type="text/javascript">
     $(".tambahpengajuan").on('click', function(){
-       var namabarang = $(".namabarang option:selected")
+       var namabarang = $(".js-aset option:selected")
        var jumlahpengajuan = $(".jumlahpengajuan")
       if(namabarang.val() != "" && jumlahpengajuan.val() != ""){
         var id_barang = namabarang.val()
@@ -114,7 +105,6 @@
     //         autoclose: true
     //     });
     // })
-
-    
+$('js-aset').select2();
 </script>
 @endsection

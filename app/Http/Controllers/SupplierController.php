@@ -92,7 +92,12 @@ class SupplierController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $supplier=Supplier::find($id);
+        $supplier->nama_supplier=$request->nama_supplier;
+        $supplier->alamat=$request->alamat;
+        $supplier->save();
+
+        return redirect('/supplier');
     }
 
     /**
@@ -101,8 +106,10 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($id_supplier)
     {
-        //
+        $hapussupplier=Supplier::where('id_supplier',$id_supplier)
+        ->update(['status'=>'tidak aktif']);
+        return redirect('/supplier'); 
     }
 }

@@ -9,11 +9,12 @@
     </div>
     <div class="alert alert-info alert-dismissable">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
-    Pastikan nama supplier sudah terdaftar pada Sistem. Silahkan cek link berikut. <a href="{{url('/barang')}}" class="alert-link">Klik Disini</a>.
+    Pastikan nama supplier sudah terdaftar pada Sistem. Silahkan cek link berikut. <a href="{{url('/supplier')}}" class="alert-link">Klik Disini</a>.
     </div>
     <form class="form-inline well well-sm" action="{{ action('BarangmasukController@index') }}">
         <label for="month" class="control-label">Lihat Laporan Bulanan per</label>
         <select class="form-control" id="month" name="month">
+            <option value="" selected disabled>Pilih Bulan</option>
             <option value="01">Januari</option>
             <option value="02">Pebruari</option>
             <option value="03">Maret</option>
@@ -28,12 +29,15 @@
             <option value="12">Desember</option>
         </select>
         <select class="form-control" name="year">
-            <option value="2017">2017</option>
-            <option value="2018" selected="selected">2018</option>
+            <option value="" selected disabled>Pilih Tahun</option>
+            <option value="2018">2018</option>
+            <option value="2019">2019</option>
+            <option value="2020">2020</option>
+            <option value="2021">2021</option>
         </select>
         <input class="btn btn-info btn-sm" value="Lihat Laporan" type="submit">
-        <a class="btn btn-default btn-sm">Print Laporan Bulan Terpilih</a>
-        <a class="btn btn-default btn-sm">Print Laporan Tahun Terpilih</a>
+        <a class="btn btn-default btn-sm" href="{{ route('barangmasuk.export') }}">Export Laporan Bulan Terpilih</a>
+        <a class="btn btn-default btn-sm">Export Laporan Tahun Terpilih</a>
     </form>
 
     <div class="row">
@@ -63,7 +67,7 @@
                             <tr class="text-center">
                                 <td>{{ $no }}</td>
                                 <td>{{ $value->id_brgmasuk }}</td>
-                                <td>{{ $value->tanggal_masuk }}</td>
+                                <td>{{ date('d-m-Y',strtotime ($value->tanggal_masuk)) }}</td>
                                 <td>{{ $value->nama_supplier }}</td>
                                 <td>
                                     <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangmasuk')}}/{{$value->id_brgmasuk}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>

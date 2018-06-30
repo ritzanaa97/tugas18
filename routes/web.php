@@ -23,17 +23,19 @@ Route::middleware('auth')->group(function (){
         return view('dashboard/dashboard');
     });
     // Route::resource('/pengguna','UsersController');
-    Route::get('/dashboard', 'HomeController@index');
 	Route::get('/pengguna','UsersController@masterusers');
 	Route::get('/jenisbarang','JenisbarangController@jenisbarang');
 	Route::get('/barang','BarangController@tampilbarang');
 	Route::get('/barangmasuk','BarangmasukController@index');
 	Route::get('/daftar', 'PengajuanbarangController@daftar');
 	Route::get('/terimabarang', 'BarangmasukController@terimabarang');
+	Route::get('/barangkeluar', 'BarangkeluarController@index');
+	Route::get('/baranghabis', 'BaranghabisController@index');
 });
 
-Route::get('/pesan', 'FlashMessageController@index');
-Route::get('/get-pesan', 'FlashMessageController@pesan');
+Route::get('/dashboard', 'HomeController@index');
+// Route::get('/pesan', 'FlashMessageController@index');
+// Route::get('/get-pesan', 'FlashMessageController@pesan');
 
 Route::get('/auth.login', 'HomeController@login');
 Route::get('/register', 'UsersController@store')->name('register');
@@ -44,6 +46,8 @@ Route::get('/hapususers/{nip}','UsersController@destroy')->name('users.hapus');
 
 Route::get('/supplier', 'SupplierController@index');
 Route::post('/tambahsupplier', 'SupplierController@store');
+Route::get('/hapussupplier/{id_supplier}','SupplierController@destroy')->name('supplier.hapus');
+Route::put('/supplier/{id_supplier}','SupplierController@update')->name('supplier.update');
 
 Route::post('/tambahjenis','JenisbarangController@store');
 Route::get('/export_jenisbarang', 'JenisbarangController@jenisbarangexport')->name('jenisbarang.export');
@@ -55,9 +59,11 @@ Route::get('/export_barang', 'BarangController@barangexport')->name('barang.expo
 Route::get('/detailbarangmasuk/{id}','BarangmasukController@detailtransaksi');
 Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk');
 Route::post('/tambahbarangmasuk','BarangmasukController@store');
+Route::get('/export_barangmasuk', 'BarangmasukController@barangmasukexport')->name('barangmasuk.export');
 
-Route::get('/barangkeluar', 'BarangkeluarController@index');
+
 Route::get('/detailbarangkeluar/{id}','BarangkeluarController@detailbarangkeluar');
+Route::get('/printbarangkeluar','BarangkeluarController@printbarangkeluar'); 
 
 Route::post('/pengajuanbarang', 'PengajuanbarangController@store');
 Route::get('/ajukan', 'PengajuanbarangController@index');

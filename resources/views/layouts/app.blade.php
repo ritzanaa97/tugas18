@@ -36,8 +36,7 @@
     <!-- DataTables CSS -->
     <link href="{{asset('inventoriadmin/vendor/datatables-plugins/dataTables.bootstrap.css')}}" rel="stylesheet">
     <!-- Select2 CSS -->
-    <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" > -->
-
+    <link href="{{asset('inventoriadmin/select2/dist/css/select2.min.css')}}" rel="stylesheet">
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -123,6 +122,9 @@
                         <!-- <li>
                             <a href="{{url('/belanjabarang')}}"><i class="fa fa-shopping-cart "></i> Belanja Barang</a>
                         </li> -->
+                        <!-- <li>
+                            <a href="{{url('/baranghabis')}}"><i class="glyphicon glyphicon-list-alt"></i> Barang Habis</a>
+                        </li> -->
                         <li>
                             <a href="{{url('/barangmasuk')}}"><i class="glyphicon glyphicon-save"></i> Barang Masuk</a>
                         </li>
@@ -182,8 +184,9 @@
     <script src="{{asset('inventoriadmin/vendor/datatables-responsive/dataTables.responsive.js')}}"></script>
     <script src="{{asset('inventoriadmin/vendor/sweetalert/sweetalert.min.js')}}"></script>
 
+    <script src="{{asset('inventoriadmin/js/jquery.printPage.js')}}"></script>
     <!-- Select2 JavaScript -->
-    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script> -->
+    <script src="{{asset('inventoriadmin/select2/dist/js/select2.min.js')}}"></script>
 
     <!-- Custom Theme JavaScript -->
     <script src="{{asset('inventoriadmin/dist/js/sb-admin-2.js')}}"></script>
@@ -198,6 +201,9 @@
             responsive: true
         });
     });
+    $(document).ready(function() {
+        $('.js-aset').select2();
+        });
     </script>
     @yield('jsscript')
     @yield('alert')

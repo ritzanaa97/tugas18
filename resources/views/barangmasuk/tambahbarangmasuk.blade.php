@@ -23,26 +23,15 @@
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-                <div class="form-group{{ $errors->has('barang') ? ' has-error' : '' }}">
-                    <label for="barang" class="col-md-4 control-label">Pilih Barang</label>
-
+                <div class="form-group">
+                    <label for="barang" class="col-md-4 control-label">Nama Barang</label>
                     <div class="col-md-6">
-
-                        <select name="barang" class="form-control namabarang">
+                        <select class="form-control js-aset" name="barang" style="width:480px">
                             <option value="" selected disabled>Pilih Barang</option>
                             @foreach($barang as $value)
-
-                            <option value='{{$value->id_barang}}'>{{$value->nama_barang}}</option>
-
+                            <option value="{{$value->id_barang}}">{{$value->nama_barang}}</option>
                             @endforeach
-    
                         </select>
-
-                        @if ($errors->has('id_barang'))
-                            <span class="help-block">
-                                <strong>{{ $errors->first('id_barang') }}</strong>
-                            </span>
-                        @endif
                     </div>
                 </div>
                 <br>
@@ -121,7 +110,6 @@
                         @endif
                     </div>
                 </div>
-
                 <div class="form-group{{ $errors->has('supplier') ? ' has-error' : '' }}">
                     <label for="supplier" class="col-md-4 control-label">Pemasok</label>
 
@@ -130,9 +118,9 @@
                         <select name="id_supplier" class="form-control">
                             <option selected disabled>Pilih Pemasok</option>
                             @foreach($supplier as $value)
-
+                            @if($value->status!='tidak aktif')
                             <option value='{{$value->id_supplier}}'>{{$value->nama_supplier}}</option>
-
+                            @endif
                             @endforeach
     
                         </select>

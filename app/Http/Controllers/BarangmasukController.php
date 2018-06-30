@@ -13,6 +13,7 @@ use Auth;
 use App\User;
 use App\Pengajuanbarang;
 use App\Dtl_pengajuanbarang;
+use Excel;
 
 class BarangmasukController extends Controller
 {
@@ -184,17 +185,19 @@ class BarangmasukController extends Controller
     {
         //
     }
-    // public function addbrgmasuk(Request $request)
-    // {  
-    //     $tanggal_masuk = Carbon::parse(($request->tanggal_masuk),'Asia/Jakarta');
+    public function barangmasukexport(Request $request){
+        $exportbarang=Detailbrgmasuk::select('id_brgmasuk as No. Transaksi Masuk','tanggal_masuk as Tanggal Masuk','nama_supplier as Pemasok','nama_barang as Nama Barang','jumlahbrgmsk as Jumlah Barang Masuk')
+                        ->join('barang','barang.id_barang','=','detailbrgmasuk.id_barang')
+                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+                        ->join('barangmasuk','barangmasuk.id_brgmasuk','=','detailbrgmasuk.id_brgmasuk')
+                        ->join('supplier','supplier.id_supplier','=','barangmasuk.id_supplier')
+                        ->where('barangmasuk.id_brgmasuk')
+                        ->where(\DB::raw('month(barangmasuk.tanggal_masuk)'), $request->month)->get();
 
-    //     $barangmasuk = new Barang_masuk();
-    //     $barangmasuk->id_brgmasuk=$this->getNewInvoiceNo();
-    //     $barangmasuk->tanggal_masuk=$tanggal_masuk;
-    //     $barangmasuk->id_supplier=$request->supplier;
-
-    //     $barangmasuk->save();
-
-    //     return redirect('/tambahbarangmasuk');
-    // }
+        return Excel::create('data_barangmasuk',function($excel) use($exportbarang){
+            $excel->sheet('mysheet',function($sheet) use($exportbarang){
+                $sheet->fromArray($exportbarang);
+            });
+        })->download('xls');
+    }
 }

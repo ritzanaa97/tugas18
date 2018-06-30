@@ -19,26 +19,31 @@
                     <thead>
                         <tr>
                             <th class="text-center">No</th>
-                            <th class="text-center">No. Pengajuan</th>
-                            <th class="text-center">Tanggal Serah</th>
-                            <th class="text-center">Diserahkan ke Bidang</th>
-                            <th class="text-center">Status Pengajuan</th>
-                            <th class="text-center">Lihat Detail</th>
+                            <th class="text-center">Kode Barang</th>
+                            <th class="text-center">Nama Barang</th>
+                            <th class="text-center">Jenis Barang</th>
+                            <th class="text-center">Jumlah Barang</th>
+                            <th class="text-center">Isi Jumlah Beli</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 0;?>
                         @foreach ($baranghabis as $value)
+                        @if($value->jumlahbarang<10)
                         <?php $no++ ;?>
                         <tr class="text-center">
                             <td>{{ $no }}</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>#</td>
-                            <td>#/td>
-                        <td>
-                            <a class="btn btn-primary btn-sm pull-right" href="#"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
-                        </td>
+                            <td>{{ $value->id_barang }}</td>
+                            <td>{{ $value->nama_barang }}</td>
+                            <td>{{ $value->nama_jenisbarang }}</td>
+                            <td>{{ $value->jumlahbarang }}</td>
+                            <td>
+                                <div>
+                                    <input type="hidden" name="#" value="#">
+                                    <input id="jumlahserah" type="text" min="0" class="form-control text-center" name="#" required autofocus>
+                                </div>
+                            </td>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

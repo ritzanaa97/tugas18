@@ -11,7 +11,7 @@ class Pengajuanbarang extends Model
     protected $fillable=['id_pengajuanbrg','nip_mengajukan','tanggal_pengajuan','nip_serah','tanggal_serah','status_pengajuan'];
 
     public $incrementing = false;//ketika id berupa varchar
-
+    
     public function pengajuanbarang()
     {
         return $this->hasMany('id_pengajuanbrg');

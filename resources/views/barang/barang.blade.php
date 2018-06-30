@@ -10,9 +10,11 @@
 <div class="alert alert-info">
     Untuk Import Excel, Pastikan Data Jenis Barang sudah terdaftar! Silahkan cek link berikut untuk melihat Jenis Barang. <a href="{{url('/jenisbarang')}}" class="alert-link">Klik Disini</a>.
 </div>
-<form class="form-inline well well-sm pull-right">
+<form class="form-inline well well-sm pull-right" enctype="multipart/form-data" method="post" action="#">
+    {{ csrf_field() }}
     <a class="btn btn-default btn-sm" href="{{ route('barang.export') }}"><i class="glyphicon glyphicon-export"></i> Export Laporan Excel</a>
-    <a class="btn btn-default btn-sm" href="#"><i class="glyphicon glyphicon-export"></i> Import Laporan Excel</a>
+    <input type="file" name="barangimport" class="btn btn-default btn-sm">
+    <input type="submit" value="Import" class="btn btn-default btn-sm">
 </form>
             
  <div class="row">
@@ -33,7 +35,7 @@
                             <th>Jenis</th>
                             <th>Satuan</th>
                             <th>Jumlah</th>
-                            <th>Aksi</th>
+                            <!-- <th>Aksi</th> -->
                         </tr>
                         <thead>
                     <tbody>
@@ -47,12 +49,12 @@
                             <td>{{ ($value->jenisbarang)?$value->jenisbarang->nama_jenisbarang:''}}</td>
                             <td>{{ ($value->satuan)?$value->satuan->nama_satuan:'-' }}</td>
                             <td>{{ $value->jumlahbarang }}</td>
-                            <td>
+                            <!-- <td>
                                 <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#">
                                 <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="modal" data-target="#">
                                 </span> Edit
                                 </button>
-                            </td>
+                            </td> -->
                         </tr>
                             @endforeach
                     </tbody>
@@ -70,6 +72,19 @@
                     <div class="modal-body">
                         <form class="form-horizontal" method="POST" action="{{ action('BarangController@store') }}">
                             {{ csrf_field() }}
+                            <div class="form-group{{ $errors->has('id_barang') ? ' has-error' : '' }}">
+                                <label for="id_barang" class="col-md-4 control-label">Kode Barang</label>
+
+                                <div class="col-md-6">
+                                    <input id="id_barang" type="text" class="form-control" name="id_barang" value="{{ old('id_barang') }}" required autofocus>
+
+                                    @if ($errors->has('id_barang'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('id_barang') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
                             <div class="form-group{{ $errors->has('id_jenisbarang') ? ' has-error' : '' }}">
                                 <label for="id_jenisbarang" class="col-md-4 control-label">Jenis Barang</label>
 
@@ -155,20 +170,6 @@
                                     @if ($errors->has('jumlahbarang'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('jumlahbarang') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('keterangan') ? ' has-error' : '' }}">
-                                <label for="keterangan" class="col-md-4 control-label">Keterangan</label>
-
-                                <div class="col-md-6">
-                                    <input id="keterangan" type="text" class="form-control" name="keterangan" value="{{ old('keterangan') }}" required autofocus>
-
-                                    @if ($errors->has('keterangan'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('keterangan') }}</strong>
                                         </span>
                                     @endif
                                 </div>

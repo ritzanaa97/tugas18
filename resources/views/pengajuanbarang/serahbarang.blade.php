@@ -23,13 +23,14 @@
                         <th class="text-center" style="width: 50px">Kode Barang</th>
                         <th class="text-center" style="width: 100px">Nama Barang</th>
                         <th class="text-center" style="width: 50px">Satuan</th>
+                        <th class="text-center" style="width: 50px">Jumlah di Gudang</th>
                         <th class="text-center" style="width: 50px">Jumlah Pengajuan</th>
                         <th class="text-center" style="width: 50px">Jumlah Diberikan</th>
                         <th class="text-center" style="width: 50px">Keterangan</th>
                     </tr>
                 </thead>
                 <tbody>
-                <form class="form-horizontal" method="POST" action="{{ url('/simpanserah') }}">
+                <form class="form-horizontal" method="POST" action="{{ url('/simpanserah') }}" data-toggle="validator" role="form">
                 {{ csrf_field() }}
                     <?php $no = 0;?>
                     @foreach($serahbarang as $value)
@@ -39,12 +40,12 @@
                         <td class="text-center">{{$value->id_barang}}</td>
                         <td class="text-center">{{$value->nama_barang}}</td>
                         <td class="text-center">{{$value->nama_satuan}}</td>
+                        <td class="text-center">{{$value->jumlahbarang}}</td>
                         <td class="text-center">{{$value->jumlahpengajuan}}</td>
                         <td class="text-center">
-
                             <div>
                                 <input type="hidden" name="id_detailpengajuanbrg[]" value="{{$value->id_detailpengajuanbrg}}">
-                                <input id="jumlahserah" type="text" min="0" class="form-control text-center" name="jumlahserah[]" required autofocus>
+                                <input id="jumlahserah" type="number" min="0" max="{{$value->jumlahpengajuan}}" class="form-control text-center" name="jumlahserah[]" required autofocus>
                             </div>
                         </td>
                         <td>

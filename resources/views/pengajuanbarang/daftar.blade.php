@@ -23,8 +23,8 @@
                             <th class="text-center">Tanggal Pengajuan</th>
                             <th class="text-center">Yang Mengajukan</th>
                             <th class="text-center">Bidang</th>
-                            <th class="text-center">Lihat Detail</th>
                             <th class="text-center" style="width: 50px">Aksi</th>
+                            <th class="text-center">Lihat Detail</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -35,14 +35,14 @@
                         <tr class="text-center">
                             <td>{{ $no }}</td>
                             <td>{{$value->id_pengajuanbrg}}</td>
-                            <td>{{$value->tanggal_pengajuan}}</td>
+                            <td>{{ date('d-m-Y',strtotime ($value->tanggal_pengajuan)) }}</td>
                             <td>{{$value->nama_lengkap}}</td>
                             <td>{{$value->nama_bidang}}</td>
                         <td>
-                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
+                            <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Isi Form</a>
                         </td>
                         <td>
-                            <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Isi Form</a>
+                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                         </td>
                         @endif
                         @endforeach

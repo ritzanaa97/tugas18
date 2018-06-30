@@ -23,6 +23,7 @@ class BarangController extends Controller
         $barang=Barang::all();
         $jenisbarang = Jenisbarang::all();
         $satuan = Satuan::all();
+        
         return view('barang.barang', compact('barang', 'jenisbarang', 'satuan'));
         }else{
             return back();
@@ -42,17 +43,6 @@ class BarangController extends Controller
             return back();
         }
     }
-    public function baranghabis()
-    {
-        if(Auth::user()->level=='admin'){
-        $baranghabis=Barang::all();
-        $jenisbarang = Jenisbarang::all();
-        $satuan = Satuan::all();
-        return view('baranghabis.baranghabis', compact('baranghabis', 'jenisbarang', 'satuan'));
-        }else{
-            return back();
-        }
-    }
     public function index()
     {
         //
@@ -61,17 +51,10 @@ class BarangController extends Controller
     {
         //
     }
-    public function autonumber($id_terakhir, $panjang_kode, $panjang_angka) {
-        $kode = substr($id_terakhir, 0, $panjang_kode);
-        $angka = substr($id_terakhir, $panjang_kode, $panjang_angka);
-        $angka_baru = str_repeat("0", $panjang_angka - strlen($angka+1)).($angka+1);
-        $id_baru = $kode.$angka_baru;
-
-        return $id_baru;
-    }
     public function store(Request $request)
     {
         $this->validate($request, [
+            'id_barang'=> 'required',
             'nama_barang' => 'required',
             'id_jenisbarang' => 'required',
             'id_satuan' => 'required',
@@ -79,14 +62,14 @@ class BarangController extends Controller
             'jumlahbarang' => 'required',
         ]);
 
-        $inputbarang = $request->all();
-        $pilihjenis = $inputbarang['id_jenisbarang'];
-        $idbarang = Barang::where('id_jenisbarang',$pilihjenis)->orderBy('created_at','desc')->first();
-        $idbarang = (!(empty($idbarang))) ? BarangController::autonumber($idbarang->id_barang ,6,6) : $pilihjenis.'000001'; 
-        $inputbarang['id_barang'] = $idbarang;
-        $pb = new Barang;
-        $pb->fill($inputbarang);
-        $pb->save();
+        $barang = new Barang;
+        $barang['id_barang']=$request->id_jenisbarang.$request->id_barang;
+        $barang->nama_barang=$request->nama_barang;
+        $barang->id_jenisbarang=$request->id_jenisbarang;
+        $barang->id_satuan=$request->id_satuan;
+        $barang->kategori=$request->kategori;
+        $barang->jumlahbarang=$request->jumlahbarang;
+        $barang->save();
 
         return redirect('/barang');
     }

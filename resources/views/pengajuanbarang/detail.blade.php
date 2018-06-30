@@ -66,22 +66,23 @@
         <h5 class="text-center">Bidang/Bagian/Subbag/Seksi</h5>
         <br>
         <br>
-        <h5 class="text-center">(nama user)</h5>
+        <h5 class="text-center"></h5>
     </div>
+    @if(Auth::user()->level == 'admin')
     <div class="col-md-4 text-center"><br>
         <h5 class="text-center">Yang menerima</h5>
         <br>
         <br>
         <br>
-        <h5 class="text-center">(nama user)</h5>
+        <h5 class="text-center">{{Auth::user()->nama_lengkap}}</h5>
     </div>
+    @endif
     <div class="col-md-4 text-center"><br>
         <h5 class="text-center">Yang memberikan</h5>
         <br>
         <br>
         <br>
-        <h5 class="text-center">(nama user)</h5>
-        <h5 class="text-center">Tanggal: </h5>
+        <h5 class="text-center"></h5>
     </div>
 </div>
 

@@ -26,7 +26,7 @@
                                 <th>Bidang</th>
                                 <th>Status</th>
                                 <th>Ubah</th>
-                                <th>Non-aktifkan</th>
+                                <th class="text-center">Non-aktifkan</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -34,7 +34,7 @@
                             @foreach ($users as $value)
                             @if($value->status!='tidak aktif')
                             <?php $no++ ;?>
-                            <tr>
+                            <tr >
                                 <td>{{ $no }}</td>
                                 <td>{{ $value->nip }}</td>
                                 <td>{{ $value->nama_lengkap }}</td>
@@ -47,8 +47,8 @@
                                         </span> Ubah
                                     </button>
                                 </td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
+                                <td class="text-center">
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
                                         <span class="glyphicon glyphicon-ban-circle" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapususer">
                                         </span> Non-aktifkan
                                     </button>

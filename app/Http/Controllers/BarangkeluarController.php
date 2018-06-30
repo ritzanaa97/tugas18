@@ -24,13 +24,23 @@ class BarangkeluarController extends Controller
     {
         return \DB::table('user')->get();
     }
-    public function index()
+    public function index(Request $request)
     {
         if(Auth::user()->level=='admin'){
+        if(!$request->month){
+
+         $barangkeluar=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->get();
+
+        }else{
             
         $barangkeluar=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->get();
+                        ->where(\DB::raw('month(pengajuanbarang.tanggal_serah)'), $request->month)
+                        ->where(\DB::raw('year(pengajuanbarang.tanggal_serah)'), $request->year)->get();
+        }
+
         $barang=Barang::all();
         $users=User::all();
         $detailbarangkeluar=Dtl_pengajuanbarang::all();
@@ -46,6 +56,14 @@ class BarangkeluarController extends Controller
                         ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
                         ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
+        return view('barangkeluar.detail', compact('detailbarangkeluar'));
+    }
+    public function printbarangkeluar(){
+        $detailbarangkeluar=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
+                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+                        ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
+                        ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')->get();
         return view('barangkeluar.detail', compact('detailbarangkeluar'));
     }
 

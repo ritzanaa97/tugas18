@@ -16,7 +16,7 @@
     {{ csrf_field() }}
     <a class="btn btn-default btn-sm" href="{{ route('jenisbarang.export') }}"><i class="glyphicon glyphicon-export"></i> Export Laporan Excel</a>
     <input type="file" name="jenisbarangimport" class="btn btn-default btn-sm">
-    <input type="submit" value="SUBMIT" class="btn btn-default btn-sm">
+    <input type="submit" value="Import" class="btn btn-default btn-sm">
 </form>
             
 <div class="row">

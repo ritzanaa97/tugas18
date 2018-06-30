@@ -67,8 +67,9 @@ class PengajuanbarangController extends Controller
                         ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
                         ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
+        $serahbarang=Dtl_pengajuanbarang::all();
 
-        return view('pengajuanbarang.detail', compact('detailpengajuan'));
+        return view('pengajuanbarang.detail', compact('detailpengajuan','serahbarang'));
     }
     public function serahbarang($id)
     {
@@ -78,7 +79,8 @@ class PengajuanbarangController extends Controller
                         ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
                         ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
+                        ->where('pengajuanbarang.id_pengajuanbrg',$id)
+                        ->get();
         return view('pengajuanbarang.serahbarang', compact(['serahbarang']));
         }else{
                 return back();

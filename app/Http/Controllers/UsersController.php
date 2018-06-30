@@ -65,7 +65,6 @@ class UsersController extends Controller
             'password' => 'required|string|min:6|confirmed',
 
         ]);
-
         $nip = $request['nip'];
         $nama_lengkap = $request['nama_lengkap'];
         $bidang = $request['bidang'];
@@ -103,10 +102,10 @@ class UsersController extends Controller
         $pengguna->nip=$request->nip;
         $pengguna->level=$request->level;
         $pengguna->nama_lengkap=$request->nama_lengkap;
-        $pengguna->id_bidang=$request->id_bidang;
+        $pengguna->id_bidang=$request->bidang;
         $pengguna->save();
 
-        return redirect('/user.pengguna');
+        return redirect('/pengguna');
     }
 
    

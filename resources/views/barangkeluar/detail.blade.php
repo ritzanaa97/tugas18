@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row" style="padding-top: 50px; padding-right: 20px">
-<a class="btn btn-primary btn-sm pull-right"><i class="fa fa-print"></i> Print</a>
+
     <div class="col-md-4 text-center"><br>
         <img style="width: 80px" src="{{url('inventoriadmin/dist/css/images/garuda.png')}}">
         <h5 class="text-center">BADAN KEPEGAWAIAN NEGARA</h5>
@@ -18,10 +18,6 @@
         <br>
         <h5 style="padding-left: 50px; padding-top: 50px;">Nomor Transaksi:</h5>
     </div>
-
-    <div class="col-lg-12">
-        <h5 style="padding-left: 50px; padding-top: 25px" > Tanggal Transaksi Barang Keluar: </h5>
-    </div>
     <div class="col-lg-12">
         <div class="panel-body">
             <div class="table-responsive">
@@ -35,12 +31,14 @@
                             <th style="width: 50px">Jumlah Pengajuan</th>
                             <th style="width: 50px">Jumlah Diberikan</th>
                             <th>Keterangan</th>
+                            <th>Tanggal Serah</th>
                             <th>Sisa Akhir</th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php $no = 0;?>
                         @foreach($detailbarangkeluar as $value)
+                        @if($value->status_pengajuan!='proses')
                         <?php $no++ ;?>
                         <tr>
                             <td>{{$no}}</td>
@@ -50,8 +48,10 @@
                             <td>{{$value->jumlahpengajuan}}</td>
                             <td>{{$value->jumlahserah}}</td>
                             <td>{{$value->keterangan_barang}}</td>
+                            <td>{{ date('d-m-Y',strtotime ($value->tanggal_serah)) }}</td>
                             <td>{{$value->jumlahbarang}}</td>
                         </tr>
+                        @endif
                         @endforeach
                     </tbody>
                 </table>

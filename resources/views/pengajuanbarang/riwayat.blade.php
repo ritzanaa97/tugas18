@@ -37,7 +37,7 @@
                             <tr class="text-center">
                                 <td>{{ $no }}</td>
                                 <td>{{ $value->id_pengajuanbrg }}</td>
-                                <td>{{ $value->tanggal_pengajuan }}</td>
+                                <td>{{ date('d-m-Y',strtotime ($value->tanggal_pengajuan)) }}</td>
                                 <td>{{ $value->nama_lengkap }}</td>
                                 <td>{{ $value->nama_bidang }}</td> 
                                 <td>{{ $value->status_pengajuan }}</td>

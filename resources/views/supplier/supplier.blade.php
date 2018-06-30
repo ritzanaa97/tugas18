@@ -23,32 +23,91 @@
                                 <th class="text-center">Nama Supplier</th>
                                 <th class="text-center">Alamat Supplier</th>
                                 <th class="text-center" style="width: 10px">Ubah</th>
-                                <th class="text-center" style="width: 10px">Hapus</th>
+                                <th class="text-center" style="width: 10px">Nonaktifkan</th>
                             </tr>
                         </thead>
                         <tbody>
                             <?php $no = 0;?>
                             @foreach ($supplier as $value)
+                            @if($value->status!='tidak aktif')
                             <?php $no++ ;?>
                             <tr class="text-center">
                                 <td>{{ $no }}</td>
                                 <td>{{ $value->nama_supplier }}</td>
                                 <td>{{ $value->alamat}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#">
-                                        <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="#modal" data-target="#">
+                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#ubahsupplier{{$value->id_supplier}}">
+                                        <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="#modal" data-target="#ubahsupplier">
                                         </span> Ubah
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
-                                        <span class="glyphicon glyphicon-trash" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapususer">
-                                        </span> Hapus
+                                    <button class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#hapussupplier{{$value->id_supplier}}">
+                                        <span class="glyphicon glyphicon-ban-circle" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapussupplier">
+                                        </span> Nonaktifkan
                                     </button>
                                 </td>
                             </tr>
-                            @endforeach
+                            @endif
                         </tbody>
+                    <!-- hapus user -->
+                    <div id="hapussupplier{{$value->id_supplier}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+
+                                <input type="hidden" name="method" value="DELETE">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">
+                                            <span aria-hidden="true">x</span>
+                                        </button>
+                                        <h4 class="modal-title" id="myModalLabel">Non-aktifkan Data Supplier</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <p>Yakin menonaktifkan pengguna ini<span class="del-name" style="font-weight: bold;"></span>?</p>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{{route('supplier.hapus',[$value->id_supplier]) }}" class="btn btn-md btn-success delete">Ya</a>
+                                        <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
+                                    </div>
+                                </div>
+                        </div>
+                    </div>
+                    <!-- modal ubah supplier -->
+                    <div class="modal fade" id="ubahsupplier{{$value->id_supplier}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                        <h4 class="modal-title" id="myModalLabel">Edit Supplier Sistem Inventori</h4>
+                                </div>
+                                <form class="form-horizontal" method="POST" action="{{route('supplier.update',[$value->id_supplier]) }}">
+                                        {{ csrf_field() }}
+                                        {{ method_field('PUT') }}
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="nama_supplier" class="col-md-4 control-label">Nama Supplier</label>
+
+                                        <div class="col-md-6">
+                                            <input id="nama_supplier" type="text" class="form-control" name="nama_supplier" value="{{ $value->nama_supplier }}" required autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="alamat" class="col-md-4 control-label">Alamat</label>
+
+                                        <div class="col-md-6">
+                                            <input id="alamat" type="text" class="form-control" name="alamat" value="{{ $value->alamat }}" required autofocus>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Ubah</button>
+                                </div>
+                            </form>
+                            </div>
+                        </div>
+                    </div>
+                    @endforeach
                     </table>
 
                     <!-- model tambah -->

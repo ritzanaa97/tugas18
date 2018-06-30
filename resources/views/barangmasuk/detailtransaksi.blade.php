@@ -16,10 +16,10 @@
     </div>
     <div class="col-md-4"><br>
         <br>
-        <h5 style="padding-left: 50px; padding-top: 50px;">Nomor: </h5>
+        <h5 style="padding-left: 50px; padding-top: 50px;">Nomor:</h5>
     </div>
     <div class="col-lg-12">
-        <h5 style="padding-left: 50px; padding-top: 25px" > Tanggal Transaksi Barang Masuk: 30-05-2018</h5>
+        <h5 style="padding-left: 50px; padding-top: 25px" > Tanggal Transaksi Barang Masuk:</h5>
     </div>
     <div class="col-lg-12">
         <div class="panel-body">
@@ -55,19 +55,15 @@
         </div>
         <!-- /.panel-body -->
     </div>
-    <div class="col-md-4 text-center"><br>
+    <div class="col-md-6 text-center"><br>
         <h5 class="text-center">Kepala</h5>
-        <h5 class="text-center" style="padding-bottom: 100px">Bidang/Bagian/Subbag/Seksi</h5>
+        <h5 class="text-center" style="padding-bottom: 100px">Bidang/Bagian/Subbag/Seksi</h5><br>
+        <h5 class="text-center">{{Auth::user()->bidang->nama_bidang}}</h5>
+    </div>
+  
+    <div class="col-md-6 text-center"><br><br>
+        <h5 class="text-center" style="padding-bottom: 100px">Yang Menerima</h5><br>
         <h5 class="text-center">{{Auth::user()->nama_lengkap}}</h5>
-    </div>
-    <div class="col-md-4 text-center"><br>
-        <h5 class="text-center" style="padding-bottom: 100px">Yang menerima</h5>
-        <h5 class="text-center">(nama user)</h5>
-    </div>
-    <div class="col-md-4 text-center"><br>
-        <h5 class="text-center" style="padding-bottom: 100px">Yang memberikan</h5>
-        <h5 class="text-center">(nama user)</h5>
-        <h5 class="text-center">Tanggal: </h5>
     </div>
 </div>
 
