@@ -7,7 +7,7 @@
     </div>
  <!-- /.col-lg-12 -->
 </div>
-<form class="form-inline well well-sm" action="{{ action('BarangkeluarController@index') }}">
+<form class="form-inline well well-sm col-md-8" action="{{ action('BarangkeluarController@index') }}">
     <label for="month" class="control-label">Lihat Laporan Bulanan per</label>
     <select class="form-control" id="month" name="month">
         <option value="" selected disabled>Pilih Bulan</option>
@@ -32,9 +32,18 @@
         <option value="2021">2021</option>
     </select>
     <input class="btn btn-info btn-sm" value="Lihat Laporan" type="submit">
-    <a class="btn btn-primary btn-sm btnprn" href="{{ url('/printbarangkeluar') }}"><i class="fa fa-print"></i> Print Laporan Bulan Terpilih</a>
-    <!-- <a class="btn btn-default btn-sm">Print Laporan Tahun Terpilih</a> -->
 </form>
+    <div class="row">
+        <form action="{{ route('barangkeluar.export') }}" method="post" class="form-inline well well-sm pull-right">
+            {{ csrf_field() }}
+            @if(!empty($barangkeluar[0]->tanggal_serah))
+            <input type="hidden" name="month" value="{{ date('m',strtotime ($barangkeluar[0]->tanggal_serah)) }}">
+            @else
+            <input type="hidden" name="month" value="0">
+            @endif
+            <input class="btn btn-info btn-sm" value="Export Laporan Bulan Terpilih" type="submit">
+        </form>
+    </div>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">

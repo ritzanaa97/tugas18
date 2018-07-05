@@ -8,6 +8,7 @@ use App\User;
 use App\Pengajuanbarang;
 use App\Dtl_pengajuanbarang;
 use Auth;
+use Excel;
 
 class BarangkeluarController extends Controller
 {
@@ -56,7 +57,11 @@ class BarangkeluarController extends Controller
                         ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
                         ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
-        return view('barangkeluar.detail', compact('detailbarangkeluar'));
+        $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->orderBy('id_pengajuanbrg','desc')
+                        ->get();
+        return view('barangkeluar.detail', compact('detailbarangkeluar','pengajuanbarang'));
     }
     public function printbarangkeluar(){
         $detailbarangkeluar=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
@@ -131,5 +136,24 @@ class BarangkeluarController extends Controller
     public function destroy($id)
     {
         //
+    }
+    public function barangkeluarexport(Request $request){
+        if($request->month){
+            $exportbarang=Dtl_pengajuanbarang::select('pengajuanbarang.id_pengajuanbrg as No. Transaksi Serah Barang','nama_barang as Nama Barang','tanggal_serah as Tanggal Serah','nama_bidang as Nama Bidang yang Menerima','jumlahserah as Jumlah Keluar','jumlahbarang as Sisa Barang')
+                            ->join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
+                            ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+                            ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
+                            ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+                            ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                            ->where(\DB::raw('month(pengajuanbarang.tanggal_serah)'), $request->month)->get();
+
+            return Excel::create('data_barangkeluar',function($excel) use($exportbarang){
+                $excel->sheet('laporanbarangkeluar',function($sheet) use($exportbarang){
+                    $sheet->fromArray($exportbarang);
+                });
+            })->download('xls');
+        }else{
+            return back();
+        }
     }
 }

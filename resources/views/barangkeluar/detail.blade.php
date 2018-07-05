@@ -3,7 +3,6 @@
 @section('content')
 
 <div class="row" style="padding-top: 50px; padding-right: 20px">
-
     <div class="col-md-4 text-center"><br>
         <img style="width: 80px" src="{{url('inventoriadmin/dist/css/images/garuda.png')}}">
         <h5 class="text-center">BADAN KEPEGAWAIAN NEGARA</h5>
@@ -66,22 +65,21 @@
         <h5 class="text-center">Bidang/Bagian/Subbag/Seksi</h5>
         <br>
         <br>
-        <h5 class="text-center">(nama user)</h5>
+        <h5 class="text-center">{{Auth::user()->bidang->nama_bidang}}</h5>
     </div>
     <div class="col-md-4 text-center"><br>
         <h5 class="text-center">Yang menerima</h5>
         <br>
         <br>
         <br>
-        <h5 class="text-center">(nama user)</h5>
+        <h5 class="text-center"></h5>
     </div>
     <div class="col-md-4 text-center"><br>
         <h5 class="text-center">Yang memberikan</h5>
         <br>
         <br>
         <br>
-        <h5 class="text-center">(nama user)</h5>
-        <h5 class="text-center">Tanggal: </h5>
+        <h5 class="text-center">{{Auth::user()->nama_lengkap}}</h5>
     </div>
 </div>
 

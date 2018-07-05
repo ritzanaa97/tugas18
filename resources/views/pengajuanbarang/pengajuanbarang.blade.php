@@ -11,18 +11,17 @@
 
 <!-- tabel untuk simpan daftar barang -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Isikan form pengajuan barang
             </div>
             <!-- /.panel-heading -->
             <div class="panel-body">
-
                 <div class="form-group">
                     <label for="barang" class="col-md-4 control-label">Nama Barang</label>
                     <div class="col-md-6">
-                        <select class="form-control js-aset" name="barang" style="width:480px">
+                        <select class="form-control js-aset" name="barang">
                             <option value="" selected disabled>Pilih Barang</option>
                             @foreach($barang as $value)
                             <option value="{{$value->id_barang}}">{{$value->nama_barang}}</option>
@@ -39,24 +38,20 @@
                     </div>
                 </div>
             </div>
-            @if($value->jumlahbarang<10)
+            <!-- @if($value->jumlahpengajuan<10)
             <p class="text-danger text-center">Barang yang anda pilih akan habis di Gudang. Sisa digudang: #</p>
-            @endif
+            @endif -->
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary btn-sm tambahpengajuan">Tambahkan</button>
             </div>
-            <!-- /.panel-body -->
         </div>
-        <!-- /.panel -->
     </div>
-    <!-- /.col-lg-12 -->
-</div>
 
-<form class="form-horizontal" method="POST" action="{{ action('PengajuanbarangController@store') }}">
- {{ csrf_field() }}
-<!-- tabel untuk satu transaksi -->
-<div class="row">
-    <div class="col-lg-12">
+    <form class="form-horizontal" method="POST" action="{{ action('PengajuanbarangController@store') }}">
+     {{ csrf_field() }}
+    <!-- tabel untuk satu transaksi -->
+
+    <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Daftar Transaksi Barang Keluar

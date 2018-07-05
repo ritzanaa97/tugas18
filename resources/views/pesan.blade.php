@@ -4,9 +4,6 @@
  <div class="container">
   <div class="row">
    <div class="col-md-6">
-    <a href="{{ url('get-pesan') }}" class="btn btn-danger btn-sm">
-		Klik Disini
-	</a>
 	@if ($message = Session::get('success'))
 	  <div class="alert alert-success alert-block">
 		<button type="button" class="close" data-dismiss="alert">×</button>	
@@ -38,7 +35,7 @@
 	@if ($errors->any())
 	  <div class="alert alert-danger">
 		<button type="button" class="close" data-dismiss="alert">×</button>	
-		Please check the form below for errors
+		Data yang Anda Masukkan Salah! Silahkan Cek Kembali
 	</div>
 	@endif
   </div>

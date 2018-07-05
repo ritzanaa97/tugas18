@@ -22,8 +22,7 @@
                                 <th class="text-center" style="width: 10px">No</th>
                                 <th class="text-center">Nama Supplier</th>
                                 <th class="text-center">Alamat Supplier</th>
-                                <th class="text-center" style="width: 10px">Ubah</th>
-                                <th class="text-center" style="width: 10px">Nonaktifkan</th>
+                                <th class="text-center" style="width: 200px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -36,14 +35,12 @@
                                 <td>{{ $value->nama_supplier }}</td>
                                 <td>{{ $value->alamat}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#ubahsupplier{{$value->id_supplier}}">
-                                        <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="#modal" data-target="#ubahsupplier">
+                                    <button class="btn btn-outline btn-primary btn-sm" data-toggle="modal" data-target="#ubahsupplier{{$value->id_supplier}}">
+                                        <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#ubahsupplier">
                                         </span> Ubah
                                     </button>
-                                </td>
-                                <td>
-                                    <button class="btn btn-danger btn-sm pull-right" data-toggle="modal" data-target="#hapussupplier{{$value->id_supplier}}">
-                                        <span class="glyphicon glyphicon-ban-circle" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapussupplier">
+                                    <button class="btn btn-outline btn-danger btn-sm" data-toggle="modal" data-target="#hapussupplier{{$value->id_supplier}}">
+                                        <span class="glyphicon glyphicon-ban-circle" data-toggle="#modal" data-target="#hapussupplier">
                                         </span> Nonaktifkan
                                     </button>
                                 </td>

@@ -8,7 +8,6 @@ use App\User;
 use Auth;
 use Excel;
 
-
 class UsersController extends Controller
 {
     /**
@@ -58,7 +57,7 @@ class UsersController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nip' => 'required|string|max:255',
+            'nip' => 'required|string|max:255|unique:users',
             'nama_lengkap' => 'required|string|max:255',
             'bidang' => 'required',
             'level'=>'required',
@@ -82,7 +81,7 @@ class UsersController extends Controller
 
         $users->save();
 
-        return redirect('/pengguna');
+        return redirect('/pengguna')->with(['success' => 'Data Pengguna Berhasil di Daftarkan']);
     }
 
     public function show($id)
@@ -105,7 +104,7 @@ class UsersController extends Controller
         $pengguna->id_bidang=$request->bidang;
         $pengguna->save();
 
-        return redirect('/pengguna');
+        return redirect('/pengguna')->with(['success' => 'Data Pengguna Berhasil di Ubah']);
     }
 
    

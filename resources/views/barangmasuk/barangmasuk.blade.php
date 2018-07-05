@@ -11,8 +11,8 @@
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     Pastikan nama supplier sudah terdaftar pada Sistem. Silahkan cek link berikut. <a href="{{url('/supplier')}}" class="alert-link">Klik Disini</a>.
     </div>
-    <form class="form-inline well well-sm" action="{{ action('BarangmasukController@index') }}">
-        <label for="month" class="control-label">Lihat Laporan Bulanan per</label>
+    <form class="form-inline well well-sm col-md-6" action="{{ action('BarangmasukController@index') }}">
+        <label for="month" class="control-label">Lihat Laporan per</label>
         <select class="form-control" id="month" name="month">
             <option value="" selected disabled>Pilih Bulan</option>
             <option value="01">Januari</option>
@@ -36,10 +36,18 @@
             <option value="2021">2021</option>
         </select>
         <input class="btn btn-info btn-sm" value="Lihat Laporan" type="submit">
-        <a class="btn btn-default btn-sm" href="{{ route('barangmasuk.export') }}">Export Laporan Bulan Terpilih</a>
-        <a class="btn btn-default btn-sm">Export Laporan Tahun Terpilih</a>
     </form>
-
+    <div class="row">
+        <form action="{{ route('barangmasuk.export') }}" method="post" class="form-inline well well-sm pull-right">
+            {{ csrf_field() }}
+            @if(!empty($barangmasuk[0]->tanggal_masuk))
+            <input type="hidden" name="bulan" value="{{ date('m',strtotime ($barangmasuk[0]->tanggal_masuk)) }}">
+            @else
+            <input type="hidden" name="bulan" value="0">
+            @endif
+            <input class="btn btn-info btn-sm" value="Export Laporan Bulan Terpilih" type="submit">
+        </form>
+    </div>
     <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
@@ -58,6 +66,7 @@
                                 <th class="text-center">Tanggal Masuk</th>
                                 <th class="text-center">Pemasok</th>
                                 <th class="text-center">Aksi</th>
+                                <!-- <th class="text-center">Print</th> -->
                             </tr>
                         </thead>
                         <tbody>
@@ -72,6 +81,9 @@
                                 <td>
                                     <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangmasuk')}}/{{$value->id_brgmasuk}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                                 </td>
+                                <!-- <td>
+                                    <a class="btn btn-primary btn-sm pull-right" href="{{url('/print')}}/{{$value->id_brgmasuk}}"><i class="glyphicon glyphicon-eye-open"></i> Print</a>
+                                </td> -->
                             </tr>
                             @endforeach
                         </tbody>

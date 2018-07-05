@@ -58,7 +58,6 @@ class BarangController extends Controller
             'nama_barang' => 'required',
             'id_jenisbarang' => 'required',
             'id_satuan' => 'required',
-            'kategori' => 'required',
             'jumlahbarang' => 'required',
         ]);
 
@@ -67,7 +66,6 @@ class BarangController extends Controller
         $barang->nama_barang=$request->nama_barang;
         $barang->id_jenisbarang=$request->id_jenisbarang;
         $barang->id_satuan=$request->id_satuan;
-        $barang->kategori=$request->kategori;
         $barang->jumlahbarang=$request->jumlahbarang;
         $barang->save();
 
@@ -83,9 +81,16 @@ class BarangController extends Controller
         //
     }
 
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_barang)
     {
-        //
+        $barang=Barang::find($id_barang);
+        $barang->id_barang=$request->id_barang;
+        $barang->nama_barang=$request->nama_barang;
+        $barang->id_jenisbarang=$request->jenisbarang;
+        $barang->jumlahbarang=$request->jumlahbarang;
+        $barang->save();
+
+        return redirect('/barang');
     }
 
     public function destroy($id)
@@ -103,5 +108,52 @@ class BarangController extends Controller
                 $sheet->fromArray($barang);
             });
         })->download('xls');
+    }
+    public function barangimport(Request $request){
+        if($request->hasFile('barangimport')){
+            $simpan='';
+            $path=$request->file('barangimport')->getRealPath();
+            $data=Excel::load($path, function($reader){})->get();
+            if(!empty($data) && $data->count()){
+                foreach($data as $key=>$value){
+                    $cek=Barang::where('nama_barang',$value->nama_barang)->count();
+                    if($cek==0){
+                        if(empty(Jenisbarang::find($value->id_jenisbarang)) && empty(Satuan::find($value->id_satuan)) ){
+                            $jenisbarang = new Jenisbarang();
+                            $jenisbarang->nama_jenisbarang=$value->nama_jenisbarang;
+                            $jenisbarang->id_jenisbarang=$value->id_jenisbarang;
+                            $jenisbarang->save();
+
+                            $satuan = new Satuan();
+                            $satuan->id_satuan=$value->id_satuan;
+                            $satuan->nama_satuan=$value->nama_satuan;
+                            $satuan->save();
+
+                            $barang=new Barang();
+                            $barang['id_barang']=$request->id_jenisbarang.$request->id_barang;
+                            $barang->nama_barang=$value->nama_barang;
+                            $barang->jumlahbarang=$value->jumlahbarang;
+                            $barang->id_jenisbarang=$value->id_jenisbarang;
+                            $barang->id_satuan=$value->id_satuan;
+                            $barang->save();
+                        }elseif (!empty(Jenisbarang::find($value->id_jenisbarang)) && empty(Satuan::find($value->id_satuan)) && empty(Barang::find($value->nama_barang))) {
+                            $barang=new Barang();
+                            $barang['id_barang']=$request->id_jenisbarang.$request->id_barang;
+                            $barang->nama_barang=$value->nama_barang;
+                            $barang->jumlahbarang=$value->jumlahbarang;
+                            $barang->id_jenisbarang=$value->id_jenisbarang;
+                            $barang->id_satuan=$value->id_satuan;
+                            $barang->save();
+
+                        }elseif ($cek!=0) {
+                            Barang::where('nama_barang',$value->nama_barang)->update([
+                                'jumlahbarang'=>$value->jumlahbarang,
+                            ]);
+                        }
+                    }
+                }
+            }
+        }
+        return back();
     }
 }

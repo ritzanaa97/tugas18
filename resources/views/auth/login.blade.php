@@ -52,7 +52,7 @@
             <div class="col-md-4" style="padding-left: 50px" >
                 <div class="login-panel panel panel-default">
                     <div class="panel-heading text-center">
-                        <img style="width: 250px" src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
+                        <img style="width: 200px" src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
                         <h4>Sistem Inventory dan Pengajuan Barang</h4>
                     </div>
                     <div class="panel-body">
@@ -89,9 +89,9 @@
                         </div>
 
                         <div class="form-group text-center">
-                            <div class="col-md-8 col-md-offset-4">
+                            <div class="col-md-10 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
-                                    Login
+                                    Masuk
                                 </button>
                             </div>
                         </div>

@@ -35,7 +35,7 @@
                         <th>Kode Jenis Barang</th>
                         <th>Nama Jenis Barang</th>
                         <th>Kategori</th>
-                        <th>Aksi</th>
+                        <!-- <th>Aksi</th> -->
                     </tr>
                     <thead>
                 <tbody>
@@ -47,12 +47,12 @@
                         <td>{{ $value->id_jenisbarang }}</td>
                         <td>{{ $value->nama_jenisbarang }}</td>
                         <td>{{ $value->kategori }}</td>
-                        <td>
+                        <!-- <td>
                             <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="updatejb">
                             <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="modal" data-target="updatejb">
                             </span> Edit
                             </button>
-                        </td>
+                        </td> -->
                     </tr>
                         @endforeach
                 </tbody>

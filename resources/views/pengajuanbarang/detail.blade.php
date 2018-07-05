@@ -3,7 +3,7 @@
 @section('content')
 
 <div class="row" style="padding-top: 50px; padding-right: 20px">
-<a class="btn btn-primary btn-sm pull-right"><i class="fa fa-print"></i> Print</a>
+<!-- <a class="btn btn-primary btn-sm pull-right"><i class="fa fa-print"></i> Print</a> -->
     <div class="col-md-4 text-center"><br>
         <img style="width: 80px" src="{{url('inventoriadmin/dist/css/images/garuda.png')}}">
         <h5 class="text-center">BADAN KEPEGAWAIAN NEGARA</h5>

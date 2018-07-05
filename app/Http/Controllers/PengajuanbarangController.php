@@ -23,7 +23,8 @@ class PengajuanbarangController extends Controller
         if(Auth::user()->level=='bidang'){
         $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->where('users.id_bidang',Auth::user()->id_bidang)->get();
+                        ->where('users.id_bidang',Auth::user()->id_bidang)
+                        ->orderBy('pengajuanbarang.id_pengajuanbrg','desc')->get();
         $barang=Barang::all();
         $users=User::all();
         $detailpengajuanbarang=Dtl_pengajuanbarang::all();
@@ -51,6 +52,7 @@ class PengajuanbarangController extends Controller
             
         $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+                        ->orderBy('id_pengajuanbrg','desc')
                         ->get();
         $barang=Barang::all();
         $users=User::all();
@@ -80,8 +82,9 @@ class PengajuanbarangController extends Controller
                         ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
                         ->where('pengajuanbarang.id_pengajuanbrg',$id)
+                        ->orderBy('pengajuanbarang.id_pengajuanbrg','desc')
                         ->get();
-        return view('pengajuanbarang.serahbarang', compact(['serahbarang']));
+        return view('pengajuanbarang.serahbarang', compact('serahbarang'));
         }else{
                 return back();
             }
@@ -193,9 +196,7 @@ class PengajuanbarangController extends Controller
         $serahbarang->save();
         $id_pengajuanbrg=$serahbarang->id_pengajuanbrg;
         $i++;
-
         }
-
         $pengajuanbarang=Pengajuanbarang::find($id_pengajuanbrg);
         $pengajuanbarang->nip_serah=Auth::user()->nip;
         $pengajuanbarang->tanggal_serah=now();

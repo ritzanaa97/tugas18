@@ -10,7 +10,7 @@
 <div class="alert alert-info">
     Untuk Import Excel, Pastikan Data Jenis Barang sudah terdaftar! Silahkan cek link berikut untuk melihat Jenis Barang. <a href="{{url('/jenisbarang')}}" class="alert-link">Klik Disini</a>.
 </div>
-<form class="form-inline well well-sm pull-right" enctype="multipart/form-data" method="post" action="#">
+<form class="form-inline well well-sm pull-right" enctype="multipart/form-data" method="post" action="{{ action('BarangController@barangimport') }}">
     {{ csrf_field() }}
     <a class="btn btn-default btn-sm" href="{{ route('barang.export') }}"><i class="glyphicon glyphicon-export"></i> Export Laporan Excel</a>
     <input type="file" name="barangimport" class="btn btn-default btn-sm">
@@ -35,7 +35,7 @@
                             <th>Jenis</th>
                             <th>Satuan</th>
                             <th>Jumlah</th>
-                            <!-- <th>Aksi</th> -->
+                            <th>Aksi</th>
                         </tr>
                         <thead>
                     <tbody>
@@ -49,18 +49,76 @@
                             <td>{{ ($value->jenisbarang)?$value->jenisbarang->nama_jenisbarang:''}}</td>
                             <td>{{ ($value->satuan)?$value->satuan->nama_satuan:'-' }}</td>
                             <td>{{ $value->jumlahbarang }}</td>
-                            <!-- <td>
-                                <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#">
-                                <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="modal" data-target="#">
+                            <td>
+                                <button class="btn btn-outline btn-primary btn-sm" data-toggle="modal" data-target="#ubahbarang{{$value->id_barang}}">
+                                <span class="glyphicon glyphicon-edit" data-toggle="modal" data-target="#ubahbarang">
                                 </span> Edit
                                 </button>
-                            </td> -->
+                            </td>
                         </tr>
                             @endforeach
                     </tbody>
                 </table>
 
+        @foreach ($barang as $value)
+        <div class="modal fade" id="ubahbarang{{$value->id_barang}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Edit Barang</h4>
+                    </div>
+                        <div class="modal-body">
+                        <form class="form-horizontal" method="POST" action="{{route('barang.update',[$value->id_barang]) }}">
+                            {{ csrf_field() }}
+                            {{ method_field('PUT') }}
+                            <div class="form-group">
+                                <label for="id_barang" class="col-md-4 control-label">Kode Barang</label>
 
+                                <div class="col-md-6">
+                                    <input id="id_barang" type="text" class="form-control" name="id_barang" value="{{ $value->id_barang }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="nama_barang" class="col-md-4 control-label">Nama Barang</label>
+
+                                <div class="col-md-6">
+                                    <input id="nama_barang" type="text" class="form-control" name="nama_barang" value="{{ $value->nama_barang }}" required autofocus>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="jenisbarang" class="col-md-4 control-label">Jenis Barang</label>
+
+                                <div class="col-md-6">
+
+                                    <select name="jenisbarang" class="form-control">
+                                        <option value="" selected disabled>Pilih Jenis Barang</option>
+                                        @foreach($jenisbarang as $nama_jenisbarang)
+
+                                        <option @if($nama_jenisbarang->id_jenisbarang==$value->id_jenisbarang){{"selected"}}@endif value="{{$nama_jenisbarang->id_jenisbarang}}">{{$nama_jenisbarang->nama_jenisbarang}}</option>
+
+                                        @endforeach
+                
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="jumlahbarang" class="col-md-4 control-label">Jumlah Barang</label>
+
+                                <div class="col-md-6">
+                                    <input id="jumlahbarang" type="text" class="form-control" name="jumlahbarang" value="{{ $value->jumlahbarang }}" required autofocus>
+                                </div>
+                            </div>
+                        </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                        <button type="submit" class="btn btn-primary">Ubah</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+        @endforeach
         <!-- model tambah -->
         <div class="modal fade" id="tambahbarang" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog">
@@ -87,23 +145,13 @@
                             </div>
                             <div class="form-group{{ $errors->has('id_jenisbarang') ? ' has-error' : '' }}">
                                 <label for="id_jenisbarang" class="col-md-4 control-label">Jenis Barang</label>
-
                                 <div class="col-md-6">
-                                    <select name="id_jenisbarang" class="form-control">
+                                    <select name="id_jenisbarang" class="form-control js-aset" style="width: 250px">
                                         <option value="" selected disabled>Pilih Jenis Barang</option>
                                         @foreach($jenisbarang as $value)
-
                                         <option value='{{$value->id_jenisbarang}}'>{{$value->nama_jenisbarang}}</option>
-
                                         @endforeach
-                
                                     </select>
-
-                                    @if ($errors->has('jenisbarang'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('jenisbarang') }}</strong>
-                                        </span>
-                                    @endif
                                 </div>
                             </div>
 
@@ -139,23 +187,6 @@
                                     @if ($errors->has('satuan'))
                                         <span class="help-block">
                                             <strong>{{ $errors->first('satuan') }}</strong>
-                                        </span>
-                                    @endif
-                                </div>
-                            </div>
-
-                            <div class="form-group{{ $errors->has('kategori') ? ' has-error' : '' }}">
-                                <label for="kategori" class="col-md-4 control-label">Pilih Kategori</label>
-
-                                <div class="col-md-6">
-                                    <select name="kategori" class="form-control kategori" >
-                                        <option value="art">Alat Rumah Tangga</option>
-                                        <option value="atk">Alat Tulis Kantor</option>
-                                    </select>
-
-                                    @if ($errors->has('kategori'))
-                                        <span class="help-block">
-                                            <strong>{{ $errors->first('kategori') }}</strong>
                                         </span>
                                     @endif
                                 </div>

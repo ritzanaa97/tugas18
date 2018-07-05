@@ -181,6 +181,6 @@ class JenisbarangController extends Controller
                 }
             }
         }
-        return back();
+        return back()->with(['success' => 'Import Data Excel Berhasil']);
     }
 }

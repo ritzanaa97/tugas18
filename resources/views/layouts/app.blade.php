@@ -156,7 +156,8 @@
         </nav>
 
         <div id="page-wrapper">
-            @yield('content') 
+            @yield('content')
+            @yield('alert') 
             <!-- yield buat memanggil -->
         </div>
         <!-- /#page-wrapper -->
@@ -206,7 +207,6 @@
         });
     </script>
     @yield('jsscript')
-    @yield('alert')
 </body>
 
 </html>

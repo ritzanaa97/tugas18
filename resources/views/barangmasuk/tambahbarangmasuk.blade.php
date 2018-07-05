@@ -16,7 +16,7 @@
 
 <!-- tabel untuk simpan daftar barang -->
 <div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Masukkan barang masuk
@@ -26,7 +26,7 @@
                 <div class="form-group">
                     <label for="barang" class="col-md-4 control-label">Nama Barang</label>
                     <div class="col-md-6">
-                        <select class="form-control js-aset" name="barang" style="width:480px">
+                        <select class="form-control js-aset" name="barang">
                             <option value="" selected disabled>Pilih Barang</option>
                             @foreach($barang as $value)
                             <option value="{{$value->id_barang}}">{{$value->nama_barang}}</option>
@@ -39,7 +39,7 @@
                     <label for="jumlahbrgmsk" class="col-md-4 control-label">Jumlah Barang</label>
 
                     <div class="col-md-6">
-                        <input id="jumlahbrgmsk" type="text" class="form-control jumlahbrgmsk" name="jumlahbrgmsk" required>
+                        <input id="jumlahbrgmsk" type="number" min="0" class="form-control jumlahbrgmsk" name="jumlahbrgmsk" required>
                     </div>
                 </div>
 
@@ -52,13 +52,11 @@
         <!-- /.panel -->
     </div>
     <!-- /.col-lg-12 -->
-</div>
 
 <form class="form-horizontal" method="POST" action="{{ action('BarangmasukController@store') }}">
  {{ csrf_field() }}
 <!-- tabel untuk satu transaksi -->
-<div class="row">
-    <div class="col-lg-12">
+    <div class="col-lg-6">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Daftar Transaksi Barang Masuk
@@ -134,20 +132,18 @@
                 </div>
             </div> 
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
                 <button type="submit" class="btn btn-primary">Simpan</button>
             </div>
         </div>
     </div>
 </div>
-
 </form>
 
 @endsection
 @section('jsscript')
 <script type="text/javascript">
     $(".tambahbrgmsk").on('click', function(){
-       var namabarang = $(".namabarang option:selected")
+       var namabarang = $(".js-aset option:selected")
        var jumlahbrgmsk = $(".jumlahbrgmsk")
       if(namabarang.val() != "" && jumlahbrgmsk.val() != ""){
         var id_barang = namabarang.val()

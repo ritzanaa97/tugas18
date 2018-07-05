@@ -19,14 +19,13 @@
                     <table width="100%" class="users table table-striped table-bordered table-hover" id="dataTables-example">
                         <thead>
                             <tr>
-                                <th>No</th>
-                                <th>NIP</th>
-                                <th>Nama</th>
-                                <th>Hak Akses</th>
-                                <th>Bidang</th>
-                                <th>Status</th>
-                                <th>Ubah</th>
-                                <th class="text-center">Non-aktifkan</th>
+                                <th class="text-center">No</th>
+                                <th class="text-center">NIP</th>
+                                <th class="text-center">Nama</th>
+                                <th class="text-center">Hak Akses</th>
+                                <th class="text-center">Bidang</th>
+                                <th class="text-center">Status</th>
+                                <th class="text-center" style="width: 300px">Aksi</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -42,14 +41,16 @@
                                 <td>{{ ($value->bidang)?$value->bidang->nama_bidang:'-' }}</td>
                                 <td>{{ $value->status}}</td>
                                 <td>
-                                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
-                                        <span class="glyphicon glyphicon-edit" style="color:#FFFFFF" data-toggle="#modal" data-target="#ubahusers">
+                                    <button class="btn btn-outline btn-primary btn-sm" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
+                                        <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#ubahusers">
                                         </span> Ubah
                                     </button>
-                                </td>
-                                <td class="text-center">
-                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
-                                        <span class="glyphicon glyphicon-ban-circle" style="color:#FFFFFF" data-toggle="#modal" data-target="#hapususer">
+                                    <button class="btn btn-outline btn-primary btn-sm" data-toggle="modal" data-target="#">
+                                        <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#">
+                                        </span> Ubah Password
+                                    </button>
+                                    <button class="btn btn-outline btn-danger btn-sm" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
+                                        <span class="glyphicon glyphicon-ban-circle" data-toggle="#modal" data-target="#hapususer">
                                         </span> Non-aktifkan
                                     </button>
                                 </td>
@@ -195,8 +196,8 @@
                                             <label for="nip" class="col-md-4 control-label">NIP</label>
 
                                             <div class="col-md-6">
-                                                <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip') }}" required autofocus>
-
+                                                <input id="nip" type="text" class="form-control {{$errors->has('nip')?'is-invalid':''}}" name="nip" value="{{ old('nip') }}" required autofocus>
+                                                @if ($errors->has('nip')) style="border-color:#DF0101" @endif
                                                 @if ($errors->has('nip'))
                                                     <span class="help-block">
                                                         <strong>{{ $errors->first('nip') }}</strong>

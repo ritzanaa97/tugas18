@@ -4,12 +4,12 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use DB;
-use App\pengajuanbarang;
-use App\Barangmasuk;
+use App\Barang_masuk;
 use App\Bidang;
 use App\User;
 use Auth;
 use App\Barang;
+use App\Pengajuanbarang;
 
 class HomeController extends Controller
 {
@@ -26,6 +26,8 @@ class HomeController extends Controller
      */
     public function index()
     {
+        $barang=Barang::all();
+        $barangmasuk=Barang_masuk::all();
         $urutbidang=DB::table('pengajuanbarang')
                         ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
                         ->join('bidang','bidang.id_bidang','=','users.id_bidang')
@@ -33,9 +35,9 @@ class HomeController extends Controller
                         ->where('pengajuanbarang.status_pengajuan','=','selesai')
                         ->groupBy('bidang.nama_bidang','pengajuanbarang.id_pengajuanbrg')
                         ->orderBy('totalpengajuan','desc')->get();
-        $jumlahpengajuan=\App\Pengajuanbarang::count();
-        $barang=Barang::all();
-        return view('dashboard.dashboard', compact('jumlahpengajuan','urutbidang','barang'));
+        $pengajuanbarang=DB::table('pengajuanbarang')->where('pengajuanbarang.status_pengajuan','=','proses')->get();
+        $serahbarang=DB::table('pengajuanbarang')->where('pengajuanbarang.status_pengajuan','=','selesai')->get();
+        return view('dashboard.dashboard', compact('jumlahpengajuan','jumlahbm','urutbidang','barang','pengajuanbarang','barangmasuk','serahbarang'));
     }
     public function barang()
     {
