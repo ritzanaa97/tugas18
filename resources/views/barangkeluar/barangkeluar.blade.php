@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <h1 class="page-header text-center">Daftar Serah Barang</h1>
     </div>
- <!-- /.col-lg-12 -->
+    <!-- /.col-lg-12 -->
 </div>
 <form class="form-inline well well-sm col-md-8" action="{{ action('BarangkeluarController@index') }}">
     <label for="month" class="control-label">Lihat Laporan Bulanan per</label>
@@ -33,17 +33,17 @@
     </select>
     <input class="btn btn-info btn-sm" value="Lihat Laporan" type="submit">
 </form>
-    <div class="row">
-        <form action="{{ route('barangkeluar.export') }}" method="post" class="form-inline well well-sm pull-right">
-            {{ csrf_field() }}
-            @if(!empty($barangkeluar[0]->tanggal_serah))
-            <input type="hidden" name="month" value="{{ date('m',strtotime ($barangkeluar[0]->tanggal_serah)) }}">
-            @else
-            <input type="hidden" name="month" value="0">
-            @endif
-            <input class="btn btn-info btn-sm" value="Export Laporan Bulan Terpilih" type="submit">
-        </form>
-    </div>
+<div class="row">
+    <form action="{{ route('barangkeluar.export') }}" method="post" class="form-inline well well-sm pull-right">
+        {{ csrf_field() }}
+        @if(!empty($barangkeluar[0]->tanggal_serah))
+        <input type="hidden" name="month" value="{{ date('m',strtotime ($barangkeluar[0]->tanggal_serah)) }}">
+        @else
+        <input type="hidden" name="month" value="0">
+        @endif
+        <input class="btn btn-info btn-sm" value="Export Laporan Bulan Terpilih" type="submit">
+    </form>
+</div>
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-default">
@@ -77,16 +77,16 @@
                             <td>
                                 <a class="btn btn-primary btn-sm pull-right" href="{{url('/detailbarangkeluar')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
                             </td>
-                        @endif
-                        @endforeach
-                    </tbody>
-                </table>
-                <!-- /.table-responsive -->
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
             </div>
-            <!-- /.panel-body -->
+            <!-- /.panel -->
         </div>
-        <!-- /.panel -->
+        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.col-lg-12 -->
-</div>
-@endsection
+    @endsection

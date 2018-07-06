@@ -9,7 +9,7 @@
 </div>
 
 <div class="alert alert-info">
-    Untuk Import Excel, Pastikan Data Kolom Jenis Barang memiliki format: <b>Nama Jenis Barang dan Kategori! </b>
+    Untuk <b>Import Excel</b>. Silahkan ikuti Panduan berikut <a href="{{url('/panduan_admin')}}" class="alert-link">Klik Disini</a>.
 </div>
 
 <form class="form-inline well well-sm pull-right" enctype="multipart/form-data" method="post" action="{{ action('JenisbarangController@jenisbarangimport') }}">

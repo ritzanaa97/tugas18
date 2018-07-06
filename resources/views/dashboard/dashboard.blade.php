@@ -7,7 +7,7 @@
         <h1 class="page-header text-center">Beranda</h1>
     </div>
 
-<!-- panel untuk 'selamat datang' -->
+    <!-- panel untuk 'selamat datang' -->
     <div class="col-lg-6">
         <div class="panel panel-yellow">
             <div class="panel-heading">
@@ -29,7 +29,7 @@
                     </div>
                     <div class="col-xs-9 text-right">
                         <div class="huge">
-                        {{count($pengajuanbarang)}}
+                            {{count($pengajuanbarang)}}
                         </div>
                         <div>Pengajuan Barang</div>
                     </div>
@@ -131,20 +131,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0;?>
-                    @foreach ($barang as $value)
-                    @if($value->jumlahbarang < '10')
-                    <?php $no++ ;?>
-                    <tr>
-                        <td>{{$no}}</td>
-                        <td>{{ $value->id_barang }}</td>
-                        <td>{{ $value->nama_barang }}</td>
-                        <td>{{ ($value->jenisbarang)?$value->jenisbarang->nama_jenisbarang:''}}</td>
-                        <td>{{ ($value->satuan)?$value->satuan->nama_satuan:'-' }}</td>
-                        <td>{{ $value->jumlahbarang }}</td>
-                    </tr>
-                    @endif
-                    @endforeach
+                        <?php $no = 0;?>
+                        @foreach ($barang as $value)
+                        @if($value->jumlahbarang < '10')
+                        <?php $no++ ;?>
+                        <tr>
+                            <td>{{$no}}</td>
+                            <td>{{ $value->id_barang }}</td>
+                            <td>{{ $value->nama_barang }}</td>
+                            <td>{{ ($value->jenisbarang)?$value->jenisbarang->nama_jenisbarang:''}}</td>
+                            <td>{{ ($value->satuan)?$value->satuan->nama_satuan:'-' }}</td>
+                            <td>{{ $value->jumlahbarang }}</td>
+                        </tr>
+                        @endif
+                        @endforeach
                     </tbody>
                 </table>
                 <!-- /.table-responsive -->
@@ -177,7 +177,7 @@
                         <tr>
                             <td>{{ $no }}</td>
                             <td>{{ $value->nama_bidang }}</td>
-                            <td>{{ $value->totalpengajuan }}</td>
+                            <td>{{ count($value->totalpengajuan) }}</td>
                         </tr>
                         @endforeach
                     </tbody>
@@ -222,6 +222,74 @@
 @endif
 @if(Auth::user()->level == 'bidang')
 <div class="row">
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-green">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="glyphicon glyphicon-save fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">#</div>
+                        <div>Pengajuan Selesai</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{url('/terimabarang')}}">
+                <div class="panel-footer">
+                    <span class="pull-left">Lihat Detail</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-primary">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="glyphicon glyphicon-open fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge">{{count($serahbarang)}}</div>
+                        <div>Pengajuan di Proses</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{url('/riwayat')}}">
+                <div class="panel-footer">
+                    <span class="pull-left">Lihat Detail</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+    <div class="col-lg-3 col-md-6">
+        <div class="panel panel-red">
+            <div class="panel-heading">
+                <div class="row">
+                    <div class="col-xs-3">
+                        <i class="fa fa-cubes fa-5x"></i>
+                    </div>
+                    <div class="col-xs-9 text-right">
+                        <div class="huge"></div>
+                        <div>Cek Stok Barang</div>
+                    </div>
+                </div>
+            </div>
+            <a href="{{url('/barang')}}">
+                <div class="panel-footer">
+                    <span class="pull-left">Lihat Detail</span>
+                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+        </div>
+    </div>
+</div>
+<div class="row">
     <div class="col-lg-12">
         <div class="panel panel-danger">
             <div class="panel-heading text-center">
@@ -241,20 +309,20 @@
                         </tr>
                     </thead>
                     <tbody>
-                    <?php $no = 0;?>
-                    @foreach ($barang as $value)
-                    @if($value->jumlahbarang < '10')
-                    <?php $no++ ;?>
-                    <tr>
-                        <td>{{$no}}</td>
-                        <td>{{ $value->id_barang }}</td>
-                        <td>{{ $value->nama_barang }}</td>
-                        <td>{{ ($value->jenisbarang)?$value->jenisbarang->nama_jenisbarang:''}}</td>
-                        <td>{{ ($value->satuan)?$value->satuan->nama_satuan:'-' }}</td>
-                        <td>{{ $value->jumlahbarang }}</td>
-                    </tr>
-                    @endif
-                    @endforeach
+                        <?php $no = 0;?>
+                        @foreach ($barang as $value)
+                        @if($value->jumlahbarang < '10')
+                        <?php $no++ ;?>
+                        <tr>
+                            <td>{{$no}}</td>
+                            <td>{{ $value->id_barang }}</td>
+                            <td>{{ $value->nama_barang }}</td>
+                            <td>{{ ($value->jenisbarang)?$value->jenisbarang->nama_jenisbarang:''}}</td>
+                            <td>{{ ($value->satuan)?$value->satuan->nama_satuan:'-' }}</td>
+                            <td>{{ $value->jumlahbarang }}</td>
+                        </tr>
+                        @endif
+                        @endforeach
                     </tbody>
                 </table>
                 <!-- /.table-responsive -->
@@ -294,7 +362,7 @@
     <!-- /.col-lg-12 -->
 </div>
 @endif
-    @else
+@else
 <div class="row">
     <div class="col-lg-12">
         <h1 class="page-header text-center"><b>Maaf, akun yang anda masukkan sudah tidak aktif. Silahkan
@@ -302,5 +370,5 @@
     </div>
     <!-- /.col-lg-12 -->
 </div>
-    @endif
+@endif
 @endsection

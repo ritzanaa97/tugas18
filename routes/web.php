@@ -36,15 +36,16 @@ Route::get('/daftar', 'PengajuanbarangController@daftar');
 Route::get('/terimabarang', 'BarangmasukController@terimabarang');
 Route::get('/barangkeluar', 'BarangkeluarController@index');
 Route::get('/baranghabis', 'BaranghabisController@index');
-
-// Route::get('/pesan', 'FlashMessageController@index');
-// Route::get('/get-pesan', 'FlashMessageController@pesan');
+Route::get('/panduan_admin', 'HomeController@panduanadmin');
 
 Route::get('/register', 'UsersController@store')->name('register');
 Route::post('/tambahuser','UsersController@store')->name('tambahuser');
 Route::get('/bidang', 'UsersController@bidang');
 Route::put('/pengguna/{id_users}','UsersController@update')->name('users.update');
 Route::get('/hapususers/{nip}','UsersController@destroy')->name('users.hapus');
+Route::get('/resetpassword/{nip}','UsersController@resetpassword');
+Route::get('/ubahpassword', 'UsersController@tampilubah');
+Route::post('/simpan_ubah', 'UsersController@ubahpassword');
 
 Route::get('/supplier', 'SupplierController@index');
 Route::post('/tambahsupplier', 'SupplierController@store');

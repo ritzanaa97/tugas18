@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <h1 class="page-header text-center">Daftar Terima Barang</h1>
     </div>
- <!-- /.col-lg-12 -->
+    <!-- /.col-lg-12 -->
 </div>
 <form class="form-inline well well-sm col-md-6" action="{{ action('BarangmasukController@terimabarang') }}">
     <label for="month" class="control-label">Lihat Laporan per</label>
@@ -76,19 +76,19 @@
                             <td>{{ date('d-m-Y',strtotime ($value->tanggal_serah)) }}</td>
                             <td>{{$value->nama_lengkap}}</td>
                             <td>{{$value->status_pengajuan}}</td>
-                        <td>
-                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
-                        </td>
-                        @endif
-                        @endforeach
-                    </tbody>
-                </table>
-                <!-- /.table-responsive -->
+                            <td>
+                                <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
+                            </td>
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
             </div>
-            <!-- /.panel-body -->
+            <!-- /.panel -->
         </div>
-        <!-- /.panel -->
+        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.col-lg-12 -->
-</div>
-@endsection
+    @endsection

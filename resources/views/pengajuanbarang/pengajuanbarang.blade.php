@@ -48,10 +48,10 @@
     </div>
 
     <form class="form-horizontal" method="POST" action="{{ action('PengajuanbarangController@store') }}">
-     {{ csrf_field() }}
-    <!-- tabel untuk satu transaksi -->
+       {{ csrf_field() }}
+       <!-- tabel untuk satu transaksi -->
 
-    <div class="col-md-6">
+       <div class="col-md-6">
         <div class="panel panel-default">
             <div class="panel-heading text-center">
                 Daftar Transaksi Barang Keluar
@@ -86,20 +86,20 @@
 @section('jsscript')
 <script type="text/javascript">
     $(".tambahpengajuan").on('click', function(){
-       var namabarang = $(".js-aset option:selected")
-       var jumlahpengajuan = $(".jumlahpengajuan")
-      if(namabarang.val() != "" && jumlahpengajuan.val() != ""){
+     var namabarang = $(".js-aset option:selected")
+     var jumlahpengajuan = $(".jumlahpengajuan")
+     if(namabarang.val() != "" && jumlahpengajuan.val() != ""){
         var id_barang = namabarang.val()
         var nama_barang = namabarang.text()
         var jumlahpengajuan = jumlahpengajuan.val()
         $('#dataTables').append('<tr><td>'+id_barang+'<input name="id_barang[]" value="'+id_barang+'" style="display:none"></td><td>'+nama_barang+'<input name="nama_barang[]" value="'+nama_barang+'" style="display:none"></td><td>'+jumlahpengajuan+'<input name="jumlahpengajuan[]" value="'+jumlahpengajuan+'" style="display:none"></td></tr>');
-      }
-    });
+    }
+});
     // $(function(){
     //     $(#tanggal_masuk).datepicker({
     //         autoclose: true
     //     });
     // })
-$('js-aset').select2();
+    $('js-aset').select2();
 </script>
 @endsection

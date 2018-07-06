@@ -1,3 +1,4 @@
+
 @extends('layouts.app')
 
 @section('content')
@@ -6,11 +7,13 @@
         <h1 class="page-header text-center">Master Data Pengguna</h1>
     </div>
     <!-- /.col-lg-12 -->
-</div>      
-     <div class="row">
+</div>
+<div class="row">
+    <section class="content">  
+        @include('sweet::alert')
         <div class="col-lg-12">
-            <div class="panel panel-default">
             <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#MyModal"><i class="glyphicon glyphicon-plus"></i> Daftarkan</button>
+            <div class="panel panel-default">
                 <div class="panel-heading text-center">
                     Data Pengguna
                 </div>
@@ -41,18 +44,15 @@
                                 <td>{{ ($value->bidang)?$value->bidang->nama_bidang:'-' }}</td>
                                 <td>{{ $value->status}}</td>
                                 <td>
-                                    <button class="btn btn-outline btn-primary btn-sm" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
                                         <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#ubahusers">
                                         </span> Ubah
                                     </button>
-                                    <button class="btn btn-outline btn-primary btn-sm" data-toggle="modal" data-target="#">
-                                        <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#">
-                                        </span> Ubah Password
-                                    </button>
-                                    <button class="btn btn-outline btn-danger btn-sm" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
                                         <span class="glyphicon glyphicon-ban-circle" data-toggle="#modal" data-target="#hapususer">
                                         </span> Non-aktifkan
                                     </button>
+                                    <a href="{{url('/resetpassword/').'/'.$value->nip}}" class="btn btn-warning btn-sm"><i class="fa fa-refresh"></i> Reset Password</a>
                                 </td>
                             </tr>
                             @endif
@@ -67,12 +67,12 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Edit Pengguna Sistem Inventori</h4>
+                                    <h4 class="modal-title" id="myModalLabel">Edit Pengguna Sistem Inventori</h4>
                                 </div>
                                 <form class="form-horizontal" method="POST" action="{{route('users.update',[$value->nip]) }}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PUT') }}
-                                <div class="modal-body">
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <div class="modal-body">
                                         <div class="form-group">
                                             <label for="level" class="col-md-4 control-label">Pilih Hak Akses Pengguna</label>
 
@@ -111,16 +111,16 @@
                                                     <option @if($namabidang->id_bidang==$value->id_bidang){{"selected"}}@endif value="{{$namabidang->id_bidang}}">{{$namabidang->nama_bidang}}</option>
 
                                                     @endforeach
-                            
+
                                                 </select>
                                             </div>
                                         </div>
-                                </div> 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Ubah</button>
-                                </div>
-                            </form>
+                                    </div> 
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Ubah</button>
+                                    </div>
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -128,22 +128,22 @@
                     <div id="hapususer{{$value->nip}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
 
-                                <input type="hidden" name="method" value="DELETE">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">
-                                            <span aria-hidden="true">x</span>
-                                        </button>
-                                        <h4 class="modal-title" id="myModalLabel">Non-aktifkan Data Pengguna</h4>
-                                    </div>
-                                    <div class="modal-body">
-                                        <p>Yakin menonaktifkan pengguna ini<span class="del-name" style="font-weight: bold;"></span>?</p>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>
-                                        <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
-                                    </div>
+                            <input type="hidden" name="method" value="DELETE">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">
+                                        <span aria-hidden="true">x</span>
+                                    </button>
+                                    <h4 class="modal-title" id="myModalLabel">Non-aktifkan Data Pengguna</h4>
                                 </div>
+                                <div class="modal-body">
+                                    <p>Yakin menonaktifkan pengguna ini<span class="del-name" style="font-weight: bold;"></span>?</p>
+                                </div>
+                                <div class="modal-footer">
+                                    <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>
+                                    <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     @endforeach
@@ -154,7 +154,7 @@
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title text-center" id="myModalLabel">Daftarkan Pengguna Sistem Inventori</h4>
+                                    <h4 class="modal-title text-center" id="myModalLabel">Daftarkan Pengguna Sistem Inventori</h4>
                                 </div>
                                 <div class="modal-body">
                                     <form class="form-horizontal" method="POST" action="{{ route('tambahuser') }}">
@@ -171,9 +171,9 @@
                                                 </select>
 
                                                 @if ($errors->has('level'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('level') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('level') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
@@ -185,23 +185,21 @@
                                                 <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required autofocus>
 
                                                 @if ($errors->has('nama_lengkap'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('nama_lengkap') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('nama_lengkap') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
 
                                         <div class="form-group{{ $errors->has('nip') ? ' has-error' : '' }}">
                                             <label for="nip" class="col-md-4 control-label">NIP</label>
-
                                             <div class="col-md-6">
                                                 <input id="nip" type="text" class="form-control {{$errors->has('nip')?'is-invalid':''}}" name="nip" value="{{ old('nip') }}" required autofocus>
-                                                @if ($errors->has('nip')) style="border-color:#DF0101" @endif
                                                 @if ($errors->has('nip'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('nip') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('nip') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
@@ -218,13 +216,13 @@
                                                     <option value='{{$value->id_bidang}}'>{{$value->nama_bidang}}</option>
 
                                                     @endforeach
-                            
+
                                                 </select>
 
                                                 @if ($errors->has('bidang'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('bidang') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('bidang') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
@@ -236,9 +234,9 @@
                                                 <input id="password" type="password" class="form-control" name="password" required>
 
                                                 @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('password') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('password') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
@@ -250,15 +248,14 @@
                                                 <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
                                             </div>
                                         </div>
-                                
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Daftarkan</button>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Daftarkan</button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <!-- /.panel-body -->
@@ -267,6 +264,7 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+</section>
 @endsection
 @section('jsscript')
 <script type="text/javascript">

@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Supplier;
 use App\User;
 use Auth;
-
+use Alert;
 class SupplierController extends Controller
 {
     /**
@@ -18,10 +18,11 @@ class SupplierController extends Controller
     public function index()
     {
         if(Auth::user()->level=='admin'){
-        $supplier = Supplier::all();
-        $user=User::all();
-        return view('supplier.supplier', compact('supplier','user'));
+            $supplier = Supplier::all();
+            $user=User::all();
+            return view('supplier.supplier', compact('supplier','user'));
         }else{
+            
             return back();
         }
     }
@@ -58,6 +59,7 @@ class SupplierController extends Controller
         $supplier->alamat = $alamat;
 
         $supplier->save();
+        Alert::success('Success Message', 'Optional Title');
         return redirect('/supplier');
     }
 
@@ -96,7 +98,7 @@ class SupplierController extends Controller
         $supplier->nama_supplier=$request->nama_supplier;
         $supplier->alamat=$request->alamat;
         $supplier->save();
-
+        Alert::success('Success Message', 'Optional Title');
         return redirect('/supplier');
     }
 

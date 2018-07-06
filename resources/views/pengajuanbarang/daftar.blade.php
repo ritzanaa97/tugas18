@@ -5,7 +5,7 @@
     <div class="col-lg-12">
         <h1 class="page-header text-center">Daftar Pengajuan Barang</h1>
     </div>
- <!-- /.col-lg-12 -->
+    <!-- /.col-lg-12 -->
 </div>
 <div class="row">
     <div class="col-lg-12">
@@ -38,22 +38,22 @@
                             <td>{{ date('d-m-Y',strtotime ($value->tanggal_pengajuan)) }}</td>
                             <td>{{$value->nama_lengkap}}</td>
                             <td>{{$value->nama_bidang}}</td>
-                        <td>
-                            <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Isi Form</a>
-                        </td>
-                        <td>
-                            <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
-                        </td>
-                        @endif
-                        @endforeach
-                    </tbody>
-                </table>
-                <!-- /.table-responsive -->
+                            <td>
+                                <a class="btn btn-success btn-sm" href="{{url('/serahbarang')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-check"></i> Isi Form</a>
+                            </td>
+                            <td>
+                                <a class="btn btn-primary btn-sm pull-right" href="{{url('/lihatdetail')}}/{{$value->id_pengajuanbrg}}"><i class="glyphicon glyphicon-eye-open"></i> Lihat Detail</a>
+                            </td>
+                            @endif
+                            @endforeach
+                        </tbody>
+                    </table>
+                    <!-- /.table-responsive -->
+                </div>
+                <!-- /.panel-body -->
             </div>
-            <!-- /.panel-body -->
+            <!-- /.panel -->
         </div>
-        <!-- /.panel -->
+        <!-- /.col-lg-12 -->
     </div>
-    <!-- /.col-lg-12 -->
-</div>
-@endsection
+    @endsection

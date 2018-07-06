@@ -35,10 +35,10 @@ class JenisbarangController extends Controller
     }
     public function barang(){
         if(Auth::user()->level=='admin'){
-        $barang=Barang::all();
-        $jenisbarang = Jenisbarang::all();
-        $satuan = Satuan::all();
-        return view('jenisbarang.barang', compact('barang', 'jenisbarang', 'satuan'));
+            $barang=Barang::all();
+            $jenisbarang = Jenisbarang::all();
+            $satuan = Satuan::all();
+            return view('jenisbarang.barang', compact('barang', 'jenisbarang', 'satuan'));
         }else{
             return back();
         }
@@ -47,9 +47,9 @@ class JenisbarangController extends Controller
     public function jenisbarang()
     {
         if(Auth::user()->level=='admin'){
-        $barang = Barang::all();
-        $jenisbarang=Jenisbarang::all();
-        return view('jenisbarang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
+            $barang = Barang::all();
+            $jenisbarang=Jenisbarang::all();
+            return view('jenisbarang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
         }else{
             return back();
         }
@@ -170,12 +170,12 @@ class JenisbarangController extends Controller
                         }else{
                             $last_id = (!(empty($last_id))) ? JenisbarangController::autonumber($simpan,3,3) : $kategori.'001'; 
                         }
-                    $jenisbarang->id_jenisbarang=$last_id;
-                    $jenisbarang->nama_jenisbarang=$value->nama_jenis_barang;
-                    $jenisbarang->kategori=$value->jenis_barang;
-                    $jenisbarang->save();
+                        $jenisbarang->id_jenisbarang=$last_id;
+                        $jenisbarang->nama_jenisbarang=$value->nama_jenis_barang;
+                        $jenisbarang->kategori=$value->jenis_barang;
+                        $jenisbarang->save();
 
-                    $simpan=$jenisbarang->id_jenisbarang;
+                        $simpan=$jenisbarang->id_jenisbarang;
 
                     }
                 }

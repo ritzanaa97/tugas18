@@ -21,15 +21,15 @@ class PengajuanbarangController extends Controller
     }
     public function riwayat(){ /*ini untuk view di menu riwayat*/
         if(Auth::user()->level=='bidang'){
-        $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
-                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->where('users.id_bidang',Auth::user()->id_bidang)
-                        ->orderBy('pengajuanbarang.id_pengajuanbrg','desc')->get();
-        $barang=Barang::all();
-        $users=User::all();
-        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+            $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+            ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+            ->where('users.id_bidang',Auth::user()->id_bidang)
+            ->orderBy('pengajuanbarang.id_pengajuanbrg','desc')->get();
+            $barang=Barang::all();
+            $users=User::all();
+            $detailpengajuanbarang=Dtl_pengajuanbarang::all();
 
-        return view('Pengajuanbarang.riwayat', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
+            return view('Pengajuanbarang.riwayat', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
         }else{
             return back();
         }
@@ -37,11 +37,11 @@ class PengajuanbarangController extends Controller
     public function index()  /*ini untuk view di menu pengajuanbarang*/
     {
         if(Auth::user()->level=='bidang'){
-        $pengajuanbarang=Pengajuanbarang::all();
-        $barang=Barang::all();
-        $users=User::all();
-        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
-        return view('Pengajuanbarang.pengajuanbarang', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
+            $pengajuanbarang=Pengajuanbarang::all();
+            $barang=Barang::all();
+            $users=User::all();
+            $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+            return view('Pengajuanbarang.pengajuanbarang', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
         }else{
             return back();
         }
@@ -50,25 +50,25 @@ class PengajuanbarangController extends Controller
     {
         if(Auth::user()->level=='admin'){
             
-        $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
-                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->orderBy('id_pengajuanbrg','desc')
-                        ->get();
-        $barang=Barang::all();
-        $users=User::all();
-        $detailpengajuanbarang=Dtl_pengajuanbarang::all();
-        return view('Pengajuanbarang.daftar', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
+            $pengajuanbarang=Pengajuanbarang::join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+            ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+            ->orderBy('id_pengajuanbrg','desc')
+            ->get();
+            $barang=Barang::all();
+            $users=User::all();
+            $detailpengajuanbarang=Dtl_pengajuanbarang::all();
+            return view('Pengajuanbarang.daftar', compact('pengajuanbarang','barang', 'users','detailpengajuanbarang'));
         }else{
             return back();
         }
     }
     public function detailpengajuanbarang($id){ /*ini untuk view di menu detail pengajuan barang*/
         $detailpengajuan=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
-                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
-                        ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
-                        ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
-                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
+        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+        ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
+        ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+        ->where('pengajuanbarang.id_pengajuanbrg',$id)->get();
         $serahbarang=Dtl_pengajuanbarang::all();
 
         return view('pengajuanbarang.detail', compact('detailpengajuan','serahbarang'));
@@ -76,18 +76,18 @@ class PengajuanbarangController extends Controller
     public function serahbarang($id)
     {
         if(Auth::user()->level=='admin'){
-        $serahbarang=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
-                        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
-                        ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
-                        ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
-                        ->join('bidang','bidang.id_bidang','=','users.id_bidang')
-                        ->where('pengajuanbarang.id_pengajuanbrg',$id)
-                        ->orderBy('pengajuanbarang.id_pengajuanbrg','desc')
-                        ->get();
-        return view('pengajuanbarang.serahbarang', compact('serahbarang'));
+            $serahbarang=Dtl_pengajuanbarang::join('barang','barang.id_barang','=','detailpengajuanbrg.id_barang')
+            ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
+            ->join('pengajuanbarang','pengajuanbarang.id_pengajuanbrg','=','detailpengajuanbrg.id_pengajuanbrg')
+            ->join('users','users.nip','=','pengajuanbarang.nip_mengajukan')
+            ->join('bidang','bidang.id_bidang','=','users.id_bidang')
+            ->where('pengajuanbarang.id_pengajuanbrg',$id)
+            ->orderBy('pengajuanbarang.id_pengajuanbrg','desc')
+            ->get();
+            return view('pengajuanbarang.serahbarang', compact('serahbarang'));
         }else{
-                return back();
-            }
+            return back();
+        }
     }
     
     public function getNewCodePB(){
@@ -125,10 +125,10 @@ class PengajuanbarangController extends Controller
     {
         $request['id_pengajuanbrg']=$this->getNewCodePB();
         Pengajuanbarang::insert([
-                    'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
-                    'nip_mengajukan'=>Auth::user()->nip,
-                    'tanggal_pengajuan'=>now(),
-                ]);
+            'id_pengajuanbrg'=>$request['id_pengajuanbrg'],
+            'nip_mengajukan'=>Auth::user()->nip,
+            'tanggal_pengajuan'=>now(),
+        ]);
 
         if(isset($request->id_barang)){
             foreach ($request->id_barang as $key => $value) {
@@ -183,19 +183,19 @@ class PengajuanbarangController extends Controller
             $serahbarang=Dtl_pengajuanbarang::find($id_detailpengajuanbrg);
             $serahbarang->jumlahserah=$jumlahserah[$i];
             $serahbarang->keterangan_barang=$keterangan[$i];
-        
-        if($jumlahserah[$i]>=1){
-            $serahbarang->status_barang='terima';
-            $barang=Barang::find($serahbarang->id_barang);
-            $barang->jumlahbarang=$barang->jumlahbarang-$request->jumlahserah[$i];
-            $barang->save();
-        }else{
-            $serahbarang->status_barang='tolak';
-        }
+            
+            if($jumlahserah[$i]>=1){
+                $serahbarang->status_barang='terima';
+                $barang=Barang::find($serahbarang->id_barang);
+                $barang->jumlahbarang=$barang->jumlahbarang-$request->jumlahserah[$i];
+                $barang->save();
+            }else{
+                $serahbarang->status_barang='tolak';
+            }
 
-        $serahbarang->save();
-        $id_pengajuanbrg=$serahbarang->id_pengajuanbrg;
-        $i++;
+            $serahbarang->save();
+            $id_pengajuanbrg=$serahbarang->id_pengajuanbrg;
+            $i++;
         }
         $pengajuanbarang=Pengajuanbarang::find($id_pengajuanbrg);
         $pengajuanbarang->nip_serah=Auth::user()->nip;

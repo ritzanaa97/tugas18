@@ -1,16 +1,18 @@
-@extends('layouts.app')
 
+@extends('layouts.app')
+@include('sweet::alert')
 @section('content')
-<div class="row">
-    <div class="col-lg-12">
-        <h1 class="page-header text-center">Master Data Supplier</h1>
-    </div>
-    <!-- /.col-lg-12 -->
-</div>      
-     <div class="row">
+<section class="content">
+    <div class="row">
+        <div class="col-lg-12">
+            <h1 class="page-header text-center">Master Data Supplier</h1>
+        </div>
+        <!-- /.col-lg-12 -->
+    </div>      
+    <div class="row">
         <div class="col-lg-12">
             <div class="panel panel-default">
-                    <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#tambahsupplier"><i class="glyphicon glyphicon-plus"></i> Tambahkan</button>
+                <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#tambahsupplier"><i class="glyphicon glyphicon-plus"></i> Tambahkan</button>
                 <div class="panel-heading text-center">
                     Data Supplier
                 </div>
@@ -35,11 +37,11 @@
                                 <td>{{ $value->nama_supplier }}</td>
                                 <td>{{ $value->alamat}}</td>
                                 <td>
-                                    <button class="btn btn-outline btn-primary btn-sm" data-toggle="modal" data-target="#ubahsupplier{{$value->id_supplier}}">
+                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ubahsupplier{{$value->id_supplier}}">
                                         <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#ubahsupplier">
                                         </span> Ubah
                                     </button>
-                                    <button class="btn btn-outline btn-danger btn-sm" data-toggle="modal" data-target="#hapussupplier{{$value->id_supplier}}">
+                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapussupplier{{$value->id_supplier}}">
                                         <span class="glyphicon glyphicon-ban-circle" data-toggle="#modal" data-target="#hapussupplier">
                                         </span> Nonaktifkan
                                     </button>
@@ -47,9 +49,9 @@
                             </tr>
                             @endif
                         </tbody>
-                    <!-- hapus user -->
-                    <div id="hapussupplier{{$value->id_supplier}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
+                        <!-- hapus user -->
+                        <div id="hapussupplier{{$value->id_supplier}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                            <div class="modal-dialog">
 
                                 <input type="hidden" name="method" value="DELETE">
                                 <div class="modal-content">
@@ -67,53 +69,55 @@
                                         <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
                                     </div>
                                 </div>
+                            </div>
                         </div>
-                    </div>
+                        @endforeach
+                    </table>
+                    
                     <!-- modal ubah supplier -->
+                    @foreach ($supplier as $value)
                     <div class="modal fade" id="ubahsupplier{{$value->id_supplier}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title" id="myModalLabel">Edit Supplier Sistem Inventori</h4>
+                                    <h4 class="modal-title" id="myModalLabel">Edit Supplier Sistem Inventori</h4>
                                 </div>
                                 <form class="form-horizontal" method="POST" action="{{route('supplier.update',[$value->id_supplier]) }}">
-                                        {{ csrf_field() }}
-                                        {{ method_field('PUT') }}
-                                <div class="modal-body">
-                                    <div class="form-group">
-                                        <label for="nama_supplier" class="col-md-4 control-label">Nama Supplier</label>
+                                    {{ csrf_field() }}
+                                    {{ method_field('PUT') }}
+                                    <div class="modal-body">
+                                        <div class="form-group">
+                                            <label for="nama_supplier" class="col-md-4 control-label">Nama Supplier</label>
 
-                                        <div class="col-md-6">
-                                            <input id="nama_supplier" type="text" class="form-control" name="nama_supplier" value="{{ $value->nama_supplier }}" required autofocus>
+                                            <div class="col-md-6">
+                                                <input id="nama_supplier" type="text" class="form-control" name="nama_supplier" value="{{ $value->nama_supplier }}" required autofocus>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div class="form-group">
-                                        <label for="alamat" class="col-md-4 control-label">Alamat</label>
+                                        <div class="form-group">
+                                            <label for="alamat" class="col-md-4 control-label">Alamat</label>
 
-                                        <div class="col-md-6">
-                                            <input id="alamat" type="text" class="form-control" name="alamat" value="{{ $value->alamat }}" required autofocus>
+                                            <div class="col-md-6">
+                                                <input id="alamat" type="text" class="form-control" name="alamat" value="{{ $value->alamat }}" required autofocus>
+                                            </div>
                                         </div>
+                                    </div> 
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                        <button type="submit" class="btn btn-primary">Ubah</button>
                                     </div>
-                                </div> 
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Ubah</button>
-                                </div>
-                            </form>
+                                </form>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                    </table>
-
                     <!-- model tambah -->
                     <div class="modal fade" id="tambahsupplier" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                         <div class="modal-dialog">
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                        <h4 class="modal-title text-center" id="myModalLabel">Tambahkan Supplier</h4>
+                                    <h4 class="modal-title text-center" id="myModalLabel">Tambahkan Supplier</h4>
                                 </div>
                                 <div class="modal-body">
                                     <form class="form-horizontal" method="POST" action="{{ action('SupplierController@store') }}">
@@ -126,9 +130,9 @@
                                                 <input id="nama_supplier" type="text" class="form-control" name="nama_supplier" value="{{ old('nama_supplier') }}" required autofocus>
 
                                                 @if ($errors->has('nama_supplier'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('nama_supplier') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('nama_supplier') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
@@ -139,22 +143,22 @@
                                                 <input id="alamat" type="text" class="form-control" name="alamat" value="{{ old('alamat') }}" required autofocus>
 
                                                 @if ($errors->has('alamat'))
-                                                    <span class="help-block">
-                                                        <strong>{{ $errors->first('alamat') }}</strong>
-                                                    </span>
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('alamat') }}</strong>
+                                                </span>
                                                 @endif
                                             </div>
                                         </div>
 
-                                
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                    <button type="submit" class="btn btn-primary">Tambahkan</button>
+                                        
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                            <button type="submit" class="btn btn-primary">Tambahkan</button>
+                                        </div>
+                                    </form>
                                 </div>
-                            </form>
                             </div>
                         </div>
-                    </div>
                     </div>
                 </div>
                 <!-- /.panel-body -->
@@ -163,4 +167,5 @@
         </div>
         <!-- /.col-lg-12 -->
     </div>
+</section>
 @endsection

@@ -20,11 +20,11 @@ class BarangController extends Controller
      */
     public function tampilbarang(){
         if(Auth::user()->level=='admin'){
-        $barang=Barang::all();
-        $jenisbarang = Jenisbarang::all();
-        $satuan = Satuan::all();
-        
-        return view('barang.barang', compact('barang', 'jenisbarang', 'satuan'));
+            $barang=Barang::all();
+            $jenisbarang = Jenisbarang::all();
+            $satuan = Satuan::all();
+            
+            return view('barang.barang', compact('barang', 'jenisbarang', 'satuan'));
         }else{
             return back();
         }
@@ -36,9 +36,9 @@ class BarangController extends Controller
     public function jenisbarang()
     {
         if(Auth::user()->level=='admin'){
-        $barang = Barang::all();
-        $jenisbarang=Jenisbarang::all();
-        return view('barang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
+            $barang = Barang::all();
+            $jenisbarang=Jenisbarang::all();
+            return view('barang.jenisbarang',['jenisbarang'=>$jenisbarang,'barang'=>$barang]);
         }else{
             return back();
         }
@@ -100,8 +100,8 @@ class BarangController extends Controller
     public function barangexport(){
 
         $barang=Barang::select('id_barang as Kode Barang','nama_barang as Nama Barang','nama_jenisbarang as Jenis Barang','nama_satuan as Satuan','jumlahbarang as Jumlah Barang')
-                    ->join('jenisbarang','jenisbarang.id_jenisbarang','=','barang.id_jenisbarang')
-                    ->join('satuan','satuan.id_satuan','=','barang.id_satuan')->get();
+        ->join('jenisbarang','jenisbarang.id_jenisbarang','=','barang.id_jenisbarang')
+        ->join('satuan','satuan.id_satuan','=','barang.id_satuan')->get();
 
         return Excel::create('data_barang',function($excel) use($barang){
             $excel->sheet('mysheet',function($sheet) use($barang){
@@ -119,22 +119,14 @@ class BarangController extends Controller
                     $cek=Barang::where('nama_barang',$value->nama_barang)->count();
                     if($cek==0){
                         if(empty(Jenisbarang::find($value->id_jenisbarang)) && empty(Satuan::find($value->id_satuan)) ){
-                            $jenisbarang = new Jenisbarang();
-                            $jenisbarang->nama_jenisbarang=$value->nama_jenisbarang;
-                            $jenisbarang->id_jenisbarang=$value->id_jenisbarang;
-                            $jenisbarang->save();
-
-                            $satuan = new Satuan();
-                            $satuan->id_satuan=$value->id_satuan;
-                            $satuan->nama_satuan=$value->nama_satuan;
-                            $satuan->save();
-
-                            $barang=new Barang();
-                            $barang['id_barang']=$request->id_jenisbarang.$request->id_barang;
-                            $barang->nama_barang=$value->nama_barang;
-                            $barang->jumlahbarang=$value->jumlahbarang;
-                            $barang->id_jenisbarang=$value->id_jenisbarang;
-                            $barang->id_satuan=$value->id_satuan;
+                            $jenisbarang = Jenisbarang::where('nama_jenisbarang', $value->jenis_barang)->get();
+                            $satuan = Satuan::where('nama_satuan', $value->satuan)->get();
+                            $barang = new Barang();
+                            $barang->id_barang      = $jenisbarang->first()->id_jenisbarang.$value->kode_barang;
+                            $barang->nama_barang    = $value->nama_barang;
+                            $barang->jumlahbarang   = $value->jumlah_barang;
+                            $barang->id_jenisbarang = $jenisbarang->first()->id_jenisbarang;
+                            $barang->id_satuan      = $satuan->first()->id_satuan;
                             $barang->save();
                         }elseif (!empty(Jenisbarang::find($value->id_jenisbarang)) && empty(Satuan::find($value->id_satuan)) && empty(Barang::find($value->nama_barang))) {
                             $barang=new Barang();

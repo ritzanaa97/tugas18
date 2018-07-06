@@ -2,25 +2,25 @@
 <html lang="en">
 <head>
     <style type="text/css">
-        body{
-            background: url('inventoriadmin/dist/css/images/background.jpg') fixed no-repeat top center;
-            background-size: 100% 100%;
-            background-color: rgba(255,255,255,0.8);
-        }
-    </style>
+    body{
+        background: url('inventoriadmin/dist/css/images/background.jpg') fixed no-repeat top center;
+        background-size: 100% 100%;
+        background-color: rgba(255,255,255,0.8);
+    }
+</style>
 
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <script language='JavaScript'>
-        var tulisan=" || Sistem Inventori dan Pengajuan Barang || Kantor Regional I BKN Yogyakarta";
-        var kecepatan=100;var fress=null;function jalan() { 
-            document.title=tulisan;
-            tulisan=tulisan.substring(1,tulisan.length)+tulisan.charAt(0);
-            fress=setTimeout("jalan()",kecepatan);}jalan();
+<script language='JavaScript'>
+    var tulisan=" || Sistem Inventori dan Pengajuan Barang || Kantor Regional I BKN Yogyakarta";
+    var kecepatan=100;var fress=null;function jalan() { 
+        document.title=tulisan;
+        tulisan=tulisan.substring(1,tulisan.length)+tulisan.charAt(0);
+        fress=setTimeout("jalan()",kecepatan);}jalan();
     </script>
     <!-- Bootstrap Core CSS -->
     <link href="{{url('inventoriadmin/vendor/bootstrap/css/bootstrap.min.css')}}" rel="stylesheet">
@@ -47,61 +47,66 @@
 </head>
 
 <body>
-<div class="container" style="width: 1900px; padding-top: 90px">
-    <div class="row" >
+    <div class="container" style="width: 1900px; padding-top: 90px">
+        <div class="row" >
             <div class="col-md-4" style="padding-left: 50px" >
                 <div class="login-panel panel panel-default">
-                    <div class="panel-heading text-center">
-                        <img style="width: 200px" src="{{url('inventoriadmin/dist/css/images/logo.png')}}">
-                        <h4>Sistem Inventory dan Pengajuan Barang</h4>
+                    <div class="panel-heading">
+                        <div class="col-md-2">
+                            <img style="width: 100px" src="{{url('inventoriadmin/dist/css/images/garudawarna.png')}}">  
+                        </div>
+                        <div class="text-center">
+                            <h4>Sistem Inventory dan Pengajuan Barang</h4>
+                            <h4>Badan Kepegawaian Negara</h4>
+                        </div>
                     </div>
                     <div class="panel-body">
                         <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
-                        {{ csrf_field() }}
+                            <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                                {{ csrf_field() }}
 
-                        <div class="form-group{{ $errors->has('nip') ? ' has-error' : '' }}">
-                            <label for="username" class="col-md-4 control-label">NIP</label>
+                                <div class="form-group{{ $errors->has('nip') ? ' has-error' : '' }}">
+                                    <label for="username" class="col-md-4 control-label">NIP</label>
 
-                            <div class="col-md-6">
-                                <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip') }}" required autofocus>
+                                    <div class="col-md-6">
+                                        <input id="nip" type="text" class="form-control" name="nip" value="{{ old('nip') }}" required autofocus>
 
-                                @if ($errors->has('nip'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('nip') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
+                                        @if ($errors->has('nip'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('nip') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                    <label for="password" class="col-md-4 control-label">Password</label>
+
+                                    <div class="col-md-6">
+                                        <input id="password" type="password" class="form-control" name="password" required>
+
+                                        @if ($errors->has('password'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('password') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+
+                                <div class="form-group text-center">
+                                    <div class="col-md-10 col-md-offset-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            Masuk
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-
-                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                @if ($errors->has('password'))
-                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group text-center">
-                            <div class="col-md-10 col-md-offset-4">
-                                <button type="submit" class="btn btn-primary">
-                                    Masuk
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
                     </div>
                 </div>
             </div>
         </div>
-</div>
+    </div>
     <!-- jQuery -->
     <script src="{{url('inventoriadmin/vendor/jquery/jquery.min.js')}}"></script>
 

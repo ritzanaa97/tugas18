@@ -7,7 +7,9 @@ use App\Bidang;
 use App\User;
 use Auth;
 use Excel;
-
+use Alert;
+use DB;
+use Hash;
 class UsersController extends Controller
 {
     /**
@@ -22,17 +24,17 @@ class UsersController extends Controller
     public function register()
     {
         if(Auth::user()->level=='admin'){
-        $bidang=\DB::table('bidang')->get();
-        return view('/user.pengguna',compact('bidang'));
+            $bidang=\DB::table('bidang')->get();
+            return view('/user.pengguna',compact('bidang'));
         }else{
             return back();
         }
     }
     public function masterusers(){
         if(Auth::user()->level=='admin'){
-        $users = User::all();
-        $bidang=Bidang::all();
-        return view('user.pengguna',compact('users','bidang'));
+            $users = User::all();
+            $bidang=Bidang::all();
+            return view('user.pengguna',compact('users','bidang'));
         }else{
             return back();
         }
@@ -41,19 +43,36 @@ class UsersController extends Controller
     {
         return \DB::table('bidang')->get();
     }
-    // public function seksi()
-    // {
-    //     return \DB::table('seksi')->join('bidang','bidang.id_bidang=seksi.id_bidang')->get();
-    // }
+    
     public function index()
     {
-        //
+        
     }
     public function create()
     {
         //
     }
-
+    public function tampilubah(){
+        if(Auth::user()->level=='bidang'){
+            $users = User::all();
+            $bidang=Bidang::all();
+            return view('user.ubahpassword',compact('users','bidang'));
+        }else{
+            return back();
+        }
+    }
+    public function ubahpassword(Request $request){
+        if(Auth::user()->level=='bidang'){
+            $ubahpassword=User::find(Auth::user()->nip);
+            if(Hash::check($request->password_lama, $ubahpassword->password)){
+                $ubahpassword->password=bcrypt($request->password_baru);
+                $ubahpassword->save();
+                return view('user.ubahpassword');   
+            }
+        }else{
+            return back();
+        }
+    }
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -62,8 +81,8 @@ class UsersController extends Controller
             'bidang' => 'required',
             'level'=>'required',
             'password' => 'required|string|min:6|confirmed',
-
         ]);
+
         $nip = $request['nip'];
         $nama_lengkap = $request['nama_lengkap'];
         $bidang = $request['bidang'];
@@ -81,7 +100,8 @@ class UsersController extends Controller
 
         $users->save();
 
-        return redirect('/pengguna')->with(['success' => 'Data Pengguna Berhasil di Daftarkan']);
+        Alert::success('Data Pengguna Berhasil di Daftarkan');
+        return redirect('/pengguna');
     }
 
     public function show($id)
@@ -93,8 +113,12 @@ class UsersController extends Controller
     {
 
     }
+    public function resetpassword($nip){
+        $user=DB::table('users')->where('nip',$nip)->update(['password' => bcrypt($nip)]);
+        return redirect('/pengguna');
 
-    
+    }
+
     public function update(Request $request, $nip)
     {
         $pengguna=User::find($nip);
@@ -104,14 +128,17 @@ class UsersController extends Controller
         $pengguna->id_bidang=$request->bidang;
         $pengguna->save();
 
-        return redirect('/pengguna')->with(['success' => 'Data Pengguna Berhasil di Ubah']);
+        Alert::success('Data Pengguna Berhasil di Ubah');
+        return redirect('/pengguna');
     }
 
-   
+
     public function destroy($nip)
     {
         $hapususers=User::where('nip',$nip)
         ->update(['status'=>'tidak aktif']);
+
+        Alert::success('Data Pengguna Berhasil di Nonaktifkan');
         return redirect('/pengguna'); 
     }
 }
