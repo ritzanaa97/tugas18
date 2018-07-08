@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('content')
@@ -9,262 +8,260 @@
     <!-- /.col-lg-12 -->
 </div>
 <div class="row">
-    <section class="content">  
-        @include('sweet::alert')
-        <div class="col-lg-12">
-            <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#MyModal"><i class="glyphicon glyphicon-plus"></i> Daftarkan</button>
-            <div class="panel panel-default">
-                <div class="panel-heading text-center">
-                    Data Pengguna
-                </div>
-                <!-- /.panel-heading -->
-                <div class="panel-body">
-                    <table width="100%" class="users table table-striped table-bordered table-hover" id="dataTables-example">
-                        <thead>
-                            <tr>
-                                <th class="text-center">No</th>
-                                <th class="text-center">NIP</th>
-                                <th class="text-center">Nama</th>
-                                <th class="text-center">Hak Akses</th>
-                                <th class="text-center">Bidang</th>
-                                <th class="text-center">Status</th>
-                                <th class="text-center" style="width: 300px">Aksi</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <?php $no = 0;?>
-                            @foreach ($users as $value)
-                            @if($value->status!='tidak aktif')
-                            <?php $no++ ;?>
-                            <tr >
-                                <td>{{ $no }}</td>
-                                <td>{{ $value->nip }}</td>
-                                <td>{{ $value->nama_lengkap }}</td>
-                                <td>{{ $value->level}}</td>
-                                <td>{{ ($value->bidang)?$value->bidang->nama_bidang:'-' }}</td>
-                                <td>{{ $value->status}}</td>
-                                <td>
-                                    <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
-                                        <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#ubahusers">
-                                        </span> Ubah
-                                    </button>
-                                    <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
-                                        <span class="glyphicon glyphicon-ban-circle" data-toggle="#modal" data-target="#hapususer">
-                                        </span> Non-aktifkan
-                                    </button>
-                                    <a href="{{url('/resetpassword/').'/'.$value->nip}}" class="btn btn-warning btn-sm"><i class="fa fa-refresh"></i> Reset Password</a>
-                                </td>
-                            </tr>
-                            @endif
-                            @endforeach
-                        </tbody>
-                    </table>
+    <div class="col-lg-12">
+        <button class="btn btn-primary btn-sm pull-right" data-toggle="modal" data-target="#MyModal"><i class="glyphicon glyphicon-plus"></i> Daftarkan</button>
+        <div class="panel panel-default">
+            @include('alert')
+            <div class="panel-heading text-center">
+                Data Pengguna
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <table width="100%" class="users table table-striped table-bordered table-hover" id="dataTables-example">
+                    <thead>
+                        <tr>
+                            <th class="text-center">No</th>
+                            <th class="text-center">NIP</th>
+                            <th class="text-center">Nama</th>
+                            <th class="text-center">Hak Akses</th>
+                            <th class="text-center">Bidang</th>
+                            <th class="text-center">Status</th>
+                            <th class="text-center" style="width: 300px">Aksi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php $no = 0;?>
+                        @foreach ($users as $value)
+                        @if($value->status!='tidak aktif')
+                        <?php $no++ ;?>
+                        <tr >
+                            <td>{{ $no }}</td>
+                            <td>{{ $value->nip }}</td>
+                            <td>{{ $value->nama_lengkap }}</td>
+                            <td>{{ $value->level}}</td>
+                            <td>{{ ($value->bidang)?$value->bidang->nama_bidang:'-' }}</td>
+                            <td>{{ $value->status}}</td>
+                            <td>
+                                <button class="btn btn-primary btn-sm" data-toggle="modal" data-target="#ubahuser{{$value->nip}}">
+                                    <span class="glyphicon glyphicon-edit" data-toggle="#modal" data-target="#ubahusers">
+                                    </span> Ubah
+                                </button>
+                                <button class="btn btn-danger btn-sm" data-toggle="modal" data-target="#hapususer{{$value->nip}}">
+                                    <span class="glyphicon glyphicon-ban-circle" data-toggle="#modal" data-target="#hapususer">
+                                    </span> Non-aktifkan
+                                </button>
+                                <a href="{{url('/resetpassword/').'/'.$value->nip}}" class="btn btn-warning btn-sm"><i class="fa fa-refresh"></i> Reset Password</a>
+                            </td>
+                        </tr>
+                        @endif
+                        @endforeach
+                    </tbody>
+                </table>
 
-                    <!-- modal ubah -->
-                    @foreach ($users as $value)
-                    <div class="modal fade" id="ubahuser{{$value->nip}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title" id="myModalLabel">Edit Pengguna Sistem Inventori</h4>
+                <!-- modal ubah -->
+                @foreach ($users as $value)
+                <div class="modal fade" id="ubahuser{{$value->nip}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">Edit Pengguna Sistem Inventori</h4>
+                            </div>
+                            <form class="form-horizontal" method="POST" action="{{route('users.update',[$value->nip]) }}">
+                                {{ csrf_field() }}
+                                {{ method_field('PUT') }}
+                                <div class="modal-body">
+                                    <div class="form-group">
+                                        <label for="level" class="col-md-4 control-label">Pilih Hak Akses Pengguna</label>
+
+                                        <div class="col-md-6">
+                                            <select name="level" class="form-control hak_akses">
+                                                <option value="admin">Admin</option>
+                                                <option value="bidang">Bidang</option>
+                                            </select>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="nama_lengkap" class="col-md-4 control-label">Nama Lengkap</label>
+
+                                        <div class="col-md-6">
+                                            <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap" value="{{ $value->nama_lengkap }}" required autofocus>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="nip" class="col-md-4 control-label">NIP</label>
+
+                                        <div class="col-md-6">
+                                            <input id="nip" type="text" class="form-control" name="nip" value="{{ $value->nip }}" required autofocus>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="bidang" class="col-md-4 control-label">Bidang</label>
+
+                                        <div class="col-md-6">
+
+                                            <select name="bidang" class="form-control">
+                                                <option value="" selected disabled>Pilih Bidang</option>
+                                                @foreach($bidang as $namabidang)
+
+                                                <option @if($namabidang->id_bidang==$value->id_bidang){{"selected"}}@endif value="{{$namabidang->id_bidang}}">{{$namabidang->nama_bidang}}</option>
+
+                                                @endforeach
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
+                                    <button type="submit" class="btn btn-primary">Ubah</button>
                                 </div>
-                                <form class="form-horizontal" method="POST" action="{{route('users.update',[$value->nip]) }}">
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <!-- hapus user -->
+                <div id="hapususer{{$value->nip}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+
+                        <input type="hidden" name="method" value="DELETE">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">
+                                    <span aria-hidden="true">x</span>
+                                </button>
+                                <h4 class="modal-title" id="myModalLabel">Non-aktifkan Data Pengguna</h4>
+                            </div>
+                            <div class="modal-body">
+                                <p>Yakin menonaktifkan pengguna ini<span class="del-name" style="font-weight: bold;"></span>?</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>
+                                <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @endforeach
+
+                <!-- model tambah -->
+                <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title text-center" id="myModalLabel">Daftarkan Pengguna Sistem Inventori</h4>
+                            </div>
+                            <div class="modal-body">
+                                <form class="form-horizontal" method="POST" action="{{ route('tambahuser') }}">
                                     {{ csrf_field() }}
-                                    {{ method_field('PUT') }}
-                                    <div class="modal-body">
-                                        <div class="form-group">
-                                            <label for="level" class="col-md-4 control-label">Pilih Hak Akses Pengguna</label>
 
-                                            <div class="col-md-6">
-                                                <select name="level" class="form-control hak_akses">
-                                                    <option value="admin">Admin</option>
-                                                    <option value="bidang">Bidang</option>
-                                                </select>
-                                            </div>
+                                    <div class="form-group{{ $errors->has('level') ? ' has-error' : '' }}">
+                                        <label for="level" class="col-md-4 control-label">Hak Akses Pengguna</label>
+
+                                        <div class="col-md-6">
+                                            <select name="level" class="form-control hak_akses" >
+                                                <option value="" selected disabled>Pilih Hak Akses Pengguna</option>
+                                                <option value="Admin">Admin</option>
+                                                <option value="Bidang">Bidang</option>
+                                            </select>
+
+                                            @if ($errors->has('level'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('level') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="nama_lengkap" class="col-md-4 control-label">Nama Lengkap</label>
+                                    <div class="form-group{{ $errors->has('nama_lengkap') ? ' has-error' : '' }}">
+                                        <label for="nama_lengkap" class="col-md-4 control-label">Nama Lengkap</label>
 
-                                            <div class="col-md-6">
-                                                <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap" value="{{ $value->nama_lengkap }}" required autofocus>
-                                            </div>
+                                        <div class="col-md-6">
+                                            <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required autofocus>
+
+                                            @if ($errors->has('nama_lengkap'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('nama_lengkap') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
-                                        <div class="form-group">
-                                            <label for="nip" class="col-md-4 control-label">NIP</label>
+                                    </div>
 
-                                            <div class="col-md-6">
-                                                <input id="nip" type="text" class="form-control" name="nip" value="{{ $value->nip }}" required autofocus>
-                                            </div>
+                                    <div class="form-group{{ $errors->has('nip') ? ' has-error' : '' }}">
+                                        <label for="nip" class="col-md-4 control-label">NIP</label>
+                                        <div class="col-md-6">
+                                            <input id="nip" type="text" class="form-control {{$errors->has('nip')?'is-invalid':''}}" name="nip" value="{{ old('nip') }}" required autofocus>
+                                            @if ($errors->has('nip'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('nip') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
+                                    </div>
 
-                                        <div class="form-group">
-                                            <label for="bidang" class="col-md-4 control-label">Bidang</label>
+                                    <div class="form-group{{ $errors->has('bidang') ? ' has-error' : '' }}">
+                                        <label for="bidang" class="col-md-4 control-label">Bidang</label>
 
-                                            <div class="col-md-6">
+                                        <div class="col-md-6">
 
-                                                <select name="bidang" class="form-control">
-                                                    <option value="" selected disabled>Pilih Bidang</option>
-                                                    @foreach($bidang as $namabidang)
+                                            <select name="bidang" class="form-control">
+                                                <option value="" selected disabled>Pilih Bidang</option>
+                                                @foreach($bidang as $value)
 
-                                                    <option @if($namabidang->id_bidang==$value->id_bidang){{"selected"}}@endif value="{{$namabidang->id_bidang}}">{{$namabidang->nama_bidang}}</option>
+                                                <option value='{{$value->id_bidang}}'>{{$value->nama_bidang}}</option>
 
-                                                    @endforeach
+                                                @endforeach
 
-                                                </select>
-                                            </div>
+                                            </select>
+
+                                            @if ($errors->has('bidang'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('bidang') }}</strong>
+                                            </span>
+                                            @endif
                                         </div>
-                                    </div> 
+                                    </div>
+
+                                    <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                        <label for="password" class="col-md-4 control-label">Password</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password" type="password" class="form-control" name="password" required>
+
+                                            @if ($errors->has('password'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('password') }}</strong>
+                                            </span>
+                                            @endif
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
+
+                                        <div class="col-md-6">
+                                            <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
+                                        </div>
+                                    </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                        <button type="submit" class="btn btn-primary">Ubah</button>
+                                        <button type="submit" class="btn btn-primary">Daftarkan</button>
                                     </div>
                                 </form>
                             </div>
                         </div>
                     </div>
-                    <!-- hapus user -->
-                    <div id="hapususer{{$value->nip}}" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-
-                            <input type="hidden" name="method" value="DELETE">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal">
-                                        <span aria-hidden="true">x</span>
-                                    </button>
-                                    <h4 class="modal-title" id="myModalLabel">Non-aktifkan Data Pengguna</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <p>Yakin menonaktifkan pengguna ini<span class="del-name" style="font-weight: bold;"></span>?</p>
-                                </div>
-                                <div class="modal-footer">
-                                    <a href="{{route('users.hapus',[$value->nip]) }}" class="btn btn-md btn-success delete">Ya</a>
-                                    <button data-dismiss="modal" class="btn btn-danger">Tidak</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    @endforeach
-
-                    <!-- model tambah -->
-                    <div class="modal fade" id="MyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                    <h4 class="modal-title text-center" id="myModalLabel">Daftarkan Pengguna Sistem Inventori</h4>
-                                </div>
-                                <div class="modal-body">
-                                    <form class="form-horizontal" method="POST" action="{{ route('tambahuser') }}">
-                                        {{ csrf_field() }}
-
-                                        <div class="form-group{{ $errors->has('level') ? ' has-error' : '' }}">
-                                            <label for="level" class="col-md-4 control-label">Hak Akses Pengguna</label>
-
-                                            <div class="col-md-6">
-                                                <select name="level" class="form-control hak_akses" >
-                                                    <option value="" selected disabled>Pilih Hak Akses Pengguna</option>
-                                                    <option value="Admin">Admin</option>
-                                                    <option value="Bidang">Bidang</option>
-                                                </select>
-
-                                                @if ($errors->has('level'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('level') }}</strong>
-                                                </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group{{ $errors->has('nama_lengkap') ? ' has-error' : '' }}">
-                                            <label for="nama_lengkap" class="col-md-4 control-label">Nama Lengkap</label>
-
-                                            <div class="col-md-6">
-                                                <input id="nama_lengkap" type="text" class="form-control" name="nama_lengkap" value="{{ old('nama_lengkap') }}" required autofocus>
-
-                                                @if ($errors->has('nama_lengkap'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('nama_lengkap') }}</strong>
-                                                </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group{{ $errors->has('nip') ? ' has-error' : '' }}">
-                                            <label for="nip" class="col-md-4 control-label">NIP</label>
-                                            <div class="col-md-6">
-                                                <input id="nip" type="text" class="form-control {{$errors->has('nip')?'is-invalid':''}}" name="nip" value="{{ old('nip') }}" required autofocus>
-                                                @if ($errors->has('nip'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('nip') }}</strong>
-                                                </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group{{ $errors->has('bidang') ? ' has-error' : '' }}">
-                                            <label for="bidang" class="col-md-4 control-label">Bidang</label>
-
-                                            <div class="col-md-6">
-
-                                                <select name="bidang" class="form-control">
-                                                    <option value="" selected disabled>Pilih Bidang</option>
-                                                    @foreach($bidang as $value)
-
-                                                    <option value='{{$value->id_bidang}}'>{{$value->nama_bidang}}</option>
-
-                                                    @endforeach
-
-                                                </select>
-
-                                                @if ($errors->has('bidang'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('bidang') }}</strong>
-                                                </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                                            <label for="password" class="col-md-4 control-label">Password</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password" type="password" class="form-control" name="password" required>
-
-                                                @if ($errors->has('password'))
-                                                <span class="help-block">
-                                                    <strong>{{ $errors->first('password') }}</strong>
-                                                </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="password-confirm" class="col-md-4 control-label">Confirm Password</label>
-
-                                            <div class="col-md-6">
-                                                <input id="password-confirm" type="password" class="form-control" name="password_confirmation" required>
-                                            </div>
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Tutup</button>
-                                            <button type="submit" class="btn btn-primary">Daftarkan</button>
-                                        </div>
-                                    </form>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
                 </div>
-                <!-- /.panel-body -->
             </div>
-            <!-- /.panel -->
+            <!-- /.panel-body -->
         </div>
-        <!-- /.col-lg-12 -->
+        <!-- /.panel -->
     </div>
-</section>
+    <!-- /.col-lg-12 -->
+</div>
 @endsection
 @section('jsscript')
 <script type="text/javascript">

@@ -209,6 +209,7 @@
 						<div class="panel-body">
 							<div class="col-md-6">
 								<div>
+									<p class="text-center">Pada menu ini anda dapat mencatat dan melihat rekap laporan barang yang telah dibeli dari supplier</p>
 									<h3 class="text-center">Tambah Barang Masuk</h3>
 									<p class="text-center">1. Klik Tombol <b>Tambahkan</b> yang berada pada Pojok Kanan Tabel</p>
 									<p class="text-center">2. Maka akan muncul Tampilan seperti gambar disamping</p>
@@ -223,13 +224,38 @@
 									<h3 class="text-center" style="padding-top: 120px">Tampilkan Data Barang Masuk Per-Bulan/Tahun</h3>
 									<p class="text-center">1. Pilih Bulan dan Tahun untuk menampilkan Data Bulan dan Tahun Data Terpilih</p>
 									<p class="text-center">2. Kemudian klik tombol <b>Lihat Laporan</b></p>
+									<h3 class="text-center" style="padding-top: 80px">Export Laporan</h3>
+									<p class="text-center">Export Laporan berfungsi untuk menyimpan hasil rekap data laporan sesuai perintah yang terdapat pada tombol tersebut. Untuk melakukan eksport laporan, silahkan ikuti langkah berikut:</p>
+									<p class="text-center">1. Pilih Bulan dan Tahun terlebih dahulu</p>
+									<p class="text-center">2. Kemudian klik tombol <b>Lihat Laporan</b></p>
+									<p class="text-center">3. Untuk melihat rekap laporan perbulan, anda bisa mengklik tombol <b>Eksport Laporan Bulan Terpilih</b></p>
+									<p class="text-center">4. Dan untuk melihat rekap laporan pertahun, anda bisa mengklik tombol <b>Eksport Laporan Tahun Terpilih</b></p>
 								</div>
 							</div>
 							<div class="col-md-6" style="padding-top: 30px">
 								<img style="width: 480px;" src="{{url('inventoriadmin/dist/css/images/panduan-tambah-bm.png')}}">
 								<img style="width: 480px;" src="{{url('inventoriadmin/dist/css/images/panduan-tambah-bm2.png')}}">
 								<img style="width: 480px;" src="{{url('inventoriadmin/dist/css/images/panduan-lihat-bm.png')}}">
+								<img style="width: 480px; padding-top: 100px" src="{{url('inventoriadmin/dist/css/images/eksport-laporan.png')}}">
 							</div>
+						</div>
+					</div>
+				</div>
+				<!-- 6 -->
+				<div class="panel panel-green">
+					<div class="panel-heading">
+						<h4 class="panel-title">
+							<a data-toggle="collapse" data-parent="#accordion" href="#collapseSix" class="collapsed" aria-expanded="false">Menu Daftar Pengajuan Barang</a>
+						</h4>
+					</div>
+					<div id="collapseSix" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
+						<div class="panel-body">
+							<div class="col-md-6">
+								<p class="text-center">Pada menu ini anda dapat melihat daftar pengajuan barang yang dilakukan oleh Bidang-bidang</p>
+							</div>
+							<div class="col-md-6">
+								<img style="width: 400px;" src="{{url('inventoriadmin/dist/css/images/panduan-import-barang.png')}}">
+							</div>		
 						</div>
 					</div>
 				</div>

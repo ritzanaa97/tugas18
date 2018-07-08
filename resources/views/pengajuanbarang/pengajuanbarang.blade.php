@@ -38,9 +38,6 @@
                     </div>
                 </div>
             </div>
-            <!-- @if($value->jumlahpengajuan<10)
-            <p class="text-danger text-center">Barang yang anda pilih akan habis di Gudang. Sisa digudang: #</p>
-            @endif -->
             <div class="modal-footer">
                 <button type="submit" class="btn btn-primary btn-sm tambahpengajuan">Tambahkan</button>
             </div>

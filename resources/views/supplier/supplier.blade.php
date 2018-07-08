@@ -1,7 +1,7 @@
 
 @extends('layouts.app')
-@include('sweet::alert')
 @section('content')
+@include('alert')
 <section class="content">
     <div class="row">
         <div class="col-lg-12">

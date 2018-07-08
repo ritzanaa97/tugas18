@@ -60,9 +60,9 @@ Route::post('/barang','BarangController@store');
 Route::get('/export_barang', 'BarangController@barangexport')->name('barang.export');
 Route::post('/import_barang', 'BarangController@barangimport');
 Route::put('/barang/{id_barang}','BarangController@update')->name('barang.update');
+Route::get('/print_barang','BarangController@print');
 
 Route::get('/detailbarangmasuk/{id}','BarangmasukController@detailtransaksi');
-Route::get('/print_barangmasuk/{id}','BarangmasukController@print');
 Route::get('/tambahbarangmasuk','BarangmasukController@barangmasuk');
 Route::post('/tambahbarangmasuk','BarangmasukController@store');
 Route::post('/export_barangmasuk', 'BarangmasukController@barangmasukexport')->name('barangmasuk.export');
@@ -79,4 +79,6 @@ Route::get('/lihatdetail/{id}','PengajuanbarangController@detailpengajuanbarang'
 Route::get('/serahbarang/{id}','PengajuanbarangController@serahbarang');
 Route::post('/simpanserah','PengajuanbarangController@update')->name('serahbarang.update');
 
-Route::get('/belanjabarang', 'BarangController@baranghabis');
+Route::get('/satuan', 'SatuanController@index');
+Route::post('/tambahsatuan','SatuanController@store')->name('tambahsatuan');
+Route::put('/ubah_satuan/{id_satuan}','SatuanController@update')->name('satuan.update');

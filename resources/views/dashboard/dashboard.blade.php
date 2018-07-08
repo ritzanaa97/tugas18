@@ -114,6 +114,7 @@
 <div class="row">
     <div class="col-lg-12">
         <div class="panel panel-danger">
+            <a class="btn btn-primary btn-sm pull-right" href="{{url('/print_barang')}}"><span class="fa fa-print"></span> Print</a>
             <div class="panel-heading text-center">
                 <b>Barang yang akan habis</b>
             </div>
@@ -208,7 +209,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
                 <!-- /.table-responsive -->
@@ -230,7 +231,7 @@
                         <i class="glyphicon glyphicon-save fa-5x"></i>
                     </div>
                     <div class="col-xs-9 text-right">
-                        <div class="huge">#</div>
+                        <div class="huge">0</div>
                         <div>Pengajuan Selesai</div>
                     </div>
                 </div>
@@ -258,28 +259,6 @@
                 </div>
             </div>
             <a href="{{url('/riwayat')}}">
-                <div class="panel-footer">
-                    <span class="pull-left">Lihat Detail</span>
-                    <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
-                    <div class="clearfix"></div>
-                </div>
-            </a>
-        </div>
-    </div>
-    <div class="col-lg-3 col-md-6">
-        <div class="panel panel-red">
-            <div class="panel-heading">
-                <div class="row">
-                    <div class="col-xs-3">
-                        <i class="fa fa-cubes fa-5x"></i>
-                    </div>
-                    <div class="col-xs-9 text-right">
-                        <div class="huge"></div>
-                        <div>Cek Stok Barang</div>
-                    </div>
-                </div>
-            </div>
-            <a href="{{url('/barang')}}">
                 <div class="panel-footer">
                     <span class="pull-left">Lihat Detail</span>
                     <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
@@ -350,7 +329,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        
+
                     </tbody>
                 </table>
                 <!-- /.table-responsive -->

@@ -102,6 +102,21 @@
                                                     </select>
                                                 </div>
                                             </div>
+                                            <div class="form-group{{ $errors->has('id_satuan') ? ' has-error' : '' }}">
+                                                <label for="id_satuan" class="col-md-4 control-label">Satuan</label>
+
+                                                <div class="col-md-6">
+                                                    <select name="id_satuan" class="form-control">
+                                                        <option value="" selected disabled>Pilih Satuan</option>
+                                                        @foreach($satuan as $nama_satuan)
+
+                                                        <option @if($nama_satuan->id_satuan==$value->id_satuan){{"selected"}}@endif value="{{$nama_satuan->id_satuan}}">{{$nama_satuan->nama_satuan}}</option>
+
+                                                        @endforeach
+                                                        
+                                                    </select>
+                                                </div>
+                                            </div>
                                             <div class="form-group">
                                                 <label for="jumlahbarang" class="col-md-4 control-label">Jumlah Barang</label>
 

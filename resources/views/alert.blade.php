@@ -1,5 +1,3 @@
-@extends('layouts.app')
-
 @section('alert')
  <div class="container">
   <div class="row">

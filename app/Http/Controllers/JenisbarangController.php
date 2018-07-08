@@ -89,7 +89,7 @@ class JenisbarangController extends Controller
         $jb = new Jenisbarang;
         $jb->fill($input);
         $jb->save();
-        return redirect('/jenisbarang');
+        return redirect('/jenisbarang')->with(['success' => 'Data Jenis Barang Berhasil di Tambahkan']);
     }
 
     /**
@@ -128,7 +128,7 @@ class JenisbarangController extends Controller
         $updatejb->kategori=$request->kategori;
         $updatejb->save();
 
-        return redirect('/jenisbarang');
+        return redirect('/jenisbarang')->with(['success' => 'Data Jenis Barang Berhasil di Ubah']);
     }
 
     /**
@@ -181,6 +181,6 @@ class JenisbarangController extends Controller
                 }
             }
         }
-        return back()->with(['success' => 'Import Data Excel Berhasil']);
+        return back()->with(['success' => 'Import Data Excel Jenis Barang Berhasil']);
     }
 }

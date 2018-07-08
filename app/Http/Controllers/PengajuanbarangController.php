@@ -140,7 +140,7 @@ class PengajuanbarangController extends Controller
             }
         }
         // $Dtl_pengajuanbarang = Dtl_pengajuanbarang::find($request['id_pengajuanbrg']);
-        return redirect('riwayat');
+        return redirect('riwayat')->with(['success' => 'Pengajuan Barang Berhasil di Ajukan']);
     }
 
 
@@ -203,7 +203,7 @@ class PengajuanbarangController extends Controller
         $pengajuanbarang->status_pengajuan='selesai';
         $pengajuanbarang->save();
 
-        return redirect('barangkeluar');
+        return redirect('barangkeluar')->with(['success' => 'Pengajuan Barang Berhasil di Serahkan ke Bidang']);
     }
     /**
      * Remove the specified resource from storage.

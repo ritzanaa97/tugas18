@@ -9,6 +9,7 @@ use App\Jenisbarang;
 use App\Satuan;
 use Auth;
 use Excel;
+use App\Detailbrgmasuk;
 
 
 class BarangController extends Controller
@@ -69,7 +70,15 @@ class BarangController extends Controller
         $barang->jumlahbarang=$request->jumlahbarang;
         $barang->save();
 
-        return redirect('/barang');
+        return redirect('/barang')->with(['success' => 'Data Barang berhasil di Tambahkan']);
+    }
+    public function print(){
+        if(Auth::user()->level=='admin'){
+            $barang=Barang::all();
+            return view('barang.print', compact('barang'));
+        }else{
+            return back();
+        }
     }
     public function show($id)
     {
@@ -87,10 +96,11 @@ class BarangController extends Controller
         $barang->id_barang=$request->id_barang;
         $barang->nama_barang=$request->nama_barang;
         $barang->id_jenisbarang=$request->jenisbarang;
+        $barang->id_satuan=$request->id_satuan;
         $barang->jumlahbarang=$request->jumlahbarang;
         $barang->save();
 
-        return redirect('/barang');
+        return redirect('/barang')->with(['success' => 'Data Barang berhasil di Ubah']);
     }
 
     public function destroy($id)
@@ -118,34 +128,38 @@ class BarangController extends Controller
                 foreach($data as $key=>$value){
                     $cek=Barang::where('nama_barang',$value->nama_barang)->count();
                     if($cek==0){
-                        if(empty(Jenisbarang::find($value->id_jenisbarang)) && empty(Satuan::find($value->id_satuan)) ){
+                        if(empty(Jenisbarang::find($value->id_jenisbarang))){
+
                             $jenisbarang = Jenisbarang::where('nama_jenisbarang', $value->jenis_barang)->get();
-                            $satuan = Satuan::where('nama_satuan', $value->satuan)->get();
+                            
+                            $satuan = null;
+                            if(Satuan::where('nama_satuan', $value->satuan)->count() == 0) {
+
+                                // $satuan = Satuan::where('nama_satuan', $value->satuan)->get();
+                                $satuan=new Satuan();
+                                $satuan->nama_satuan=$value->satuan;
+                                $satuan->save();
+
+                            } else {
+                                $satuan = Satuan::where('nama_satuan', $value->satuan)->first();
+                            }
+
                             $barang = new Barang();
                             $barang->id_barang      = $jenisbarang->first()->id_jenisbarang.$value->kode_barang;
                             $barang->nama_barang    = $value->nama_barang;
                             $barang->jumlahbarang   = $value->jumlah_barang;
                             $barang->id_jenisbarang = $jenisbarang->first()->id_jenisbarang;
-                            $barang->id_satuan      = $satuan->first()->id_satuan;
+                            $barang->id_satuan      = $satuan->id_satuan;
                             $barang->save();
-                        }elseif (!empty(Jenisbarang::find($value->id_jenisbarang)) && empty(Satuan::find($value->id_satuan)) && empty(Barang::find($value->nama_barang))) {
-                            $barang=new Barang();
-                            $barang['id_barang']=$request->id_jenisbarang.$request->id_barang;
-                            $barang->nama_barang=$value->nama_barang;
-                            $barang->jumlahbarang=$value->jumlahbarang;
-                            $barang->id_jenisbarang=$value->id_jenisbarang;
-                            $barang->id_satuan=$value->id_satuan;
-                            $barang->save();
-
                         }elseif ($cek!=0) {
                             Barang::where('nama_barang',$value->nama_barang)->update([
-                                'jumlahbarang'=>$value->jumlahbarang,
+                                'jumlahbarang'=>$value->jumlah_barang,
                             ]);
                         }
                     }
                 }
             }
         }
-        return back();
+        return back()->with(['success' => 'Import Data Excel Jenis Barang Berhasil']);
     }
 }

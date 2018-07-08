@@ -77,7 +77,6 @@
             </li>
         </ul>
         <!-- /.navbar-top-links -->
-
         <div class="navbar-default sidebar" role="navigation">
             <div class="sidebar-nav navbar-collapse">
              @if(\Illuminate\Support\Facades\Auth::user()->status == 'aktif')
@@ -104,6 +103,9 @@
                             </li>
                             <li>
                                 <a href="{{url('/barang')}}">Data Barang</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/satuan')}}">Data Satuan</a>
                             </li>
                         </ul>
                     </li>
@@ -156,7 +158,9 @@
             <!-- /.navbar-static-side -->
         </nav>
         <div id="page-wrapper">
+            @yield('alert')
             @yield('content')
+            
             <!-- yield buat memanggil -->
         </div>
         <!-- /#page-wrapper -->

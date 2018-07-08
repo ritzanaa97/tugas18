@@ -3,12 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Satuan;
 
-use App\Supplier;
-use App\User;
-use Auth;
-use Alert;
-class SupplierController extends Controller
+class SatuanController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -17,14 +14,8 @@ class SupplierController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->level=='admin'){
-            $supplier = Supplier::all();
-            $user=User::all();
-            return view('supplier.supplier', compact('supplier','user'));
-        }else{
-            
-            return back();
-        }
+        $satuan=Satuan::all();
+        return view('/satuan.satuan',compact('satuan'));
     }
 
     /**
@@ -46,20 +37,14 @@ class SupplierController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama_supplier' => 'required|string|max:255',
-            'alamat' => 'required',
-
+            'nama_satuan' => 'required',
         ]);
 
-        $nama_supplier = $request['nama_supplier'];
-        $alamat = $request['alamat'];
+        $satuan = new Satuan;
+        $satuan->nama_satuan=$request->nama_satuan;
+        $satuan->save();
 
-        $supplier = new Supplier();
-        $supplier->nama_supplier = $nama_supplier;
-        $supplier->alamat = $alamat;
-
-        $supplier->save();
-        return redirect('/supplier')->with(['success' => 'Data Supplier Berhasil di Tambahkan']);
+        return redirect('/satuan')->with(['success' => 'Data Satuan Barang berhasil di Tambahkan']);
     }
 
     /**
@@ -91,13 +76,14 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, $id_satuan)
     {
-        $supplier=Supplier::find($id);
-        $supplier->nama_supplier=$request->nama_supplier;
-        $supplier->alamat=$request->alamat;
-        $supplier->save();
-        return redirect('/supplier')->with(['success' => 'Data Supplier Berhasil di Ubah']);
+        $satuan=Satuan::find($id_satuan);
+        $satuan->id_satuan=$request->id_satuan;
+        $satuan->nama_satuan=$request->nama_satuan;
+        $satuan->save();
+
+        return redirect('/satuan')->with(['success' => 'Data Satuan Barang Berhasil di Ubah']);
     }
 
     /**
@@ -106,9 +92,8 @@ class SupplierController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id_supplier)
+    public function destroy($id)
     {
-        $hapussupplier=Supplier::where('id_supplier',$id_supplier)->update(['status'=>'tidak aktif']);
-        return redirect('/supplier')->with(['warning' => 'Data Supplier Berhasil di Nonaktifkan']); 
+        //
     }
 }

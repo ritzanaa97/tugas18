@@ -77,21 +77,6 @@ class BarangmasukController extends Controller
         }
     }
 
-    public function print($id)
-    {
-        if(Auth::user()->level=='admin'){
-            $print=Detailbrgmasuk::join('barang','barang.id_barang','=','detailbrgmasuk.id_barang')
-            ->join('satuan','satuan.id_satuan','=','barang.id_satuan')
-            ->join('barangmasuk','barangmasuk.id_brgmasuk','=','detailbrgmasuk.id_brgmasuk')
-            ->join('supplier','supplier.id_supplier','=','barangmasuk.id_supplier')
-            ->where('barangmasuk.id_brgmasuk',$id)->get();
-
-            return view('barangmasuk.print', compact('print'));
-        }else{
-            return back();
-        }
-    }
-
     public function terimabarang(Request $request)
     {
         if(Auth::user()->level=='bidang'){
@@ -169,7 +154,7 @@ class BarangmasukController extends Controller
                 $barang->save();
             }
         }
-        return redirect('barangmasuk');
+        return redirect('barangmasuk')->with(['success' => 'Transaksi Barang Masuk berhasil di Tambahkan']);
 
     }
     public function create()

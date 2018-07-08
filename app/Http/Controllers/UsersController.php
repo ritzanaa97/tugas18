@@ -88,7 +88,7 @@ class UsersController extends Controller
         $bidang = $request['bidang'];
         $level = $request['level'];
         $password = bcrypt($request['password']);
-        $created_by = Auth::user()->nama_lengkap    ;
+        $created_by = Auth::user()->nama_lengkap;
 
         $users = new User();
         $users->nip = $nip;
@@ -100,8 +100,7 @@ class UsersController extends Controller
 
         $users->save();
 
-        Alert::success('Data Pengguna Berhasil di Daftarkan');
-        return redirect('/pengguna');
+        return redirect('/pengguna')->with(['success' => 'Data Pengguna Berhasil di Daftarkan']);
     }
 
     public function show($id)
@@ -115,7 +114,7 @@ class UsersController extends Controller
     }
     public function resetpassword($nip){
         $user=DB::table('users')->where('nip',$nip)->update(['password' => bcrypt($nip)]);
-        return redirect('/pengguna');
+        return redirect('/pengguna')->with(['success' => 'Data Password Pengguna berhasil di Reset']);
 
     }
 
@@ -128,8 +127,7 @@ class UsersController extends Controller
         $pengguna->id_bidang=$request->bidang;
         $pengguna->save();
 
-        Alert::success('Data Pengguna Berhasil di Ubah');
-        return redirect('/pengguna');
+        return redirect('/pengguna')->with(['success' => 'Data Pengguna Berhasil di Ubah']);
     }
 
 
@@ -138,7 +136,6 @@ class UsersController extends Controller
         $hapususers=User::where('nip',$nip)
         ->update(['status'=>'tidak aktif']);
 
-        Alert::success('Data Pengguna Berhasil di Nonaktifkan');
-        return redirect('/pengguna'); 
+        return redirect('/pengguna')->with(['success' => 'Data Pengguna Berhasil di Nonaktifkan']); 
     }
 }
